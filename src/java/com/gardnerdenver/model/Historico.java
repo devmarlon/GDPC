@@ -86,7 +86,9 @@ public class Historico implements Serializable {
     }
 
     public Date getHIS_EMISSAO() {
-        HIS_EMISSAO = new Date();
+        if (HIS_EMISSAO == null) {
+            HIS_EMISSAO = new Date();
+        }
         return HIS_EMISSAO;
     }
 
