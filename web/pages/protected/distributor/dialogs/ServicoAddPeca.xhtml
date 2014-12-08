@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <p:dialog widgetVar="srvAddPecaDialogWidget" id="srvAddPecaDialogId" height="370" width="550" modal="true" closable="true" draggable="false"
+                  resizable="false" appendTo="@(body)">
+            <h:form id="srvAddPecaDialogForm" prependId="false">
+                <br />
+                <p:dataTable var="pec" id="dtpec" value="#{equipamentoBean.listAllPecas}" rowKey="#{pec.codigo}" paginator="true" 
+                             selection="#{equipamentoBean.selectedPecas}" emptyMessage="#{bundle.noRecords}">
+
+                    <p:column selectionMode="multiple" style="width:4%;text-align:center" />
+                    <p:column >
+                        <h:outputLabel value="#{pec.codigo}" style="width:4%;text-align:center"/>
+                    </p:column>
+                    <p:column >
+                        <h:outputLabel value="#{pec.descricao}" />
+                    </p:column>
+                </p:dataTable>
+                <br />
+                <p:separator />
+
+                <p:commandButton value="Adicionar" icon="ui-icon-plus" actionListener="#{equipamentoBean.addPecaToServico()}" update=":messageGrowl :fmequipamentoCadastro:dtPart"
+                                 oncomplete="closeDialogIfSucess(xhr, status, args, srvAddPecaDialogWidget, 'srvAddPecaDialogId')" />
+                <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" onclick="srvAddPecaDialogWidget.hide();" type="button" />
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

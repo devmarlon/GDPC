@@ -1,0 +1,9 @@
+Login da Fabrica
+
+-Opcoes do menu: Cadastro-> Distribuidores
+-Ao abrir com usuario da fabrica, ir direto pra listagem dos distribuidores
+-O cadastro de Distribuidores deve ser semelhante ao de cliente no layout, com titulo e local dos botoes, tanto a listagem quanto a tela de inclusao.
+-Alterar o campo Nome para Empresa na inclusao de distribuidor e deixar a tela no mesmo estilo da inclusao de clientes
+
+
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmserv" class="container">
+                    <h1 style="font-weight:bold">Cadastro de #{bundle.servicoPlural} </h1>
+                    <table width="100%" >
+                        <tr>
+                            <td valign="top">
+                                <h:panelGrid columns="3" >
+                                    <p:commandButton id="parcBtNew" actionListener="#{factoryServicoBean.novo}" icon="ui-icon-plusthick"
+                                                     style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
+
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" rendered="false" value="#{bundle.delete}" icon="ui-icon-trash"
+                                                     update=":srvDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{factoryServicoBean.validaDelete()}" />
+
+                                </h:panelGrid>
+                            </td><td align="right">
+                                <h:panelGrid columns="3">
+                                    <h:outputLabel value="Descrição" style="text-align:right" />
+
+                                    <p:inputText onkeypress="return srvBuscaEnter(event);" id="nomeBusca" value="#{factoryServicoBean.nomeBusca}" style="width:373px" />
+                                    <p:commandButton id="btBuscaSrv" actionListener="#{factoryServicoBean.buscar}" icon="ui-icon-search"
+                                                     update=":fmserv:srvTable" 
+                                                     style="font-size:30px;font-weight:bold;" value="Buscar">
+                                    </p:commandButton>
+                                </h:panelGrid>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p:dataTable var="srv" value="#{factoryServicoBean.dtmServicos}" rowKey="#{srv.SRV_ID}" paginator="true" 
+                                 rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="srvTable" 
+                                 selection="#{factoryServicoBean.servicosSelected}" emptyMessage="#{bundle.noRecords}">
+
+                        <p:column selectionMode="multiple" style="width:4%;text-align:center" />
+
+                        <p:column headerText="Código" style="text-align: center;width: 8%" >
+                            <h:outputText value="#{srv.SRV_ID}" />
+                        </p:column>
+                        <p:column headerText="Descrição"  >
+                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" update=":messageGrowl" value="#{srv.SRV_DESCRICAO}" />
+                        </p:column>
+                        <p:column headerText="Frequencia em Dias"  >
+                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" update=":messageGrowl" value="#{srv.SRV_FREQDIAS}" />
+                        </p:column>
+                        <p:column headerText="Frequencia em Horas"  >
+                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" update=":messageGrowl" value="#{srv.SRV_FREQHORAS}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <ui:include src="/pages/protected/distributor/dialogs/servicoDelDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

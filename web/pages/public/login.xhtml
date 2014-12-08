@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:poue="http://primefaces.org/ui/extensions">
+    <h:head>
+
+        <title>Login GD Preventive Control</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="loginstyle.css" />
+        <h:outputStylesheet library="css" name="estilo.css" />
+
+    </h:head>
+    <h:body>
+        <p:growl />
+        <div class="login" >
+
+            <h1 class="login-heading">#{bundle.loginHello}
+                <!--<span data-line="••••••">••••••</span> -->
+            </h1>
+
+            <h:form >
+                <p:focus for="email" />
+
+                <h:outputLabel value="#{bundle.loginUserName}" style="color: white" />
+                <p:inputText value="#{loginMB.email}" styleClass="input-txt" style="height: 40px; margin-top: 5px; margin-bottom: 10px"
+                             label="Email" id="email" 
+                             required="true" autocomplete="off">
+                    <f:validateLength minimum="3" />
+                </p:inputText>
+
+                <h:outputLabel value="#{bundle.loginPassword}" style="color: white;" />
+                <p:inputText value="#{loginMB.password}" styleClass="input-txt" style="height: 40px; margin-top: 5px; margin-bottom: 10px"
+                             label="Senha" id="senha" type="password"
+                             required="true" autocomplete="off" >
+                    <f:validateLength minimum="3" />
+                </p:inputText>
+                <div class="login-footer">
+                    <h:commandButton  styleClass="btn" actionListener="#{loginMB.login}"  id="btLogin" value="Entrar"  />
+
+                </div>
+            </h:form>
+
+        </div>
+        <h:graphicImage styleClass="logo" library="images" name="logoGD.png" />
+    </h:body>
+</html>

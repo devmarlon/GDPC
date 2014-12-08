@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmrelcli" class="container">
+
+                    <h1 style="font-weight:bold">Relatório de Equipamentos</h1>
+
+                    <p:panel >
+
+                        <h:panelGrid >
+                            <p:outputLabel value="Modelo" />
+                            <p:selectOneMenu style="width: 100px" id="modelo" value="#{relBean.modelo}"> 
+                                <f:selectItem itemLabel="Todos" noSelectionOption="true"/>
+                                <f:selectItems value="#{relBean.modelos}" var="modelo" itemLabel="#{modelo.MOD_NOME}" 
+                                               itemValue="#{modelo}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Categoria" />
+                            <p:selectOneMenu style="width: 100px" id="categoria" value="#{relBean.catId}"> 
+                                <f:selectItem itemLabel="Todos" noSelectionOption="true"/>
+                                <f:selectItems value="#{categoriaBean.listaCategoria}" var="cat" itemLabel="#{cat.CAT_NOME}" 
+                                               itemValue="#{cat.CAT_ID}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Cliente" />
+                            <p:inputText value="#{relBean.cliente}" />
+                            <p:outputLabel value="Estado" />
+                            <p:selectOneMenu  id="parceiro_uf" value="#{relBean.estado}"> 
+                                <p:ajax update="mun" event="change"/>
+                                <f:selectItem itemLabel="Todos" itemValue="" />
+                                <f:selectItems value="#{estadoBean.listaEstado}" var="estado" itemLabel="#{estado.JEST_UF} - #{estado.JEST_NOME}" 
+                                               itemValue="#{estado}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Cidade" />
+                            <p:selectOneMenu  id="mun" value="#{relBean.municipio}" > 
+                                <p:ajax update="@this" event="change"/>
+                                <f:selectItem itemLabel="Todos" itemValue="" />
+                                <f:selectItems value="#{relBean.listMunicipio}" var="municipio" itemLabel="#{municipio.MUN_NOME}" itemValue="#{municipio}" />
+                            </p:selectOneMenu>
+                            <h:outputLabel id="labelven" value="Vendedor" />
+                            <p:autoComplete id="nomeven" var="funcr" itemLabel="#{funcr.FUN_NOME}" 
+                                            value="#{relBean.vendedor}" itemValue="#{funcr}"
+                                            completeMethod="#{funcionarioBean.completeVend}" onkeydown="setaFoco(this);" maxlength="200" /> 
+
+                            <h:panelGrid columns="3">  
+                                <h:outputLabel id="lblht" value="Horas Totais" />
+                                <h:outputLabel value=""/>
+                                <h:outputLabel value=""/>
+                                <p:inputText value="#{relBean.horaTotaisMin}" />
+                                <h:outputLabel value="até "/>
+                                <p:inputText value="#{relBean.horaTotaisMax}"  />
+                            </h:panelGrid>
+
+                            <p:selectBooleanCheckbox value="#{relBean.mostraPecas}" itemLabel="Mostrar Peças" />
+
+                        </h:panelGrid>
+
+                        <p:separator />
+                        <p:commandButton id="btImp"  style="font-size: 30px; font-weight: bold;" value="Gerar Relatório" icon="ui-icon-print" 
+                                         ajax="false" actionListener="#{relBean.imprimirRelEqp}" onclick="target = '_blank';"/>
+                    </p:panel>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

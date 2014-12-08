@@ -1,0 +1,16 @@
+link remover do table de ES está removeno registro errado.
+
+
+
+*************
+
+-Não carrega o cliente pelo código clicando Enter. 
+Ajax corrigido
+-Uma pergunta, aquela imagem de fundo é de um equipamento da marca deles? Temos que ter certeza que sim, senão devemos tirar
+Peguei do site deles, se não for era bom eles tirarem tbm. Por via das duvidas pus outra em que aparece o logotipo deles.
+-Coloca pelo menos um registro em cada serviço, para na listagem ter a data de partida da maquina e uma data de manutencao anterior
+Tem um registro em cada equipamento.e já ta com data de partida a maquina
+-Os textbox que ficam acima da lista de servicos nao estao alinhados, tenta alinhar a distancia entre ele igualmente
+-No cadastro de equipamentos, colocar uma combo na categoria do equipamento, conforme com as opcoes fixas
+-Não aparece mensagem de conclusão do cadastro de equipamentos. Não sei se salvou.
+*cliente também.

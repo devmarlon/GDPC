@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <p:dialog widgetVar="medicaoCreateDialogWidget"
+                  id="medicaoCreateDialogId" height="300" width="650" modal="true" appendTo="@(body)"
+                  closable="true" draggable="false" resizable="false">
+            <h:form id="medicaoCreateDialogForm" prependId="false">
+                <p:focus for="hor" />
+                <p:panel>
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="Data" />
+                        <h:panelGrid style="margin:-3px 8px auto -4px;width: 106px;" >
+                            <p:calendar locale="pt" pattern="dd/MM/yyyy" value="#{indexBean.equipamento.eqpMedicao.EQM_DATAATUALIZACAO}" />
+                        </h:panelGrid>
+                        <p:outputLabel for="hor" value="Horas Totais" />
+                        <p:inputText id="hor" value="#{indexBean.equipamento.eqpMedicao.EQM_HORASTOTAIS}"/>
+                        <p:outputLabel for="horc" value="Horas em Carga" />
+                        <p:inputText id="horc" value="#{indexBean.equipamento.eqpMedicao.EQM_HORASEMCARGA}"/>
+                    </h:panelGrid>
+                    <p:separator />
+
+                    <p:commandButton value="Salvar" icon="ui-icon-plus" 
+                                     actionListener="#{indexBean.salvaMedicao()}"
+                                     update=":messageGrowl :formDist:pneqp"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, medicaoCreateDialogWidget, 'medicaoCreateDialogId')" />
+                    <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel"
+                                     onclick="medicaoCreateDialogWidget.hide();" type="button" />
+                </p:panel>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

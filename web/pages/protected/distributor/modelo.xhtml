@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="formMod" class="container">
+
+                    <h1 style="font-weight:bold">Cadastro de #{bundle.mods} </h1>
+                    <table width="100%" >
+                        <tr>
+                            <td valign="top">
+
+                                <h:panelGrid columns="3" >
+                                    <p:commandButton id="parcBtNew" actionListener="#{modeloBean.novo}" icon="ui-icon-plusthick"
+                                                     style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
+
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" value="#{bundle.delete}"
+                                                     icon="ui-icon-trash" update=":modDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{modeloBean.validaDelete()}" />
+
+                                </h:panelGrid>
+                            </td><td align="right">
+                                <h:panelGrid columns="3">
+                                    <h:outputLabel value="Descrição" style="text-align:right" />
+
+                                    <p:inputText onkeypress="return pecBuscaEnter(event);" id="nomeBusca" value="#{modeloBean.nomeBusca}" style="width:373px" />
+                                    <p:commandButton id="btBuscaPeca" actionListener="#{modeloBean.buscar}" icon="ui-icon-search"
+                                                     update=":formMod:srvTable" 
+                                                     style="font-size:30px;font-weight:bold;" value="Buscar">
+                                    </p:commandButton>
+                                </h:panelGrid>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p:dataTable var="m" value="#{modeloBean.dtmModelos}" rowKey="#{m.MOD_ID}" paginator="true" 
+                                 rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="srvTable" 
+                                 selection="#{modeloBean.modelosSelected}" emptyMessage="#{bundle.noRecords}">
+
+                        <p:column selectionMode="multiple" style="width:4%;text-align:center" />
+
+                        <p:column headerText="Código" style="text-align: center;width: 8%" >
+                            <h:outputText value="#{m.MOD_ID}" />
+                        </p:column>
+                        <p:column headerText="Descrição"  >
+                            <p:commandLink actionListener="#{modeloBean.alterar}" update=":messageGrowl" value="#{m.MOD_NOME}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <ui:include src="/pages/protected/distributor/dialogs/modDelDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

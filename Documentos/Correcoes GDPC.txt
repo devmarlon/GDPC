@@ -1,0 +1,32 @@
+Cadastro de clientes:
+OK -Diminuir o tempo da mensagem de cliente salvo com sucesso(mudei as mensagens para 2 segundos)
+OK -Tirar o '}' no final do label do filtro
+
+
+Cadastro de Equipamentos:
+OK -Colocar titulo na tela de inclusao de equipamento  ( na edição pus 'modelo - numero de serie', na inclusão, 'inclusão de equipamento')
+-Colocar componente basic spinner os campos 'Horas/Dia' e 'Dias/Semana', limitando min e max e validando ao salvar (spinner tem bug, segue anexo. validações ja ok) 
+OK -Filtro por: descricao(filtro principal), Cliente, categoria,modelo, serie, fabricante
+
+
+Cadastro de Servigos:
+OK -Filtro por descrigao
+
+Cadastro de Peças:
+OK -Filtro por descrigao
+
+Cadastro de Usuarios:
+Ok -Tirar a opgao de comissoes
+OK -Colocar opcao de troca de senha pelo usuario
+-
+
+
+Manutencao:
+OK -Ao entrar na tela, o foco deve ir para o codigo do cliente
+OK -Opcao de excluir pega
+OK -Opcao de excluir servico
+OK -Ao cadastrar ou cadastrar um servigo, nao permitir se nao tiver data e horimtero preenchidos
+OK -Ao atualizar o equipamento ou alguns de seus servicos, o sistema deve pegar a ultima data e nao o ultimo registro, para compor o horimetro -- 'maior data'
+OK -Ao incluir uma pega, nao esta atualizando automaticamente o grid
+OK -Caso nao encontre uma pega, aparecer mensagem de erro, igual no servico
+OK -Crirar tela de busca  para cliente, servico e pega, colocando uma lupa em cada campo

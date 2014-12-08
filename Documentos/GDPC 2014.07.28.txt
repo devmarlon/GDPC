@@ -1,0 +1,16 @@
+
+
+
+
+ok -ao cadastrar distribuidor inserir peças
+
+ok  -ao cadastrar distribuidor inserir modelos
+
+salvar ao sair:
+
+
+Salvar: Salva e vai para a listagem
+
+Não Salvar: volta para a listagem sem salvar
+
+Cancelar: Fecha o dialog e permanece na tela de cadastro

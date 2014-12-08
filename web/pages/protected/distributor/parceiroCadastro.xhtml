@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmCadPar" class="container">
+                    <h1 style="font-weight:bold"> #{parceiroBean.tipoAcao} </h1>
+
+                    <p:panel style="width:860px" >
+
+
+                        <h:panelGrid columns="2" cellpadding="1" >
+                            <h:outputLabel value="Nome / Razão Social" />
+                            <h:outputText value="Fantasia" />
+
+                            <p:inputText style="width:404px" value="#{parceiroBean.parceiro.PAR_RAZAO}" id="parceiro_razao" label="Nome / Razão Social" onkeypress="setaFoco(this);" maxlength="200" required="true" >
+                                <p:ajax update=":fmCadPar" event="blur"/>
+                            </p:inputText>
+                            <p:inputText style="width:404px" value="#{parceiroBean.parceiro.PAR_NOME}" id="parceiro_fantasia" onkeypress="setaFoco(this);" maxlength="200"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="4" cellpadding="1" >
+                            <h:outputText value="Pessoa" />
+                            <h:outputText value="#{parceiroBean.labelCPFCNPJ}" id="txtCPF"/>
+                            <h:outputText value="Insc. Estadual" />
+                            <h:outputText value="Insc. Municipal" />
+
+                            <p:selectOneMenu style="width:205px" id="pessoa" value="#{parceiroBean.parceiro.PAR_TIPOPESSOA}" >
+                                <f:selectItem itemLabel="Jurídica" itemValue="J" />
+                                <f:selectItem itemLabel="Física" itemValue="F" />
+                                <p:ajax event="change" update="txtCPF parceiro_cnpjcpf" listener="#{parceiroBean.isCPFCNPJ}" />
+                            </p:selectOneMenu>
+
+                            <p:inputMask mask="#{parceiroBean.maskCPFCNPJ}" style="width:195px" value="#{parceiroBean.parceiro.PAR_CNPJCPF}" id="parceiro_cnpjcpf" 
+                                         maxlength="14" onkeydown="setaFoco(this);" />
+
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_INSCEST}" id="parceiro_inscest" 
+                                         maxlength="20" onkeypress="setaFoco(this);" />
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_INSCMUN}" id="parceiro_inscmun" onkeypress="setaFoco(this);" maxlength="20"/>
+
+                        </h:panelGrid>
+
+
+                        <h:panelGrid columns="4" cellpadding="1" >
+
+                            <h:outputText value="CEP" />
+                            <h:outputText value="Estado" />
+                            <h:outputText value="Cidade" />
+                            <h:outputText value="Bairro" />
+
+                            <p:inputMask mask="99999-999" style="width:195px" value="#{parceiroBean.parceiro.PAR_CEP}" id="parceiro_CEP" onkeypress="setaFoco(this);" />
+                            <p:selectOneMenu style="width:202px" id="parceiro_uf" value="#{parceiroBean.parceiro.estado}"
+                                             > 
+                                <p:ajax update="par_mun" event="change"/>
+                                <f:selectItems value="#{estadoBean.listaEstado}" var="estado" itemLabel="#{estado.JEST_UF} - #{estado.JEST_NOME}" 
+                                               itemValue="#{estado}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu style="width:202px" id="par_mun" value="#{parceiroBean.parceiro.municipio}" > 
+                                <p:ajax update="@this" event="change"/>
+                                <f:selectItems value="#{parceiroBean.listMunicipio}" var="municipio" itemLabel="#{municipio.MUN_NOME}" itemValue="#{municipio}" />
+                            </p:selectOneMenu>
+
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_BAIRRO}" id="parceiro_bairro" onkeypress="setaFoco(this);" maxlength="190"/>
+
+                            <h:outputText value="Endereço" />
+                            <h:outputText value="Número" />
+                            <h:outputText value="Complemento" />
+                            <h:outputText value="Site" />
+
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_ENDERECO}" id="parceiro_endereco" onkeypress="setaFoco(this);" maxlength="200" />
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_NUMERO}" id="parceiro_numero" onkeypress="setaFoco(this);" maxlength="10"/>
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_COMPLEMENTO}" id="parceiro_complemento" onkeypress="setaFoco(this);" maxlength="50"/>
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_SITE}" id="par_site" onkeypress="setaFoco(this);" maxlength="100" />
+
+
+                            <h:outputText value="Telefone 1 / Ramal" />
+                            <h:outputText value="Telefone 2 / Ramal" />
+                            <h:outputText value="Fax / Ramal" />
+                            <h:outputText value="Celular" />
+                            <h:panelGrid columns="2" style="margin-left: -3px">
+                                <p:inputMask mask="(99) 9999-9999?9" style="width:140px" value="#{parceiroBean.parceiro.PAR_TELEFONE1}" id="parceiro_telefone1" onkeypress="setaFoco(this);" maxlength="18"/>
+                                <p:inputText style="width:40px" value="#{parceiroBean.parceiro.PAR_RAMAL1}" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" style="margin-left: -3px">
+                                <p:inputMask mask="(99) 9999-9999?9" style="width:140px" value="#{parceiroBean.parceiro.PAR_TELEFONE2}" id="parceiro_telefone2" onkeypress="setaFoco(this);" maxlength="18" />
+                                <p:inputText style="width:40px" value="#{parceiroBean.parceiro.PAR_RAMAL2}" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" style="margin-left: -3px">
+                                <p:inputMask mask="(99) 9999-9999?9" style="width:140px" value="#{parceiroBean.parceiro.PAR_FAX}" id="parceiro_fax" onkeypress="setaFoco(this);" maxlength="18"/>
+                                <p:inputText style="width:40px" value="#{parceiroBean.parceiro.PAR_RAMALFAX}" />
+                            </h:panelGrid>
+                            <p:inputMask mask="(99) 9999-9999?9" style="width:195px" value="#{parceiroBean.parceiro.PAR_CELULAR}" id="parceiro_celular" onkeypress="setaFoco(this);" maxlength="18" />
+
+                            <h:outputText value="Responsável" />
+                            <h:outputText value="Setor" />
+                            <h:outputText value="E-mail Principal" />
+                            <h:outputText value="E-mail Adicional" />
+
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_CONTATO}" id="parceiro_contato" onkeypress="setaFoco(this);" maxlength="40"/>
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_SETOR}" onkeypress="setaFoco(this);" id="par_setor" maxlength="100"/>
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_EMAIL}" id="par_email" onkeypress="setaFoco(this);" maxlength="100" >
+                                <p:ajax event="blur" update="par_emailnfe" listener="#{parceiroBean.emailNFE}" />
+                            </p:inputText>
+                            <p:inputText style="width:195px" value="#{parceiroBean.parceiro.PAR_EMAILCONTATO}" id="par_emailnfe" onkeypress="setaFoco(this);" maxlength="100" />
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="3" style="margin-left:-4px;">
+
+                            <h:panelGrid columns="1" >
+                                <h:outputText value="Observações" />
+                                <p:inputTextarea value="#{parceiroBean.parceiro.PAR_OBS}" rows="6" cols="50" style="width:253px" onkeypress="setaFoco(this);" />
+                            </h:panelGrid>
+
+                            <p:panel header="Tipo de Contato" style="right" rendered="false" >
+                                <h:panelGrid columns="2" >
+                                    <p:selectBooleanCheckbox id="isCLI" value="#{parceiroBean.parceiro.PAR_CLI}" >
+                                        <p:ajax update="coluna3" event="change" />
+                                    </p:selectBooleanCheckbox> 
+                                    <h:outputText value="Cliente" />
+                                    <p:selectBooleanCheckbox id="isFRN" value="#{parceiroBean.parceiro.PAR_FRN}" />
+                                    <h:outputText value="Fornecedor" />
+                                    <p:selectBooleanCheckbox id="isTRA" value="#{parceiroBean.parceiro.PAR_TRA}" />
+                                    <h:outputText value="Transportadora" />
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <h:panelGrid id="coluna3">
+                                <h:outputLabel id="labelven" value="Vendedor" rendered="#{parceiroBean.parceiro.PAR_CLI}" />
+                                <p:autoComplete id="nomeven" forceSelection="true" size="75" var="funcv" itemLabel="#{funcv.FUN_NOME}" 
+                                                value="#{parceiroBean.parceiro.vendedor}" itemValue="#{funcv}"
+                                                completeMethod="#{funcionarioBean.completeVend}" dropdown="true"
+                                                rendered="#{parceiroBean.parceiro.PAR_CLI}" onkeydown="setaFoco(this);" maxlength="200" /> 
+                                <p:separator rendered="false"/>
+                                <h:panelGrid columns="2" >
+                                    <!--                                <p:selectBooleanCheckbox id="utilEndEnt"  value="# {parceiroBean.parceiro.PAR_ENDENTBOOL}" rendered="# {parceiroBean.isCLIReg}" >
+                                                                        <p:ajax event="change" update=":fmCadPar:enderecos" />
+                                                                    </p:selectBooleanCheckbox>
+                                                                    <h:outputText value=" Utilizar outro endereço de entrega " rendered="# {parceiroBean.isCLIReg}" />-->
+
+                                    <p:selectBooleanCheckbox rendered="false" id="utilEndEnt" itemLabel="Utilizar outro endereço de entrega" value="#{parceiroBean.parceiro.PAR_ENDENTBOOL}"  >
+                                        <p:ajax event="change" update=":fmCadPar:enderecos" />
+                                    </p:selectBooleanCheckbox>
+                                    <!--d-->
+                                    <!--                                <p:selectBooleanCheckbox id="utiListaPreco" itemLabel="Definir lista de preços" value="# {parceiroBean.parceiro.PAR_ENDENTBOOL}" >
+                                                                        <p:ajax event="change" update=":fmCadPar:listapreco" />
+                                                                    </p:selectBooleanCheckbox>-->
+                                    <!--d-->
+                                    <p:selectBooleanCheckbox id="utilEndCob" value="#{parceiroBean.parceiro.PAR_ENDCOBBOOL}" rendered="false">
+                                        <p:ajax event="change" update=":fmCadPar:enderecos"/>
+                                    </p:selectBooleanCheckbox>
+                                    <h:outputText value=" Utilizar outro endereço de cobrança " rendered="false" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+                        <!--                    <h:panelGrid id="listapreco">
+                                                <p:panel header="Lista de preço" id="pnListaPreco" rendered="# {parceiroBean.parceiro.PAR_ENDENTBOOL}" style="width:825px">
+                                                </p:panel>
+                                            </h:panelGrid>-->
+
+                        <h:panelGrid id="enderecos" >
+                            <p:panel header="Endereço de Entrega" id="endEnt" rendered="#{parceiroBean.parceiro.PAR_ENDENTBOOL}" style="width:825px">
+                                <h:panelGrid columns="5" >
+
+                                    <h:outputText value="Pessoa" />
+                                    <h:outputText value="#{parceiroBean.labelCPFCNPJENT}" id="txtCPFENT"/>
+                                    <h:outputText value="CEP" />
+                                    <h:outputText value="Estado" />
+                                    <h:outputText value="Cidade" />
+
+                                    <p:selectOneMenu style="width:68px" id="pessoaENT" value="#{parceiroBean.parceiro.PAR_TIPOPESSOAENT}" >
+                                        <f:selectItem itemLabel="Física" itemValue="F" />
+                                        <f:selectItem itemLabel="Jurídica" itemValue="J" />
+                                        <p:ajax event="change" update="txtCPFENT parceiro_cnpjcpfENT" listener="#{parceiroBean.isCPFCNPJENT}" />
+                                    </p:selectOneMenu>
+
+                                    <p:inputMask mask="#{parceiroBean.maskCPFCNPJENT}" style="width:112px" value="#{parceiroBean.parceiro.PAR_CNPJCPFENT}" id="parceiro_cnpjcpfENT" 
+                                                 maxlength="14" onkeydown="setaFoco(this);" />
+
+                                    <p:inputMask mask="99999-999" style="width:185px" value="#{parceiroBean.parceiro.PAR_CEPENT}" id="parceiro_CEPent" onkeypress="setaFoco(this);" maxlength="10" />
+
+                                    <p:selectOneMenu style="width:192px" id="parceiro_ufent" value="#{parceiroBean.parceiro.estadoEnt}"  >
+                                        <p:ajax update="par_munent" event="change"/>
+                                        <f:selectItems value="#{estadoBean.listaEstado}" var="estadoENT" itemLabel="#{estadoENT.JEST_UF} - #{estadoENT.JEST_NOME}" itemValue="#{estadoENT}" />
+                                    </p:selectOneMenu>
+
+                                    <p:selectOneMenu style="width:192px" id="par_munent" value="#{parceiroBean.parceiro.municipioEnt}"  >
+                                        <f:selectItems value="#{parceiroBean.listMunicipioEnt}" var="municipioENT" itemLabel="#{municipioENT.MUN_NOME}" itemValue="#{municipioENT}" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="4" >
+
+                                    <h:outputText value="Bairro" />
+                                    <h:outputText value="Endereço" />
+                                    <h:outputText value="Número" /> 
+                                    <h:outputText value="Complemento" />
+
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_BAIRROENT}" id="parceiro_bairroent" onkeypress="setaFoco(this);" maxlength="50"/>
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_ENDERECOENT}" id="parceiro_enderecoent" onkeypress="setaFoco(this);" maxlength="200"/>
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_NUMEROENT}" id="parceiro_numeroent" onkeypress="setaFoco(this);" maxlength="10"/>
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_COMPLEMENTOENT}" id="parceiro_complementoent" onkeypress="setaFoco(this);" maxlength="50"/>
+
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:panel header="End. Cobrança" id="endCob" style="width:825px" rendered="false">
+                                <h:panelGrid columns="5" >
+                                    <h:outputText value="Pessoa" />
+                                    <h:outputText value="#{parceiroBean.labelCPFCNPJCOB}" id="txtCPFENTCOB"/>
+                                    <h:outputText value="CEP" />
+                                    <h:outputText value="Estado" />
+                                    <h:outputText value="Cidade" />
+                                    <p:selectOneMenu style="width:68px" id="pessoaCOB" value="#{parceiroBean.parceiro.PAR_TIPOPESSOACOB}" >
+                                        <f:selectItem itemLabel="Física" itemValue="F" />
+                                        <f:selectItem itemLabel="Jurídica" itemValue="J" />
+                                        <p:ajax event="change" update="txtCPFCOB parceiro_cnpjcpfCOB" listener="#{parceiroBean.isCPFCNPJCOB}" />
+                                    </p:selectOneMenu>
+                                    <p:inputMask mask="#{parceiroBean.maskCPFCNPJCOB}" style="width:112px" value="#{parceiroBean.parceiro.PAR_CNPJCPFCOB}" id="parceiro_cnpjcpfCOB" maxlength="14" onkeydown="setaFoco(this);" />
+                                    <p:inputMask mask="99999-999" style="width:185px" value="#{parceiroBean.parceiro.PAR_CEPCOB}" id="parceiro_CEPcob" onkeypress="setaFoco(this);" maxlength="10"/>
+                                    <p:selectOneMenu style="width:192px" id="parceiro_ufcob" value="#{parceiroBean.parceiro.estadoCob}" >
+                                        <p:ajax update="par_muncob" event="change"/>
+                                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                                        <f:selectItems value="#{estadoBean.listaEstado}" var="estadoCOB" itemLabel="#{estadoCOB.JEST_UF} - #{estadoCOB.JEST_NOME}" itemValue="#{estadoCOB}" />
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu style="width:192px" id="par_muncob" value="#{parceiroBean.parceiro.municipioCob}" >
+                                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                                        <f:selectItems value="#{parceiroBean.listMunicipioCob}" var="municipioCOB" itemLabel="#{municipioCOB.MUN_NOME}" itemValue="#{municipioCOB}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" >
+                                    <h:outputText value="Bairro" />
+                                    <h:outputText value="Endereço" />
+                                    <h:outputText value="Número" />
+                                    <h:outputText value="Complemento" />
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_BAIRROCOB}" id="parceiro_bairrocob" onkeypress="setaFoco(this);" maxlength="50"/>
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_ENDERECOCOB}" id="parceiro_enderecocob" onkeypress="setaFoco(this);" maxlength="200"/>
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_NUMEROCOB}" id="parceiro_numerocob" onkeypress="setaFoco(this);" maxlength="10"/>
+                                    <p:inputText style="width:185px" value="#{parceiroBean.parceiro.PAR_COMPLEMENTOCOB}" id="parceiro_complementocob" onkeypress="setaFoco(this);" maxlength="50"/>
+                                </h:panelGrid>
+                            </p:panel>
+
+                        </h:panelGrid> 
+
+
+
+
+                        <p:separator />
+
+                        <p:commandButton id="parcBtSave" actionListener="#{parceiroBean.salvar}" style="font-size:30px;font-weight:bold;float:right;" 
+                                         value="Salvar" icon="ui-icon-check" update=":messageGrowl" />
+
+                        <!--                        <p:commandButton actionListener="# {parceiroBean.salvar}" value="save" type="button" />-->
+
+                        <p:commandButton actionListener="#{parceiroBean.validaFechar}"  id="parcBtCanc" immediate="#{parceiroBean.parceiro.PAR_ID == 0}"
+                                         style="font-size:30px;font-weight:bold;float:left" value="Fechar" icon="ui-icon-closethick" />
+                        <div class="clear"> </div>
+                    </p:panel>
+                    <p:spacer />
+                </h:form>
+                <ui:include src="/pages/protected/distributor/dialogs/parCloseDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

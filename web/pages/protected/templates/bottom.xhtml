@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition>
+            <h:form>
+                <!--rodapé-->
+
+                <!--<footer>-->
+                <!--<div class="footer">-->
+                <div >
+
+                    <section class="section-ajuda">
+                        <ui:remove>
+                            <h3>Dúvidas Frequentes</h3>
+                            <a href="http://blog.gestorweb.com.br/ajuda/" title="Central de Ajuda | Blog" target="_blank" >Central de Ajuda</a>
+                            <h:outputText value="#{centralAjudaBean.link}" escape="false"/>
+                        </ui:remove>
+                    </section>
+
+                    <section class="section-faleconosco">
+                        <h2>Suporte</h2>
+                        <h3>Varkon Sistemas</h3>
+                        <span class="fone">(51) 3066.8655</span><br/>
+                        Seg-sex 9h às 12h e 14h às 18h
+                        <br/><br/>
+                        <span class="email">suporte@varkon.com.br</span>
+                    </section>
+
+                </div>
+                <section class="copyright"><p >© 2014 - Todos direitos reservados.</p></section>
+                <!--</footer>-->
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

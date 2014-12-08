@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body >
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmfunc" class="container" >
+
+                    <h1 style="font-weight:bold">Cadastro de #{bundle.usuPlural} </h1>
+                    <h:panelGrid columns="3" >
+                        <p:commandButton id="BtNew" actionListener="#{funcionarioBean.novo}" icon="ui-icon-plusthick"
+                                         style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
+
+                        <p:commandButton style="font-size:30px;font-weight:bold;"
+                                         value="#{bundle.delete}" icon="ui-icon-trash"
+                                         update=":funcDeleteDialogForm :messageGrowl"
+                                         actionListener="#{funcionarioBean.validaDelete()}" />
+                    </h:panelGrid>
+
+                    <p:dataTable var="func" value="#{funcionarioBean.dtmFuncionarios}" rowKey="#{func.FUN_ID}" paginator="true" 
+                                 rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="funcTable" 
+                                 selection="#{funcionarioBean.funcionariosSelected}" >
+                        <p:column selectionMode="multiple" style="width:10px;text-align:center" />
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:50px;text-align:center">
+                            <f:facet name="header" >
+                                Código
+                            </f:facet>
+                            #{func.FUN_ID}
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:300px;">
+                            <f:facet name="header" >
+                                Nome
+                            </f:facet>
+                            <p:commandLink id="funcBtRes" actionListener="#{funcionarioBean.alterar}" value="#{func.FUN_NOME}" />
+
+
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:200px;">
+                            <f:facet name="header" >
+                                E-mail
+                            </f:facet>
+                            #{func.FUN_EMAIL}
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:60px;">
+                            <f:facet name="header" >
+                                Telefone
+                            </f:facet>
+                            #{func.FUN_TELEFONE}
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:50px;">
+                            <f:facet name="header" >
+                                Login
+                            </f:facet>
+                            #{func.FUN_LOGIN}
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:60px;text-align:center">
+                            <f:facet name="header" >
+                                Vendedor
+                            </f:facet>
+                            #{func.FUN_VENDSN}
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:60px;text-align:center">
+                            <f:facet name="header" >
+                                Técnico
+                            </f:facet>
+                            #{func.FUN_TECSN}
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:60px;text-align:center">
+                            <f:facet name="header" >
+                                Acesso
+                            </f:facet>
+                            #{func.FUN_ACESSSN}
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <ui:include src="dialogs/funcionarioDelDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

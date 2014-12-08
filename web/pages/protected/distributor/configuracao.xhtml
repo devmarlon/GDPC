@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmconfiguracao" class="container" enctype="multipart/form-data" >
+                    <p:focus for="tabConf:emprazaosocial"/>
+                    <p:panel style="width:910px;" >
+                        <p:tabView id="tabConf">
+
+
+                            <p:tab id="emp" title="Empresa">
+                                <p:panel header="Dados da Empresa">
+                                    <h:panelGrid columns="2" cellpadding="1" > 
+                                        <h:outputText value="Razão Social" />
+                                        <h:outputText value="Fantasia" />
+                                        <p:inputText id="emprazaosocial" value="#{configuracaoBean.configuracao.EMP_RAZAO}" style="width:396px;"  />
+                                        <p:inputText id="empfantasia" value="#{configuracaoBean.configuracao.EMP_FANTASIA}" style="width:396px;"  />
+                                        <h:panelGrid columns="3" style="margin-left:-3px;">
+                                            <h:outputText value="Pessoa" />
+                                            <h:outputText value="#{configuracaoBean.labelCPFCNPJ}" id="txtCPF"/>
+                                            <h:outputText value="Insc. Estadual" />
+                                            <p:selectOneMenu style="width:71px" id="pessoa" value="#{configuracaoBean.tipoPessoa}" >
+                                                <f:selectItem itemLabel="Física" itemValue="F" />
+                                                <f:selectItem itemLabel="Jurídica" itemValue="J" />
+                                                <p:ajax event="change" update="txtCPF empcnpj" listener="#{configuracaoBean.isCPFCNPJ}" />
+                                            </p:selectOneMenu>
+                                            <p:inputMask mask="#{configuracaoBean.maskCPFCNPJ}" id="empcnpj" value="#{configuracaoBean.configuracao.EMP_CNPJ}"
+                                                         style="width:115px"  onkeydown="setaFoco(this);" >
+                                            </p:inputMask>
+                                            <p:inputText id="empIE" value="#{configuracaoBean.configuracao.EMP_IE}" style="width:190px;" />
+                                        </h:panelGrid> 
+                                        <h:panelGrid columns="2" style="margin-left:-3px;">
+                                            <h:outputText value="Insc. Municipal" />
+                                            <h:outputText value="Responsável" />
+                                            <p:inputText id="empIM" value="#{configuracaoBean.configuracao.EMP_INSCMUN}" style="width:190px" />
+                                            <p:inputText id="empResponsavel" value="#{configuracaoBean.configuracao.EMP_RESPONSAVEL}" style="width:190px"  />
+                                        </h:panelGrid>
+                                        <ui:remove>
+                                            <h:panelGrid columns="2" style="margin-left:-3px;">
+                                                <h:outputText value="Regime Tributário" />
+                                                <h:outputText value="Alíquota Crédito Simples (%)" />
+                                                <p:selectOneMenu id="empREGIME" value="#{configuracaoBean.configuracao.EMP_REGIME}" style="width:200px" >
+                                                    <p:ajax event="change" update="empICMS" />
+                                                    <f:selectItem itemLabel="Simples Nacional" itemValue="1" /> <br/> 
+                                                    <f:selectItem itemLabel="Simples Nacional - excesso de sublimite receita bruta" itemValue="2" /> <br/>
+                                                    <f:selectItem itemLabel="Regime Normal" itemValue="3" /> <br/>
+                                                </p:selectOneMenu> 
+                                                <p:inputText id="empICMS" value="#{configuracaoBean.configuracao.EMP_ICMSSNCRED}" 
+                                                             style="width:190px" disabled="#{configuracaoBean.disCredSimples}" >
+                                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="pt_BR" />
+                                                </p:inputText>
+                                            </h:panelGrid></ui:remove>
+                                        <h:panelGrid style="margin-left:-3px;" columns="2">
+                                            <h:outputText value="E-mail" />
+                                            <h:outputText value="Site" />
+                                            <p:inputText id="emeEmail" value="#{configuracaoBean.configuracao.EMP_EMAIL}" style="width:190px;" />
+                                            <p:inputText id="empSite" value="#{configuracaoBean.configuracao.EMP_SITE}" style="width:190px;" />
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" style="margin-left:-3px;">
+                                            <h:outputText value="Cep" />
+                                            <h:outputText value="Estado" />
+                                            <p:inputMask mask="99999-999" id="empcep" value="#{configuracaoBean.configuracao.EMP_CEP}" style="width:190px;" />
+                                            <p:selectOneMenu style="width:200px;" id="empestado" value="#{configuracaoBean.configuracao.estado}" 
+                                                             onkeydown="setaFoco(this);" >
+                                                <p:ajax update="empCidade" event="change" />
+                                                <f:selectItems value="#{estadoBean.listaEstado}" var="estado" 
+                                                               itemLabel="#{estado.JEST_UF} - #{estado.JEST_NOME}" itemValue="#{estado}" />
+                                            </p:selectOneMenu>
+                                            <h:outputText value="Endereço" />
+                                            <h:outputText value="Número" />
+                                            <p:inputText id="endereco" value="#{configuracaoBean.configuracao.EMP_ENDERECO}" style="width:190px;" maxlength="240"  />
+                                            <p:inputText id="numero" value="#{configuracaoBean.configuracao.EMP_NUMERO}" style="width:190px;" />
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" style="margin-left:-3px;">
+                                            <h:outputText value="Cidade" />
+                                            <h:outputText value="Bairro" />
+                                            <p:selectOneMenu style="width:200px" id="empCidade" value="#{configuracaoBean.configuracao.municipio}" 
+                                                             onkeydown="setaFoco(this);" >
+                                                <f:selectItems value="#{configuracaoBean.listMunicipioEMP}" var="municipio" 
+                                                               itemLabel="#{municipio.MUN_NOME}" itemValue="#{municipio}" />
+                                            </p:selectOneMenu>
+                                            <p:inputText id="empBairro" value="#{configuracaoBean.configuracao.EMP_BAIRRO}" style="width:190px" />
+                                            <h:outputText value="Complemento" />
+                                            <h:outputText value="Telefone" />
+                                            <p:inputText id="empComplemento" value="#{configuracaoBean.configuracao.EMP_COMP}" style="width:190px" />
+                                            <p:inputMask mask="(99) 9999-9999?9" id="empFone" value="#{configuracaoBean.configuracao.EMP_FONE}" style="width:190px" />
+                                        </h:panelGrid>
+                                    </h:panelGrid> 
+                                </p:panel>
+                                <!-- <br/> -->
+                                <br/>
+                                <p:panel header="Cabeçalho">
+                                    <h:panelGrid columns="1" cellpadding="1">
+                                        <h:outputText value="Cabeçalho" />
+                                        <h:outputText value="" />
+                                        <p:inputTextarea id="empCab"  maxlength="500"
+                                                         value="#{configuracaoBean.configuracao.EMP_CABECALHO}" 
+                                                         style="width:396px;height:111px;" >
+                                            <p:ajax event="blur" update=":fmconfiguracao:tabConf:itaPreviewCab" />
+                                        </p:inputTextarea>
+                                        <h:panelGrid columns="2" cellpadding="1">
+                                            <p:panel style="height:110px;width:400px;" header="Envio de Logotipo">
+                                                <p:fileUpload value="#{configuracaoBean.logo}" mode="simple" />
+                                                <p:commandButton value="Enviar Logotipo" ajax="false" style="font-size:30px;font-weight:bold;float:right;" update="topMessage"
+                                                                 actionListener="#{configuracaoBean.uploadLogo}" icon="ui-icon-pin-s"  />
+                                                <br/>
+                                                <br/>
+                                                <h:outputLabel value="#{configuracaoBean.logoLabel}"/>
+                                            </p:panel>
+                                            <p:panel style="height:110px;width:400px;" header="Envio de Cabeçalho">
+                                                <p:fileUpload value="#{configuracaoBean.cab}" mode="simple" />
+                                                <p:commandButton value="Enviar Cabeçalho" ajax="false" style="font-size:30px;font-weight:bold;float:right;"
+                                                                 actionListener="#{configuracaoBean.uploadCab}" icon="ui-icon-pin-s"  />
+                                                <br/>
+                                                <br/>
+                                                <h:outputLabel value="#{configuracaoBean.cabLabel}"/>
+                                            </p:panel>
+                                            <p:commandButton value="Visualizar Logotipo" style="font-size:30px;font-weight:bold;float:right;"
+                                                             icon="ui-icon-search" onclick="cabVisual.show();" /> 
+                                            <p:commandButton value="Visualizar Cabeçalho" style="font-size:30px;font-weight:bold;float:right;" update="pnCab"
+                                                             icon="ui-icon-search" oncomplete="cab.show();" /> 
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                    <p:dialog id="cabVisual" appendTo="@(body)" header="Logotipo" width="90%"  modal="true" draggable="true" widgetVar="cabVisual" closable="true">
+                                        <p:panel id="pnLogo" style="overflow: scroll">
+                                            <h:panelGrid columns="2" style="vertical-align:top">
+                                                <p:graphicImage id="logoEmp" value="#{configuracaoBean.logoImagem}"
+                                                                alt="#{configuracaoBean.configuracao.EMP_RAZAO}"
+                                                                title="#{configuracaoBean.configuracao.EMP_RAZAO}"
+                                                                style="height:100px;" />
+                                                <p:inputTextarea readonly="true" id="itaPreviewCab"
+                                                                 value="#{configuracaoBean.configuracao.EMP_CABECALHO}"
+                                                                 style="width:530px;height:130px;font-size:11px;" />
+                                            </h:panelGrid>
+                                        </p:panel>
+                                    </p:dialog>
+                                    <p:dialog id="cab" appendTo="@(body)" header="Cabeçalho" modal="true" widgetVar="cab" closable="true">
+                                        <p:panel id="pnCab">
+                                            <p:graphicImage id="cabEmp" value="#{configuracaoBean.cabImagem}"
+                                                            alt="#{configuracaoBean.configuracao.EMP_RAZAO}"
+                                                            title="#{configuracaoBean.configuracao.EMP_RAZAO}"
+                                                            style="height:100px;" />
+
+                                        </p:panel>
+                                    </p:dialog> 
+                                </p:panel>
+
+                                <br/>
+                                <p:panel header="Carta de Manutenção">
+                                    <h:panelGrid columns="1" >
+                                        <p:outputLabel value="Dados de contato com responsável quanto a Atualização/Dúvidas" for="cm"/>
+                                        <p:inputTextarea id="cm" value="#{configuracaoBean.configuracao.RESPONSAVELCARTAMANUTENCAO}"
+                                                         style="width: 100%"/>
+                                    </h:panelGrid>
+
+                                </p:panel>
+                                <br/>
+
+                            </p:tab>
+
+                            <p:tab id="tabemail" title="E-mail">
+                                <p:panel header="Configuração do E-mail" id="pnEmail" >
+
+                                    <p:selectBooleanCheckbox value="#{configuracaoBean.configuracao.EMP_EMAILPROPRIO}" >
+                                        <p:ajax event="change" update=":fmconfiguracao:tabConf:opnMail" />
+                                    </p:selectBooleanCheckbox>
+                                    <h:outputText value="Utilizar servidor próprio para envio de e-mail" />
+                                    <br/><br/>
+                                    <p:outputPanel id="opnMail" >
+                                        <!--<p:panel rendered="# {configuracaoBean.configuracao.EMP_EMAILPROPRIO}">-->
+
+                                        <h:panelGrid columns="3" id="panelEmail1"  >
+                                            <h:outputText value="E-mail" />
+                                            <h:outputText value="Usuário" />
+                                            <h:outputText value="Senha" />
+                                            <p:inputText id="empEmailEnvio" value="#{configuracaoBean.configuracao.EMP_EMAILENVIO}" style="width:396px;"  disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}"/>
+                                            <p:inputText id="empUsuario" value="#{configuracaoBean.configuracao.EMP_USUARIO}" style="width:190px"  disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}"/>
+                                            <p:inputText id="empSenha" value="#{configuracaoBean.configuracao.EMP_SENHAEMAIL}" style="width:190px"  type="password" disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="4" id="panelEmail2" >
+                                            <h:outputText value="SMTP" />
+                                            <h:outputText value="Porta" />
+                                            <h:outputText value="Segurança" />
+                                            <h:outputText value=" " />
+                                            <p:inputText id="empSMTP" value="#{configuracaoBean.configuracao.EMP_SMTP}" style="width:190px"  disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}"/>
+                                            <p:inputText id="empPorta" value="#{configuracaoBean.configuracao.EMP_PORTA}" style="width:190px"  disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}"/>
+                                            <p:selectOneMenu value="#{configuracaoBean.configuracao.EMP_SEGURANCA}" style="width:200px" disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}">
+                                                <f:selectItem itemLabel="Automático" itemValue="1" />
+                                                <f:selectItem itemLabel="SSL" itemValue="2" />
+                                                <f:selectItem itemLabel="TLS" itemValue="3" />
+                                            </p:selectOneMenu> 
+                                            <p:commandButton style="font-size:30px;font-weight:bold;float:left" icon="ui-icon-check" disabled="#{!configuracaoBean.configuracao.EMP_EMAILPROPRIO}"
+                                                             value="Testar Envio" actionListener="#{configuracaoBean.testeEmail()}" id="btEmail" />
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </p:panel>
+                                <br/>
+                                <p:panel header="Configuração E-mail de Retorno" >
+                                    <h:panelGrid columns="2" id="conResposta" >
+                                        <h:outputText value="Carta de Manutenção" />
+                                        <p:inputText id="empEmailRespostaCM" value="#{configuracaoBean.configuracao.EMP_EMAILRESPOSTACM}" style="width:285px;"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                                <br/>
+                                <p:panel header="Texto padrão para o envio de emails" rendered="false" >
+                                    <h:panelGrid columns="1" cellpadding="1">
+                                        <p:inputTextarea id="empTextoEmail" maxlength="2000"
+                                                         value="#{configuracaoBean.configuracao.TEXTO_EMAIL}" 
+                                                         style="width:796px;height:125px;" >
+                                            <p:ajax event="blur" />
+                                        </p:inputTextarea>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                        </p:tabView>
+                        <br/>
+                        <p:separator />
+                        <p:commandButton id="BtSave" actionListener="#{configuracaoBean.salvar}" update="fmconfiguracao" value="Salvar" icon="ui-icon-check"
+                                         style="font-size:30px;font-weight:bold;float:right" />
+                        <p:commandButton id="BtFecha" actionListener="#{indexBean.showIndex}" immediate="true" style="font-size:30px;font-weight:bold;float:left;" update=":fmcabecalho" value="Fechar" icon="ui-icon-closethick" />
+                        <div class="clear"> </div>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,13 @@
+20140820
+
+OK - Na inclusao de equipamento não carrega lista de clientes para selecionar
+
+OK - no cadastro de equipamento é necessário colocar um botão de salvar na parte inferior da tela
+
+possui - a seleção da peça tb não possui botão de confirmação
+
+OK - horas totai e horas em carga não está aparecendo os horímetros reais na tela principal
+
+
+
+- BACKUP

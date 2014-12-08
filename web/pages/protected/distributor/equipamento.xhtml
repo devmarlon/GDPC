@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmequipamento" class="container">
+
+                    <h1 style="font-weight:bold">Cadastro de #{bundle.equipamentoPlural}</h1>
+                    <table width="100%" >
+                        <tr>
+                            <td valign="top">
+                                <h:panelGrid columns="3" >
+                                    <p:commandButton id="parcBtNew" actionListener="#{equipamentoBean.novo}" icon="ui-icon-plusthick"
+                                                     style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
+
+
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" value="#{bundle.delete}" icon="ui-icon-trash"
+                                                     update=":eqpDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{equipamentoBean.validaDelete}"/>
+
+                                </h:panelGrid>
+                            </td><td align="right">
+                                <h:panelGrid columns="3">
+                                    <h:outputLabel value="Descrição" style="text-align:right" />
+
+                                    <p:inputText onkeypress="return eqpBuscaEnter(event);" id="nomeBusca" value="#{equipamentoBean.nomeBusca}" style="width:373px" />
+                                    <p:commandButton id="btBuscaEqp" actionListener="#{equipamentoBean.buscar}" icon="ui-icon-search" update=":fmequipamento:eqpTable" 
+                                                     style="font-size:30px;font-weight:bold;" value="Buscar">
+                                    </p:commandButton>
+                                </h:panelGrid>
+
+                                <p:panel header="Busca Avançada" toggleable="true" collapsed="true" style="width: 560px" >
+
+                                    <h:panelGrid columns="2" >
+                                        <h:outputLabel value="Cliente" />
+                                        <p:outputPanel style="width: 404px" >
+                                            <p:autoComplete id="cliEB" forceSelection="true" converter="parceiroConverter" minQueryLength="0" value="#{equipamentoBean.parceiroBusca}" label="#{bundle.cli}" var="cliEB"
+                                                            itemLabel="#{cliEB.PAR_RAZAO}" itemValue="#{cliEB}" completeMethod="#{parceiroBean.complete}" >
+                                                <!--<p:ajax event="itemSelect" listener="# {indexBean.setaParceiro}" update="eqp pgMain tabServ"/>-->
+                                            </p:autoComplete>
+                                        </p:outputPanel>
+                                        <h:outputLabel value="Categoria" />
+
+                                        <p:selectOneMenu style="width:404px" id="categoria" value="#{equipamentoBean.categoriaBusca}">
+                                            <f:selectItem itemLabel="Selecione" itemValue="0"  />
+                                            <f:selectItems value="#{categoriaBean.listaCategoria}" var="c" itemLabel="#{c.CAT_NOME}" 
+                                                           itemValue="#{c.CAT_ID}" />
+                                        </p:selectOneMenu>
+
+                                        <h:outputLabel value="Modelo" />
+                                        <p:inputText value="#{equipamentoBean.modeloBusca}" />
+
+                                        <h:outputLabel value="Número de Série" />
+                                        <p:inputText value="#{equipamentoBean.serieBusca}" />
+
+                                        <h:outputLabel value="Fabricante" />
+                                        <p:inputText value="#{equipamentoBean.fabricanteBusca}" />
+
+                                    </h:panelGrid>
+
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p:dataTable var="eqp" value="#{equipamentoBean.dtmEquipamentos}" rowKey="#{eqp.EQP_ID}" paginator="true" 
+                                 rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="eqpTable"
+                                 selection="#{equipamentoBean.selectedEquipamentos}" emptyMessage="#{bundle.noRecords}">
+
+                        <p:column selectionMode="multiple" style="width:10px;text-align:center" />
+
+                        <p:column headerText="Código" style="width: 4%; text-align: center" >
+                            <h:outputText value="#{eqp.EQP_ID}" />
+                        </p:column>
+                        <p:column headerText="Modelo" >
+                            <p:commandLink id="btResumo1" actionListener="#{equipamentoBean.alterar()}"  update=":messageGrowl" value="#{eqp.modelo.MOD_NOME}" />
+                        </p:column>
+                        <p:column headerText="N/S" >
+                            <p:commandLink id="btResumo2" actionListener="#{equipamentoBean.alterar()}" update=":messageGrowl" value="#{eqp.EQP_SERIE}" />
+                        </p:column>
+                        <p:column headerText="Fabricante" >
+                            <p:commandLink actionListener="#{equipamentoBean.alterar()}" update=":messageGrowl" value="#{eqp.EQP_FABRICANTE}" />
+                        </p:column>
+                        <p:column headerText="Cliente" >
+                            <p:commandLink actionListener="#{equipamentoBean.alterar()}" update=":messageGrowl" value="#{eqp.parceiro.PAR_RAZAO}" />
+                        </p:column>
+                        <p:column headerText="Partida" >
+                            <h:outputText value="#{eqp.EQP_DATAPARTIDA}" ><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                        </p:column>
+                        <p:column headerText="Horas Estimadas" >
+                            <h:outputText value="#{eqp.eqpMedicao.EQM_HORASESTIMADAS}" />
+                        </p:column>
+                        <p:column headerText="Horas Totais" >
+                            <h:outputText value="#{eqp.eqpMedicao.EQM_HORASTOTAIS}" />
+                        </p:column>
+                        <p:column headerText="Última Leitura" >
+                            <h:outputText value="#{eqp.eqpMedicao.EQM_DATAATUALIZACAO}" ><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                        </p:column>
+                    </p:dataTable>
+
+
+                </h:form>
+                <ui:include src="/pages/protected/distributor/dialogs/equipamentoDelDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

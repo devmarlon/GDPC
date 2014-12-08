@@ -1,0 +1,22 @@
+Controle de manutenção:
+
+OK-pesquisar os registros de cliente, serviço e peças apenas quando na caixa estiver algum conteudo (<> zero) ou (<> vazio) e zerar o campo de descricao caso seja zero ou vazio
+OK -trocar o label de Produtos para Peças
+-fazer teste ao clicar em cada botão da tela que não possua registro selecionado, aparecendo mensagem de erro, por exemplo, botao adicionar: 'Selecione um cliente' ou 'Selecione um equipamento' ou 'Selecione um serviço'
+OK -ao clicar ENTER, o sistema deve saber em qual campo está o cursor e pesquisar o campo especifico
+OK -ao salvar um servico, atualizar as horas estimadas do equipamento
+
+Cadastro de Clientes:
+OK -adicionar filtro na listagem identico ao do gestorweb
+OK -ao incluir cliente, ja deve vir selecionado acre e a primeira cidade
+OK -deixar invisivel o check 'Utilizar outro endereço de entrega'
+OK -trocar o label 'E-mail Nf-e' para 'E-mail Adicional'
+OK -o botao apagar nao esta apagando 
+OK -ao apagar um registor, testar se existe pelo menos um selecionado
+
+
+
+
+Cadastro de equipamentos:
+OK -Incluir campo pressao no cadastro
+OK -Ao criar um equipamento, gerar um registro de partida

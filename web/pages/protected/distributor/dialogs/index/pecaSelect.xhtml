@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:h="http://java.sun.com/jsf/html"  xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <p:dialog widgetVar="manutPecasDialog"
+                  id="pecasDlgId" width="600" height="400px" modal="true" 
+                  closable="true" appendTo="@(body)" 
+                  draggable="true" resizable="true"  >
+            <h:form id="fmpecas" prependId="false" >
+                <p:dataTable var="p" value="#{indexBean.dtmPecas}"
+                             selection="#{indexBean.pecaEqsSelected.peca}" selectionMode="single"
+                             id="dtPed"
+                             rowKey="#{p.codigo}"
+                             emptyMessage="#{bundle.noRecords}">
+
+                    <p:column headerText="Código" >
+                        <h:outputText value="#{p.codigo}"/>
+                    </p:column>
+                    <p:column headerText="Descrição" filterBy="#{p.descricao}" filterMatchMode="contains">
+                        <h:outputText value="#{p.descricao}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Selecionar" icon="ui-icon-plus"  actionListener="#{indexBean.selectPeca()}"
+                                 update=":messageGrowl :formDist:tabServ"
+                                 oncomplete="closeDialogIfSucess(xhr, status, args, manutPecasDialog, 'pecasDlgId')" style="font-size:30px;font-weight:bold;float:left"   />
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

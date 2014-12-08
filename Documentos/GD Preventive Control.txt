@@ -1,0 +1,27 @@
+assnto do email: Modelo e NUmero de série.
+
+na listagem de carta de manutenção poder previsualizar/imprimir as cartas de cada cliente.
+
+
+Alterar para "horimetro estimado" na carta de manutenção.
+
+
+Cadastro do distribuidor = Responsável pelo setor. para aparecer na carta de manutenção.
+
+carta de manutenção.... data execução, horas totais e horas em carga mandar para o cliente completar..
+
+
+destacar o campo para preencher na carta. "Preencha os campos destacados"
+
+alterar na carta o regime igual como na tela principal. regime de trabalho atual no cabeçalho tambem.
+
+http://www.ingersollrandvx.com - login pra mim saber o que é
+
+/// registro de orçamento 
+
+Movimento - Manutenções, "Registro de Orçamentos"
+
+Relatórios - Carta de Manutenção, Peças, Clientes...
+
+Configuração - Configurações Gerais
+

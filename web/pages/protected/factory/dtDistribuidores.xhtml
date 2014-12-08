@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1 style="font-weight:bold">Cadastro de #{bundle.distribPlural} </h1>
+        <table width="100%" >
+            <tr>
+                <td valign="top">
+                    <h:panelGrid columns="3" >
+                        <p:commandButton id="parcBtNew" actionListener="#{distribuidorBean.novo}" icon="ui-icon-plusthick"
+                                         style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
+                        <ui:remove>
+                        <p:commandButton style="font-size:30px;font-weight:bold;" value="#{bundle.delete}" rendered="false"
+                                         icon="ui-icon-trash" update=":parDeleteDialogForm :messageGrowl"
+                                         actionListener="#{parceiroBean.validaDelete()}"/>
+                        </ui:remove>
+                    </h:panelGrid>
+                </td>
+
+                <td align="right">
+
+                </td>
+            </tr>
+        </table>
+        <p:dataTable id="dogsTable" value="#{distribuidorBean.allDistribContratos}" var="dist" emptyMessage="#{bundle.noRecords}" paginator="true" rows="50">
+            <p:column headerText="Código" style="width: 4%; text-align: center" >
+                <h:outputText value="#{dist.usuId.USU_ID}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.distribName}" />
+                </f:facet>
+
+                <h:outputText value="#{dist.usuId.USU_EMPRESA}" />
+            </p:column>
+
+            <p:column headerText="#{bundle.distribCad}">
+                <h:outputText value="#{dist.usuId.USU_CADASTRO}" >
+                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                </h:outputText> 
+            </p:column>
+            <p:column headerText="#{bundle.distribUltAcess}">
+                <h:outputText value="#{dist.usuId.USU_ULTACESSOSTR}" >
+                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                </h:outputText> 
+            </p:column>
+
+
+        </p:dataTable>
+    </h:body>
+</html>
+
