@@ -1,16 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>  
+<!--<?xml version="1.0" encoding="iso-8859-1" ?>-->  
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
 
-    <h:head>
-        <title>GD Preventive Control - Configurações Gerais</title>
-        <h:outputStylesheet library="css" name="estilo.css" />
-        <h:outputStylesheet library="css" name="main.css" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    </h:head>
 
     <h:body>
         <ui:composition template="/pages/protected/templates/master.xhtml">
@@ -109,27 +103,39 @@
                                                          style="width:396px;height:111px;" >
                                             <p:ajax event="blur" update=":fmconfiguracao:tabConf:itaPreviewCab" />
                                         </p:inputTextarea>
-                                        <h:panelGrid columns="2" cellpadding="1">
-                                            <p:panel style="height:110px;width:400px;" header="Envio de Logotipo">
-                                                <p:fileUpload value="#{configuracaoBean.logo}" mode="simple" />
-                                                <p:commandButton value="Enviar Logotipo" ajax="false" style="font-size:30px;font-weight:bold;float:right;" update="topMessage"
-                                                                 actionListener="#{configuracaoBean.uploadLogo}" icon="ui-icon-pin-s"  />
+                                        <h:panelGrid columns="1" cellpadding="1">
+                                            <p:panel style="height:110px;width:700px;" header="Envio de Logotipo">
+                                                <h:form>
+                                                    <p:fileUpload fileUploadListener="#{configuracaoBean.handleFileUploadLogo}" mode="advanced" dragDropSupport="false"
+                                                                  update="messages" sizeLimit="500000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+                                                    <p:growl id="messages" showDetail="true" />
+                                                </h:form>
                                                 <br/>
                                                 <br/>
                                                 <h:outputLabel value="#{configuracaoBean.logoLabel}"/>
+                                                <p:commandButton value="Visualizar Logotipo" style="font-size:30px;font-weight:bold;float:right;"
+                                                                 icon="ui-icon-search" onclick="cabVisual.show();" /> 
                                             </p:panel>
-                                            <p:panel style="height:110px;width:400px;" header="Envio de Cabeçalho">
-                                                <p:fileUpload value="#{configuracaoBean.cab}" mode="simple" />
-                                                <p:commandButton value="Enviar Cabeçalho" ajax="false" style="font-size:30px;font-weight:bold;float:right;"
-                                                                 actionListener="#{configuracaoBean.uploadCab}" icon="ui-icon-pin-s"  />
+                                            <p:spacer/>
+                                            <p:panel style="height:110px;width:700px;" header="Envio de Cabeçalho">
+                                                <h:form>
+                                                    <p:fileUpload fileUploadListener="#{configuracaoBean.handleFileUploadCab}" mode="advanced" dragDropSupport="false"
+                                                                  update="messages" sizeLimit="500000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+                                                    <p:growl id="messages" showDetail="true" />
+                                                </h:form>
+                                                <!--                                                <p:fileUpload value="# {configuracaoBean.cab}" mode="simple" id="idCab" />
+                                                                                                <p:commandButton value="Enviar Cabeçalho" ajax="false" style="font-size:30px;font-weight:bold;float:right;"
+                                                                                                                 actionListener="# {configuracaoBean.uploadCab}" icon="ui-icon-pin-s"  />-->
                                                 <br/>
                                                 <br/>
                                                 <h:outputLabel value="#{configuracaoBean.cabLabel}"/>
+                                                <p:commandButton value="Visualizar Cabeçalho" style="font-size:30px;font-weight:bold;float:right;" update="pnCab"
+                                                                 icon="ui-icon-search" oncomplete="cab.show();" /> 
                                             </p:panel>
-                                            <p:commandButton value="Visualizar Logotipo" style="font-size:30px;font-weight:bold;float:right;"
-                                                             icon="ui-icon-search" onclick="cabVisual.show();" /> 
-                                            <p:commandButton value="Visualizar Cabeçalho" style="font-size:30px;font-weight:bold;float:right;" update="pnCab"
-                                                             icon="ui-icon-search" oncomplete="cab.show();" /> 
+
+
                                         </h:panelGrid>
                                     </h:panelGrid>
                                     <p:dialog id="cabVisual" appendTo="@(body)" header="Logotipo" width="90%"  modal="true" draggable="true" widgetVar="cabVisual" closable="true">

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
@@ -31,6 +33,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -73,7 +76,7 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
     }
 
 //    @PostConstruct
-    public void showConf() throws FileNotFoundException {
+    public void showConf() {
 //        if (configuracao == null || configuracao.getCFG_ID() == 0) {
         if (UserItemFactoryBean.banco.equalsIgnoreCase("gdpc")) {
             configuracao = Util.getGdpcConfiguracao();
@@ -196,52 +199,70 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         }
     }
 
-    public void uploadLogo() throws IOException {
+    public void handleFileUploadLogo(FileUploadEvent event) {
+        logo = event.getFile();
+        uploadLogo();
+        showConf();
+    }
+
+    public void uploadLogo() {
         if (logo != null && !logo.getFileName().trim().isEmpty()) {
-            logoIS = logo.getInputstream();
-            if (configuracao.getEMP_LOGO() != null && !"".equals(configuracao.getEMP_LOGO())) {
-                logoImagem = null;//logoImagem usa o caminho;
-                File destino = new File(configuracao.getEMP_LOGO());
-                String dest = destino.getAbsolutePath();
-                try {
-                    if (!dest.contains("GDPC\\logo.png")) {
-                        destino.delete();
-                    }
+            try {
+                logoIS = logo.getInputstream();
+                if (configuracao.getEMP_LOGO() != null && !"".equals(configuracao.getEMP_LOGO())) {
+                    logoImagem = null;//logoImagem usa o caminho;
+                    File destino = new File(configuracao.getEMP_LOGO());
+                    String dest = destino.getAbsolutePath();
+                    try {
+                        if (!dest.contains("GDPC\\logo.png")) {
+                            destino.delete();
+                        }
 //                        cfgFacade.updateConfig(configuracao);
 
-                } catch (Exception e) {
-                    throw new RuntimeException("Erro ao deletar Logotipo", e);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Erro ao deletar Logotipo", e);
+                    }
+                    if (salvaLogo()) {
+                        getLogoImagem();
+                        salvar(null);
+                    }
                 }
-                if (salvaLogo()) {
-
-                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-            getLogoImagem();
-            salvar(null);
         }
     }
 
-    public void uploadCab() throws IOException {
-        if (cab != null) {
-            cabIS = cab.getInputstream();
-            if (configuracao.getEMP_CAB() != null && !"".equals(configuracao.getEMP_CAB())) {
-                cabImagem = null;//logoImagem usa o caminho;;;
-                File destino = new File(configuracao.getEMP_CAB());
-                String dest = destino.getAbsolutePath();
-                try {
-                    if (!dest.contains("GDPC\\cab.png")) {
-                        cabImagem = null;
-                        destino.delete();
-                    }
-//                        cfgFacade.updateConfig(configuracao);
+    public void handleFileUploadCab(FileUploadEvent event) {
+        cab = event.getFile();
+        uploadCab();
+        showConf();
+    }
 
-                } catch (Exception e) {
-                    throw new RuntimeException("Erro ao deletar cabeçalho", e);
+    public void uploadCab() {
+        if (cab != null) {
+
+            try {
+                cabIS = cab.getInputstream();
+                if (configuracao.getEMP_CAB() != null && !"".equals(configuracao.getEMP_CAB())) {
+                    cabImagem = null;//logoImagem usa o caminho;;;
+                    File destino = new File(configuracao.getEMP_CAB());
+                    String dest = destino.getAbsolutePath();
+                    try {
+                        if (!dest.contains("GDPC\\cab.png")) {
+                            cabImagem = null;
+                            destino.delete();
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException("Erro ao deletar cabeçalho", e);
+                    }
+                    if (salvaCab()) {
+                        getCabImagem();
+                        salvar(null);
+                    }
                 }
-                if (salvaCab()) {
-                    getCabImagem();
-                    salvar(null);
-                }
+            } catch (IOException ex) {
+                Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -298,7 +319,7 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         return save;
     }
 
-    public boolean salvaCab() throws IOException {
+    public boolean salvaCab() {
         boolean save = false;
         //int width = 0;
         //int height = 0;
@@ -307,7 +328,12 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         String ext = "";
         long tam = 0;
 
-        BufferedImage imagem = ImageIO.read(cabIS);
+        BufferedImage imagem = null;
+        try {
+            imagem = ImageIO.read(cabIS);
+        } catch (IOException ex) {
+            Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //List<Integer> widHeig = redimensionarLogo60(imagem);
         //width = widHeig.get(0);
         //height = widHeig.get(1);
@@ -332,9 +358,6 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         }
 
         try {
-// BufferedImage new_logo = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-// Graphics2D g = new_logo.createGraphics();
-// g.drawImage(imagem, 0, 0, width, height, null);
             ImageIO.write(imagem, ext, new File(caminho));
             save = true;
         } catch (Exception ex) {
@@ -350,13 +373,18 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         return save;
     }
 
-    public StreamedContent getLogoImagem() throws FileNotFoundException {
+    public StreamedContent getLogoImagem() {
         logoImagem = null;
         if (configuracao.getEMP_LOGO() != null && !"".equals(configuracao.getEMP_LOGO())) {
             File file = new File(configuracao.getEMP_LOGO());
             String ext = configuracao.getEMP_LOGO().substring((configuracao.getEMP_LOGO().length() - 3));
             if (file.exists()) {
-                InputStream inputStream = new FileInputStream(file);
+                InputStream inputStream = null;
+                try {
+                    inputStream = new FileInputStream(file);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 logoImagem = new DefaultStreamedContent(inputStream, "image/" + ext, configuracao.getEMP_LOGO());
             }
 ////            logoImagem = new DefaultStreamedContent(inputStream, "image/jpeg", configuracao.getEMP_LOGO());
@@ -508,13 +536,18 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         this.disCredSimples = disCredSimples;
     }
 
-    public StreamedContent getCabImagem() throws FileNotFoundException {
+    public StreamedContent getCabImagem() {
         cabImagem = null;
         if (configuracao.getEMP_CAB() != null && !"".equals(configuracao.getEMP_CAB())) {
             File file = new File(configuracao.getEMP_CAB());
             String ext = configuracao.getEMP_CAB().substring((configuracao.getEMP_CAB().length() - 3));
             if (file.exists()) {
-                InputStream inputStream = new FileInputStream(file);
+                InputStream inputStream = null;
+                try {
+                    inputStream = new FileInputStream(file);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 cabImagem = new DefaultStreamedContent(inputStream, "image/" + ext, configuracao.getEMP_CAB());
             }
 ////            logoImagem = new DefaultStreamedContent(inputStream, "image/jpeg", configuracao.getEMP_LOGO());

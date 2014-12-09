@@ -28,7 +28,10 @@ public class AdminPagesFilter extends AbstractFilter implements Filter {
             accessDenied(request, response, req);
             return;
         }
-
+        
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
         chain.doFilter(request, response);
     }
 
