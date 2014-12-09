@@ -14,13 +14,11 @@
 
     <h:body>
         <ui:composition template="/pages/protected/templates/master.xhtml">
-            <ui:define name="divMain">
+            <ui:define name="divMain" >
                 <h:form id="fmconfiguracao" class="container" enctype="multipart/form-data" >
                     <p:focus for="tabConf:emprazaosocial"/>
                     <p:panel style="width:910px;" >
                         <p:tabView id="tabConf">
-
-
                             <p:tab id="emp" title="Empresa">
                                 <p:panel header="Dados da Empresa">
                                     <h:panelGrid columns="2" cellpadding="1" > 
