@@ -37,12 +37,12 @@
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="1" style="margin-left:-4px;" >
                                 <h:outputText value="Cliente" />
-                                <p:outputPanel style="width: 390px" >
-                                    <p:autoComplete id="cli" forceSelection="true" size="65" minQueryLength="1" converter="parceiroConverter" style="width: 100%" value="#{equipamentoBean.equipamento.parceiro}" label="#{bundle.cli}" required="true" var="cli"
+                                <!--<p:outputPanel style="width: 350px" >-->
+                                    <p:autoComplete id="cli" forceSelection="true"  minQueryLength="1" converter="parceiroConverter" size="50" value="#{equipamentoBean.equipamento.parceiro}" label="#{bundle.cli}" required="true" var="cli"
                                                     itemLabel="#{cli.PAR_RAZAO}" itemValue="#{cli}" completeMethod="#{equipamentoBean.completeParceiros}" dropdown="true" >
                                         <!--<p:ajax event="itemSelect" listener="# {indexBean.setaParceiro}" update="eqp pgMain tabServ"/>-->
                                     </p:autoComplete>   
-                                </p:outputPanel>
+                                <!--</p:outputPanel>-->
 
                             </h:panelGrid>
                         </h:panelGrid>
