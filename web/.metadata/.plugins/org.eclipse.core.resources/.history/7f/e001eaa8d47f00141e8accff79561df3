@@ -273,7 +273,7 @@ order by e.PAR_ID, em.EQM_ID desc]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isBlankWhenNull="true">
@@ -284,6 +284,14 @@ order by e.PAR_ID, em.EQM_ID desc]]>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{EQP_TENSAO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="11" y="31" width="299" height="14" uuid="dfe1f17b-a759-4963-8b90-7c68d3c64845">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{EQP_OBS}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="100" y="16" width="100" height="14" uuid="827d5bac-9d51-4f4a-9fd3-57722aaf431b">
@@ -303,6 +311,16 @@ order by e.PAR_ID, em.EQM_ID desc]]>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{HRSESTIMADAS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement x="310" y="31" width="246" height="14" uuid="9127f72b-c90d-4948-af4c-022f61763c66">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CAT_NOME} + " - "+ $F{STATUSATIVO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,###.###;(#,###.###-)" isBlankWhenNull="true">
 				<reportElement x="303" y="16" width="76" height="14" uuid="83590f1f-7f8a-427d-8454-eb9846998dc9">

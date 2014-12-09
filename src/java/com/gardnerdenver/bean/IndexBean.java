@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -31,6 +32,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
@@ -447,6 +449,27 @@ public class IndexBean extends AbstractMB implements Serializable {
 
     public void setPecas(List<Peca> pecas) {
         this.pecas = pecas;
+    }
+
+    public void loadAllPecas() {
+        if (getEquipamentoServico().getServico().getSRV_ID() != 0) {
+
+            
+            if (getPecas() != null) {
+                List<Peca> p = new PecaFacade().listAll();
+                for (Peca fs : p) {
+                    for (PecaEqs es : getEquipamentoServico().getEquipamentosPecas()) {
+                        if (Objects.equals(es.getPeca().getPEC_ID(), fs.getPEC_ID())) {
+                            pecas.remove(fs);
+                        }
+                    }
+                }
+            }
+            RequestContext.getCurrentInstance().execute("manutPecasDialog.show()");
+        } else {
+            displayInfoMessageToUser("Selecione um serviço na tabela para adicionar peças");
+        }
+
     }
 
     public PecaEqsFacade getPecaEqsFacade() {

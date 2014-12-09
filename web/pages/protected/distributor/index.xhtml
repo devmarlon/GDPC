@@ -262,7 +262,7 @@
                                                     <p:inputText id="pCod" value="#{indexBean.searchCodePart}" onkeypress="setaFoco(this);" style="width:100px; text-align: right; margin-right: 10px" >
                                                         <p:ajax event="blur" listener="#{indexBean.setaPart(itemSelect)}" update="tabServ pgSelProd :messageGrowl"/>
                                                     </p:inputText>
-                                                    <p:commandButton icon="ui-icon-search"  type="button" update=":fmpecas"  onclick="manutPecasDialog.show();" />
+                                                    <p:commandButton icon="ui-icon-search"  update=":fmpecas :messageGrowl" actionListener="#{indexBean.loadAllPecas}" />
                                                 </h:panelGrid>
                                                 <h:panelGrid style="margin:-1px 8px auto -3px;width:300px">
                                                     <p:autoComplete minQueryLength="0" value="#{indexBean.pecaEqsAux.peca}" label="#{bundle.cli}" var="pt" 

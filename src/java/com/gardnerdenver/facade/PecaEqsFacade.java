@@ -35,7 +35,6 @@ public class PecaEqsFacade implements Serializable {
         peca.setPES_ID(0);
         pecaEqsDao.save(peca);
         pecaEqsDao.commitAndClose();
-        pecaEqsDao.close();
     }
 
     public void updatePeca(PecaEqs pecaEqs) {

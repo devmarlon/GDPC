@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="17" version="2.0">
 <workbenchAdvisor/>
-<window height="728" maximized="true" width="1024" x="-1504" y="-8">
+<window height="728" maximized="true" width="1024" x="0" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -23,8 +23,6 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="91" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="com.jaspersoft.studio.graphic.text" itemType="typeToolBarContribution" x="565" y="30"/>
-<coolItem id="com.jaspersoft.studio.graphic.size" itemType="typeToolBarContribution" x="84" y="30"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -41,14 +39,14 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="com.jaspersoft.studio.editor.JrxmlEditor" name="rvt.jrxml" partName="rvt.jrxml" path="D:/Varkon/gdpc/web/jaspers/rvt.jrxml" title="rvt.jrxml" tooltip="jaspers/rvt.jrxml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/jaspers/rvt.jrxml"/>
-</editor>
 <editor id="com.jaspersoft.studio.editor.JrxmlEditor" name="historico.jrxml" partName="historico.jrxml" path="D:/Varkon/gdpc/web/jaspers/historico.jrxml" title="historico.jrxml" tooltip="jaspers/historico.jrxml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/jaspers/historico.jrxml"/>
 </editor>
 <editor id="com.jaspersoft.studio.editor.JrxmlEditor" name="historicoEQS.jrxml" partName="historicoEQS.jrxml" path="D:/Varkon/gdpc/web/jaspers/historicoEQS.jrxml" title="historicoEQS.jrxml" tooltip="jaspers/historicoEQS.jrxml" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/jaspers/historicoEQS.jrxml"/>
+</editor>
+<editor activePart="true" focus="true" id="com.jaspersoft.studio.editor.JrxmlEditor" name="equipamentos.jrxml" partName="equipamentos.jrxml" path="D:/Varkon/gdpc/web/jaspers/equipamentos.jrxml" title="equipamentos.jrxml" tooltip="jaspers/equipamentos.jrxml" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/jaspers/equipamentos.jrxml"/>
 </editor>
 </editors>
 <views>
@@ -63,6 +61,9 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Errors (8 items)"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -81,7 +82,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="com.jaspersoft.studio.editor.preview.reportstate" activePerspective="com.jaspersoft.studio.ReportDesignPerspective">
+<perspectives activePart="com.jaspersoft.studio.editor.JrxmlEditor" activePerspective="com.jaspersoft.studio.ReportDesignPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.jaspersoft.studio.ReportDesignPerspective" id="com.jaspersoft.studio.ReportDesignPerspective" label="Report Design"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -94,12 +95,12 @@
 <alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
 <hide_menu_item_id id="org.eclipse.ui.run"/>
 <hide_menu_item_id id="org.eclipse.search.menu"/>
-<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.RunToLine"/>
 <hide_toolbar_item_id id="org.eclipse.ui.workbench.navigate"/>
-<hide_toolbar_item_id id="org.eclipse.egit.ui.team.OpenCommit"/>
+<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.RunToLine"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
-<hide_toolbar_item_id id="org.eclipse.jdt.ui.navigate.open.type"/>
+<hide_toolbar_item_id id="org.eclipse.egit.ui.team.OpenCommit"/>
 <hide_toolbar_item_id id="org.eclipse.search.searchActionSet"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.navigate.open.type"/>
 <hide_toolbar_item_id id="org.eclipse.search.OpenSearchDialogPage"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <hide_toolbar_item_id id="com.jaspersoft.studio.community.command.issueSubmit"/>
@@ -114,7 +115,7 @@
 <layout>
 <mainWindow>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@9de458b">
-<folder activePageID="com.jaspersoft.studio.Repository" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
 <page content="com.jaspersoft.studio.Repository" label="Repository Explorer"/>
 <page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -177,6 +178,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/historicoEQS.jrxml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/historicoEQSMOV.jrxml"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/rvt.jrxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/historico.jrxml"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/equipamentos.jrxml"/>
 </editors>
 <item historyLabel="rvt.jrxml" index="0"/>
 <item historyLabel="historico.jrxml" index="1"/>
@@ -190,7 +193,9 @@
 <item historyLabel="historicoEQSMOV.jrxml" index="3"/>
 <item historyLabel="historicoEQS.jrxml" index="2"/>
 <item historyLabel="historicoEQSMOV.jrxml" index="3"/>
-<item active="true" historyLabel="rvt.jrxml" index="4"/>
+<item historyLabel="rvt.jrxml" index="4"/>
+<item historyLabel="historico.jrxml" index="5"/>
+<item active="true" historyLabel="equipamentos.jrxml" index="6"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -208,6 +213,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" name="equipamentos.jrxml" tooltip="jaspers/equipamentos.jrxml">
+<persistable path="/jaspers/equipamentos.jrxml"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" name="historicoEQSMOV.jrxml" tooltip="jaspers/historicoEQSMOV.jrxml">
 <persistable path="/jaspers/historicoEQSMOV.jrxml"/>
 </file>
@@ -237,9 +245,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" name="equipamentosDetail.jrxml" tooltip="jaspers/equipamentosDetail.jrxml">
 <persistable path="/jaspers/equipamentosDetail.jrxml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" name="equipamentos.jrxml" tooltip="jaspers/equipamentos.jrxml">
-<persistable path="/jaspers/equipamentos.jrxml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" name="equipamentosPecasDetail.jrxml" tooltip="jaspers/equipamentosPecasDetail.jrxml">
 <persistable path="/jaspers/equipamentosPecasDetail.jrxml"/>
