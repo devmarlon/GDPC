@@ -239,12 +239,10 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
                     throw new RuntimeException("Erro ao deletar cabeçalho", e);
                 }
                 if (salvaCab()) {
-
+                    getCabImagem();
+                    salvar(null);
                 }
             }
-            getCabImagem();
-            salvar(null);
-
         }
     }
 

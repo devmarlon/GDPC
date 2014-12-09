@@ -10,7 +10,6 @@ import com.gardnerdenver.model.Configuracao;
 import com.gardnerdenver.model.Funcionario;
 import com.gardnerdenver.model.FactoryUserItem;
 import com.gardnerdenver.util.Util;
-import com.sun.faces.context.flash.ELFlash;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,6 +17,7 @@ import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.TransactionException;
 
 @ViewScoped
 @ManagedBean
@@ -58,7 +58,14 @@ public class LoginMB extends AbstractMB {
         UserItemFactoryFacade userFacade = new UserItemFactoryFacade();
         UserFactoryFacade usFacade = new UserFactoryFacade();
 
-        FactoryUserItem user = userFacade.isValidLogin(email, password);
+        FactoryUserItem user = null;
+        try {
+            user = userFacade.isValidLogin(email, password);
+        } catch (TransactionException te) {
+            getRequest().getSession().invalidate();
+            redirect("/pages/public/login.xhtml");
+        }
+
         Funcionario func = null;
 
         if (user != null) {
