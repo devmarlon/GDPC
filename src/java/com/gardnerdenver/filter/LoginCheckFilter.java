@@ -53,6 +53,7 @@ public class LoginCheckFilter extends AbstractFilter implements Filter {
             allowedURIs.add("/gdpc/fundoLogin.jpg");
             allowedURIs.add("/gdpc/javax.faces.resource/primefaces-extensions.js.xhtml");
             allowedURIs.add("/gdpc/javax.faces.resource/keyfilter/keyfilter.js.xhtml");
+            allowedURIs.add("/gdpc/simuladores/");
         }
     }
 
