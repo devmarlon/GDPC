@@ -38,6 +38,8 @@ public class FactoryModelo implements Serializable {
     @Size(max = 255)
     @Column
     private String MOD_NOME;
+    @Column
+    private Boolean ativo = Boolean.TRUE;
 
     public FactoryModelo() {
     }
@@ -60,6 +62,17 @@ public class FactoryModelo implements Serializable {
 
     public void setMOD_NOME(String MOD_NOME) {
         this.MOD_NOME = MOD_NOME;
+    }
+
+    public Boolean getAtivo() {
+        if (ativo == null) {
+            ativo = Boolean.TRUE;
+        }
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

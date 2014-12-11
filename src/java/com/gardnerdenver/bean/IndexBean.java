@@ -512,7 +512,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     public void loadListaHistoricoByParceiro() {
         if (getParceiro().getPAR_ID() != 0) {
             listHistorico = getHistoricoFacade().listByParceiro(getParceiro().getPAR_ID());
-            historico = listHistorico.get(listHistorico.size() - 1);
+            if (listHistorico != null && !listHistorico.isEmpty()) {
+                historico = listHistorico.get(listHistorico.size() - 1);
+            }
         }
     }
 
@@ -646,6 +648,10 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public Historico getHistorico() {
+        if (historico == null) {
+            historico = new Historico();
+        }
+        
         return historico;
     }
 

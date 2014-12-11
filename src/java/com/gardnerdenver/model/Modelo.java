@@ -50,7 +50,8 @@ public class Modelo implements Serializable {
     private String MOD_NOME;
     @Column
     private int fab = 0;
-
+    @Column
+    private Boolean ativo = Boolean.TRUE;
     @OneToMany(mappedBy = "modelo")
     @Fetch(FetchMode.SUBSELECT)
     private List<Equipamento> equipamentos;
@@ -66,6 +67,7 @@ public class Modelo implements Serializable {
         this.MOD_ID = 0;
         this.MOD_NOME = f.getMOD_NOME();
         this.fab = f.getMOD_ID();
+        this.ativo = f.getAtivo();
     }
 
     public Modelo(Modelo m) {
@@ -97,6 +99,17 @@ public class Modelo implements Serializable {
 
     public void setFab(int fab) {
         this.fab = fab;
+    }
+
+    public Boolean getAtivo() {
+        if (ativo == null) {
+            ativo = Boolean.TRUE;
+        }
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     public List<Equipamento> getEquipamentos() {

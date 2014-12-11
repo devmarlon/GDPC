@@ -117,6 +117,7 @@ public class FactoryModeloBean extends AbstractMB implements Serializable {
                         loadModeloFacade(c.getUsuId().getUSU_BANCO());
                         Modelo p = getModeloFacade().findModeloByFab(factoryModelo.getMOD_ID());
                         p.setMOD_NOME(factoryModelo.getMOD_NOME());
+                        p.setAtivo(factoryModelo.getAtivo());
                         try {
                             getModeloFacade().update(p);
                         } catch (Exception e) {
@@ -172,6 +173,24 @@ public class FactoryModeloBean extends AbstractMB implements Serializable {
             }
         }
 //        }
+    }
+
+    public void desativaModelo() {
+        for (FactoryModelo mod : modelosSelected) {
+
+            try {
+                mod.setAtivo(Boolean.FALSE);
+                factoryModelo = mod;
+                salvar();
+//                getFactoryPecaFacade().updatePeca(pec);
+                closeDialog();
+                displayInfoMessageToUser("Modelo desativado com sucesso.");
+            } catch (Exception e) {
+                displayErrorMessageToUser(mod.getMOD_NOME() + " não pode ser removido pois está em uso");
+                keepDialogOpen();
+                e.printStackTrace();
+            }
+        }
     }
 
     public List<FactoryModelo> getFactoryPecas() {

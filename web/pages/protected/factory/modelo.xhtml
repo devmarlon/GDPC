@@ -14,7 +14,9 @@
                                 <h:panelGrid columns="3" >
                                     <p:commandButton id="parcBtNew" actionListener="#{factoryModeloBean.novo}" icon="ui-icon-plusthick"
                                                      style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
-
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" rendered="true" value="Desativar" icon="ui-icon-trash"
+                                                     update=":modDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{factoryModeloBean.validaDelete()}" />
 
 
                                 </h:panelGrid>
@@ -46,7 +48,7 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <!--<ui:include src="/pages/protected/factory/dialogs/pecaDelDialog.xhtml" />-->
+                <ui:include src="/pages/protected/factory/dialogs/modDelDialog.xhtml" />
             </ui:define>
         </ui:composition>
     </h:body>
