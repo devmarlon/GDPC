@@ -16,22 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Util {
 
-//    public static String local = "localhost";
-    public static String local = "server.gestorweb.com.br";
+    public static String local = "localhost";
+//    public static String local = "server.gestorweb.com.br";
 
-//    public static String getCaminho() {
-//        String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("");
-////        if (localhost) {
-////            return caminho + "../../../usuarios/";
-////        }
-//        return caminho + "/../../../../../../web/usuarios/gdpc";
-//    }
     public static Connection getConexao(String db) throws SQLException {
 //        String database = UserItemFactoryBean.banco;
 
         String database = db;
 
-//        String local = "localhost";
         String usuario = "varkon";
         String senha = "qwert1234";
         try {

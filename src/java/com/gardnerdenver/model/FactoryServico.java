@@ -31,7 +31,7 @@ import org.hibernate.annotations.FetchMode;
 //@Table(name = "servico")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "FactoryServico.findAll", query = "SELECT f FROM FactoryServico f"),
+    @NamedQuery(name = "FactoryServico.findAll", query = "SELECT f FROM FactoryServico f ORDER BY f.ativo, f.SRV_DESCRICAO"),
     @NamedQuery(name = "FactoryServico.findBySrvId", query = "SELECT f FROM FactoryServico f WHERE f.SRV_ID = :srvId"),
     @NamedQuery(name = "FactoryServico.findBySrvDescricao", query = "SELECT f FROM FactoryServico f WHERE f.SRV_DESCRICAO = :srvDescricao"),
     @NamedQuery(name = "FactoryServico.findBySrvFreqdias", query = "SELECT f FROM FactoryServico f WHERE f.SRV_FREQDIAS = :srvFreqdias"),
@@ -39,6 +39,8 @@ import org.hibernate.annotations.FetchMode;
 public class FactoryServico implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String FIND_LISTA = "FactoryServico.findAll";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -51,6 +53,8 @@ public class FactoryServico implements Serializable {
     private int SRV_FREQDIAS;
     @Column
     private int SRV_FREQHORAS;
+    @Column
+    private Boolean ativo = true;
 
     @OneToMany(mappedBy = "factoryServico")
 //    @OneToMany(mappedBy = "factoryServico", fetch = FetchType.EAGER)
@@ -107,6 +111,18 @@ public class FactoryServico implements Serializable {
 
     public void setPmServicos(List<PadraoManutencaoServico> pmServicos) {
         this.pmServicos = pmServicos;
+    }
+
+    public Boolean getAtivo() {
+        if (ativo == null) {
+            ativo = true;
+        }
+        
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

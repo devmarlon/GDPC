@@ -4,7 +4,7 @@
     <h:body>
 
         <p:dialog widgetVar="srvDeleteDialogWidget" id="srvDeleteDialogId" height="150" width="500" modal="true" appendTo="@(body)"
-                  header="Deseja realmente apagar os itens abaixo?"
+                  header="Deseja realmente desativar os serviços abaixo?"
                   closable="true" draggable="false" resizable="false">
             <h:form id="srvDeleteDialogForm" prependId="false">
                 <c:forEach var="srvDel" items="#{factoryServicoBean.servicosSelected}" id="feArrayConta" >
@@ -12,7 +12,7 @@
                     <h:outputText value="#{srvDel.SRV_DESCRICAO}" /><br/><br/>
                 </c:forEach>
 
-                <p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" actionListener="#{factoryServicoBean.deleteServico()}"
+                <p:commandButton value="Desativar" icon="ui-icon-trash" actionListener="#{factoryServicoBean.desativaServico()}"
                                  update=":messageGrowl :fmserv:srvTable"
                                  oncomplete="closeDialogIfSucess(xhr, status, args, srvDeleteDialogWidget, 'srvDeleteDialogId')" />
                 <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 

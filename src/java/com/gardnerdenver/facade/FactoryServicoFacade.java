@@ -49,7 +49,7 @@ public class FactoryServicoFacade implements Serializable {
 
     public List<FactoryServico> listAll() {
         servicoDAO.beginTransaction();
-        List<FactoryServico> result = servicoDAO.findAll();
+        List<FactoryServico> result = servicoDAO.findLista();
         servicoDAO.closeTransaction();
 
         return result;

@@ -451,10 +451,14 @@ public class IndexBean extends AbstractMB implements Serializable {
         this.pecas = pecas;
     }
 
+    public void loadAllServicos() {
+        getListServicos();
+        RequestContext.getCurrentInstance().execute("manutServicesDialog.show()");
+    }
+
     public void loadAllPecas() {
         if (getEquipamentoServico().getServico().getSRV_ID() != 0) {
 
-            
             if (getPecas() != null) {
                 List<Peca> p = new PecaFacade().listAll();
                 for (Peca fs : p) {
@@ -469,7 +473,6 @@ public class IndexBean extends AbstractMB implements Serializable {
         } else {
             displayInfoMessageToUser("Selecione um serviço na tabela para adicionar peças");
         }
-
     }
 
     public PecaEqsFacade getPecaEqsFacade() {

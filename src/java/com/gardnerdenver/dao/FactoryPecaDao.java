@@ -20,6 +20,10 @@ public class FactoryPecaDao extends GenericGdpcDAO<FactoryPeca> {
 
         return super.findOneResult(FactoryPeca.FIND_PECA_BY_CODIGO, parameters);
     }
+    
+    public List<FactoryPeca> findListaOrdenada() {
+        return super.findListResult(FactoryPeca.FIND_ALL, null);
+    }
 
     public void delete(FactoryPeca peca) {
         super.delete(peca.getPEC_ID(), FactoryPeca.class);
@@ -29,7 +33,7 @@ public class FactoryPecaDao extends GenericGdpcDAO<FactoryPeca> {
         List<FactoryPeca> eqps = null;
         try {
 
-            Query query = super.em.createQuery("SELECT e FROM FactoryPeca e WHERE E.codigo LIKE '%" + descricao + "%' OR e.descricao like '%" + descricao + "%'");
+            Query query = super.em.createQuery("SELECT e FROM FactoryPeca e WHERE E.codigo LIKE '%" + descricao + "%' OR e.descricao like '%" + descricao + "%' order by f.ativo, f.descricao");
             eqps = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + "\n" + e.getClass());

@@ -5,7 +5,6 @@ import com.gardnerdenver.model.FactoryPeca;
 import java.io.Serializable;
 import java.util.List;
 
-
 public class FactoryPecaFacade implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,10 +62,11 @@ public class FactoryPecaFacade implements Serializable {
 
     public List<FactoryPeca> listAll() {
         pecaDAO.beginTransaction();
-        List<FactoryPeca> result = pecaDAO.findAll();
+        List<FactoryPeca> result = pecaDAO.findListaOrdenada();
         pecaDAO.closeTransaction();
         return result;
     }
+
     public List<FactoryPeca> listBusca(String d) {
         pecaDAO.beginTransaction();
         List<FactoryPeca> result = pecaDAO.findBusca(d);

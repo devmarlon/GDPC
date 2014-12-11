@@ -56,14 +56,14 @@ public class ServicoFacade implements Serializable {
 
     public Servico findServico(int servId) {
         servicoDAO.begin();
-        Servico servico = servicoDAO.find(servId);
+        Servico servico = servicoDAO.findById(servId);
         servicoDAO.close();
         return servico;
     }
 
     public List<Servico> listAll() {
         servicoDAO.begin();
-        List<Servico> result = servicoDAO.findAll();
+        List<Servico> result = servicoDAO.findLista();
         servicoDAO.close();
 
         return result;

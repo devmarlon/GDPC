@@ -160,6 +160,24 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
         }
     }
 
+    public void desativaPeca() {
+        for (FactoryPeca pec : pecasSelected) {
+
+            try {
+                pec.setAtivo(Boolean.FALSE);
+                factoryPeca = pec;
+                salvar();
+//                getFactoryPecaFacade().updatePeca(pec);
+                closeDialog();
+                displayInfoMessageToUser("Peça desativada com sucesso.");
+            } catch (Exception e) {
+                displayErrorMessageToUser(pec.getDescricao() + " não pode ser removido pois está em uso");
+                keepDialogOpen();
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void loadPecaFacade(String banco) {
         pecaFacade = new PecaFacade(banco);
     }
@@ -194,6 +212,8 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
     }
 
     public List<FactoryPeca> getFactoryPecas() {
+        pecasSelected = null;
+
         if (tipoLista == 0) {
             pecas = getFactoryPecaFacade().listAll();
         } else {
@@ -485,7 +505,7 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
         System.out.println("");
         System.out.println("");
         System.out.println("");
-                
+
     }
 
 }

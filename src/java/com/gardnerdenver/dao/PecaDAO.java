@@ -40,6 +40,10 @@ public class PecaDAO extends GenericDAO<Peca> {
     public void delete(Peca peca) {
         super.delete(peca.getPEC_ID(), Peca.class);
     }
+    
+    public List<Peca> findLista() {
+        return super.findListResult(Peca.FIND_ALL, null);
+    }
 
     public List<Peca> findBusca(String descricao) {
         List<Peca> eqps = null;

@@ -2,6 +2,7 @@ package com.gardnerdenver.dao;
 
 import com.gardnerdenver.bean.UserItemFactoryBean;
 import com.gardnerdenver.model.FactoryServico;
+import com.gardnerdenver.model.Servico;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -27,6 +28,10 @@ public class FactoryServicoDao extends GenericGdpcDAO<FactoryServico> {
         super.delete(servico.getSRV_ID(), FactoryServico.class);
     }
 
+    public List<FactoryServico> findLista() {
+        return super.findListResult(FactoryServico.FIND_LISTA, null);
+    }
+
     public List<FactoryServico> findBusca(String descricao) {
         List<FactoryServico> eqps = null;
         try {
@@ -34,7 +39,7 @@ public class FactoryServicoDao extends GenericGdpcDAO<FactoryServico> {
 //            em.getTransaction().begin();
 //            super.beginTransaction();
 
-            Query query = super.em.createQuery("SELECT e FROM FactoryServico e WHERE e.SRV_DESCRICAO like '%" + descricao + "%'");
+            Query query = super.em.createQuery("SELECT e FROM FactoryServico e WHERE e.SRV_DESCRICAO like '%" + descricao + "%' order by e.ativo, e.SRV_DESCRICAO");
 //            System.out.println("SELECT p FROM Parceiro p WHERE " + where + sql);
 //                    + "ORDER BY p." + CAMPO + " " + ORDEM);
             eqps = query.getResultList();

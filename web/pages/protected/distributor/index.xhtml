@@ -150,10 +150,10 @@
                                             <h:outputText value=""/>
                                             <h:outputText value="Serviço"/>
                                             <h:outputText value=""/>
-                                            <p:inputText id="pCodigo" value="#{indexBean.searchCode}" onkeypress="setaFoco('s');" onblur="return nullIntDouble(this);" style="margin-left: 5px;width:30px; text-align: right;" >
+                                            <p:inputText id="pCodigo" value="#{indexBean.searchCode}" onblur="return nullIntDouble(this);" onkeypress="setaFoco(this);" style="margin-left: 5px;width:30px; text-align: right;" >
                                                 <p:ajax event="blur" listener="#{indexBean.setaEquipamentoServico(itemSelect)}" update=":formDist:tabServ :messageGrowl"/>
                                             </p:inputText>
-                                            <p:commandButton icon="ui-icon-search" type="button" update=":fmservice" onclick="manutServicesDialog.show();"/>
+                                            <p:commandButton icon="ui-icon-search" update=":fmservice" immediate="true" actionListener="#{indexBean.loadAllServicos()}"/>
                                             <h:panelGrid columns="1" style="margin:-1px 8px auto -3px;width:290px">
                                                 <p:autoComplete id="s" forceSelection="true" minQueryLength="3" value="#{indexBean.equipamentoServicoAux.servico}" onkeydown="setaFoco(this);"
                                                                 label="#{bundle.cli}" var="srv" itemLabel="#{srv.SRV_DESCRICAO}" itemValue="#{srv}" completeMethod="#{indexBean.completeServico}"

@@ -20,13 +20,13 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 @ManagedBean(name = "factoryServicoBean")
 public class FactoryServicoBean extends AbstractMB implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     private FactoryServico servico;
     private FactoryServico servicoCompare;
     private Equipamento selectedEquipamento;
-
+    
     private List<FactoryServico> servicos;
     private List<FactoryServico> servicosSelected;
 //    private List<Equipamento> equipamentos;
@@ -44,36 +44,36 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
     //busca
     private int tipoLista = 0;
     private String nomeBusca = "";
-
+    
     public void novo() {
         setTipoAcao("Inclusão de Cliente");
         servico = new FactoryServico();
         servicoCompare = new FactoryServico(servico);
-
+        
         redirect("/pages/protected/factory/servicoCadastro.xhtml");
     }
-
+    
     public void showServico() {
         servico = null;
         servicoCompare = null;
         setTipoLista(0);
         nomeBusca = "";
-
+        
         redirect("/pages/protected/factory/servico.xhtml");
     }
-
+    
     public void buscar() {
         tipoLista = 1;
         getDtmServicos();
     }
-
+    
     public void alterar() {
         servico = dtmServicos.getRowData();
-
+        
         servicoCompare = new FactoryServico(servico);
         redirect("/pages/protected/factory/servicoCadastro.xhtml");
     }
-
+    
     public void salvar() {
         boolean result = false;
         if (servico.getSRV_ID() == 0) { //save
@@ -113,7 +113,7 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
                 displayErrorMessageToUser("Não foi possível salvar o serviço.");
                 result = false;
             }
-
+            
             if (result) {
                 loadContratos();
                 if (getContratos().size() > 0) {
@@ -123,6 +123,7 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
                         p.setSRV_DESCRICAO(servico.getSRV_DESCRICAO());
                         p.setSRV_FREQDIAS(servico.getSRV_FREQDIAS());
                         p.setSRV_FREQHORAS(servico.getSRV_FREQHORAS());
+                        p.setAtivo(servico.getAtivo());
                         try {
                             getServicoFacade().updateServico(p);
                         } catch (Exception e) {
@@ -134,7 +135,7 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
             }
         }
     }
-
+    
     public void validaDelete() {
         if (servicosSelected.isEmpty()) {
             displayInfoMessageToUser("Selecione ao menos um serviço.");
@@ -142,7 +143,7 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
             RequestContext.getCurrentInstance().execute("srvDeleteDialogWidget.show()");
         }
     }
-
+    
     public void validaFechar() {
         if (servico.equals(servicoCompare)) {
             showServico();
@@ -150,10 +151,31 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
             RequestContext.getCurrentInstance().execute("srvCloseDialogWidget.show()");
         }
     }
+    
+    public void desativaServico() {
+        for (FactoryServico servico1 : servicosSelected) {
+            
+            try {
+                servico1.setAtivo(false);
+                servico = servico1;
+                salvar();
 
+//                getFacServicoFacade().updateServico(servico1);
+                closeDialog();
+                displayInfoMessageToUser("Serviço desativado com sucesso.");
+//                loadDogs();
+//                resetDog();
+            } catch (Exception e) {
+                displayErrorMessageToUser(servico1.getSRV_DESCRICAO() + " não pode ser removido pois está em uso");
+                keepDialogOpen();
+                e.printStackTrace();
+            }
+        }
+    }
+    
     public void deleteServico() {
         for (FactoryServico servico1 : servicosSelected) {
-
+            
             try {
                 getFacServicoFacade().deleteServico(servico1);
                 closeDialog();
@@ -167,10 +189,10 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
             }
         }
     }
-
+    
     public List<FactoryServico> complete(String name) {
         List<FactoryServico> queryResult = new ArrayList<>();
-
+        
         if (servicos == null) {
             facServicoFacade = new FactoryServicoFacade();
             servicos = facServicoFacade.listAll();
@@ -182,34 +204,34 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
                 queryResult.add(serv);
             }
         }
-
+        
         return queryResult;
     }
-
+    
     public FactoryServico getParceiro() {
         return servico;
     }
-
+    
     public void setParceiro(FactoryServico servico) {
         this.servico = servico;
     }
-
+    
     public Equipamento getSelectedEquipamento() {
         return selectedEquipamento;
     }
-
+    
     public void setSelectedEquipamento(Equipamento selectedEquipamento) {
         this.selectedEquipamento = selectedEquipamento;
     }
-
+    
     public FactoryServico getServico() {
         return servico;
     }
-
+    
     public void setServico(FactoryServico servico) {
         this.servico = servico;
     }
-
+    
     public List<FactoryServico> getServicos() {
         if (tipoLista == 0) {
             servicos = getFacServicoFacade().listAll();
@@ -218,92 +240,93 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
         }
         return servicos;
     }
-
+    
     public void setServicos(List<FactoryServico> servicos) {
         this.servicos = servicos;
     }
-
+    
     public List<FactoryServico> getServicosSelected() {
         return servicosSelected;
     }
-
+    
     public void setServicosSelected(List<FactoryServico> servicosSelected) {
         this.servicosSelected = servicosSelected;
     }
-
+    
     public DataModel<FactoryServico> getDtmServicos() {
+        servicosSelected = null;
         dtmServicos = new ListDataModel(getServicos());
         return dtmServicos;
     }
-
+    
     public void setDtmServicos(DataModel<FactoryServico> dtmServicos) {
         this.dtmServicos = dtmServicos;
     }
-
+    
     public FactoryServicoFacade getFacServicoFacade() {
         facServicoFacade = new FactoryServicoFacade();
         return facServicoFacade;
     }
-
+    
     public void setFacServicoFacade(FactoryServicoFacade facServicoFacade) {
         this.facServicoFacade = facServicoFacade;
     }
-
+    
     public FactoryServico getServicoCompare() {
         return servicoCompare;
     }
-
+    
     public void setServicoCompare(FactoryServico servicoCompare) {
         this.servicoCompare = servicoCompare;
     }
-
+    
     public void loadServicoFacade(String banco) {
         servicoFacade = new ServicoFacade(banco);
     }
-
+    
     public ServicoFacade getServicoFacade() {
         return servicoFacade;
     }
-
+    
     public void setServicoFacade(ServicoFacade servicoFacade) {
         this.servicoFacade = servicoFacade;
     }
-
+    
     public String getTipoAcao() {
         return tipoAcao;
     }
-
+    
     public void setTipoAcao(String tipoAcao) {
         this.tipoAcao = tipoAcao;
     }
-
+    
     public int getTipoLista() {
         return tipoLista;
     }
-
+    
     public void setTipoLista(int tipoLista) {
         this.tipoLista = tipoLista;
     }
-
+    
     public String getNomeBusca() {
         return nomeBusca;
     }
-
+    
     public void setNomeBusca(String nomeBusca) {
         this.nomeBusca = nomeBusca;
     }
-
+    
     private void loadContratos() {
         contratos = new ContratoFactoryFacade().listDist();
         if (getContratos() == null) {
             contratos = new ArrayList<>();
         }
     }
-
+    
     public List<FactoryContrato> getContratos() {
         return contratos;
     }
-
+    
     public void setContratos(List<FactoryContrato> contratos) {
         this.contratos = contratos;
     }

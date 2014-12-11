@@ -13,7 +13,7 @@
                                     <p:commandButton id="parcBtNew" actionListener="#{factoryServicoBean.novo}" icon="ui-icon-plusthick"
                                                      style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
 
-                                    <p:commandButton style="font-size:30px;font-weight:bold;" rendered="false" value="#{bundle.delete}" icon="ui-icon-trash"
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" rendered="true" value="Desativar" icon="ui-icon-trash"
                                                      update=":srvDeleteDialogForm :messageGrowl"
                                                      actionListener="#{factoryServicoBean.validaDelete()}" />
 
@@ -34,7 +34,8 @@
 
                     <p:dataTable var="srv" value="#{factoryServicoBean.dtmServicos}" rowKey="#{srv.SRV_ID}" paginator="true" 
                                  rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="srvTable" 
-                                 selection="#{factoryServicoBean.servicosSelected}" emptyMessage="#{bundle.noRecords}">
+                                 selection="#{factoryServicoBean.servicosSelected}" emptyMessage="#{bundle.noRecords}"
+                                 rowStyleClass="#{!srv.ativo ? 'pecasFactory' : null}">
 
                         <p:column selectionMode="multiple" style="width:4%;text-align:center" />
 
@@ -42,17 +43,17 @@
                             <h:outputText value="#{srv.SRV_ID}" />
                         </p:column>
                         <p:column headerText="Descrição"  >
-                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" update=":messageGrowl" value="#{srv.SRV_DESCRICAO}" />
+                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" styleClass="#{!srv.ativo ? 'pecasFactory' : null}" update=":messageGrowl" value="#{srv.SRV_DESCRICAO}" />
                         </p:column>
                         <p:column headerText="Frequencia em Dias"  >
-                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" update=":messageGrowl" value="#{srv.SRV_FREQDIAS}" />
+                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" styleClass="#{!srv.ativo ? 'pecasFactory' : null}" update=":messageGrowl" value="#{srv.SRV_FREQDIAS}" />
                         </p:column>
                         <p:column headerText="Frequencia em Horas"  >
-                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" update=":messageGrowl" value="#{srv.SRV_FREQHORAS}" />
+                            <p:commandLink actionListener="#{factoryServicoBean.alterar}" styleClass="#{!srv.ativo ? 'pecasFactory' : null}" update=":messageGrowl" value="#{srv.SRV_FREQHORAS}" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                <ui:include src="/pages/protected/distributor/dialogs/servicoDelDialog.xhtml" />
+                <ui:include src="/pages/protected/factory/dialogs/servicoDelDialog.xhtml" />
             </ui:define>
         </ui:composition>
     </h:body>

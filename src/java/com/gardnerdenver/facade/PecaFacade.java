@@ -75,7 +75,7 @@ public class PecaFacade implements Serializable {
 
     public List<Peca> listAll() {
         pecaDAO.begin();
-        List<Peca> result = pecaDAO.findAll();
+        List<Peca> result = pecaDAO.findLista();
         pecaDAO.close();
         return result;
     }

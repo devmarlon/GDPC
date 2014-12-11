@@ -30,14 +30,15 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Peca.findAll", query = "SELECT f FROM Peca f"),
-    @NamedQuery(name = "Peca.findById", query = "SELECT f FROM Peca f WHERE f.PEC_ID = :pedId"),
-    @NamedQuery(name = "Peca.findByCodigo", query = "SELECT f FROM Peca f WHERE f.codigo = :codigo"),
-    @NamedQuery(name = "Peca.findByFab", query = "SELECT f FROM Peca f WHERE f.fab = :fab"),
-    @NamedQuery(name = "Peca.findByDescricao", query = "SELECT f FROM Peca f WHERE f.descricao = :descricao")})
+    @NamedQuery(name = "Peca.findAll", query = "SELECT f FROM Peca f where f.ativo IS NULL or f.ativo = true"),
+    @NamedQuery(name = "Peca.findById", query = "SELECT f FROM Peca f WHERE f.PEC_ID = :pedId and  f.ativo IS NULL or f.ativo = true"),
+    @NamedQuery(name = "Peca.findByCodigo", query = "SELECT f FROM Peca f WHERE f.codigo = :codigo and  f.ativo IS NULL or f.ativo = true"),
+    @NamedQuery(name = "Peca.findByFab", query = "SELECT f FROM Peca f WHERE f.fab = :fab and f.ativo IS NULL or f.ativo = truee"),
+    @NamedQuery(name = "Peca.findByDescricao", query = "SELECT f FROM Peca f WHERE f.descricao = :descricao and  f.ativo IS NULL or f.ativo = true")})
 public class Peca implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String FIND_ALL = "Peca.findAll";
     public static final String FIND_PECA_BY_CODIGO = "Peca.findByCodigo";
     public static final String FIND_PECA_BY_FAB = "Peca.findByFab";
 
@@ -55,6 +56,8 @@ public class Peca implements Serializable {
     private List<PecaEqs> pecasEquipamentos;
     @Column
     private int fab = 0;
+    @Column
+    private Boolean ativo;
 
     public int getFab() {
         return fab;
@@ -70,6 +73,7 @@ public class Peca implements Serializable {
         this.descricao = p.getDescricao();
         this.pecasEquipamentos = p.getPecasEquipamentos();
         this.fab = p.getFab();
+        this.ativo = p.getAtivo();
     }
 
     public Peca() {
@@ -81,6 +85,7 @@ public class Peca implements Serializable {
         this.codigo = p.getCodigo();
         this.descricao = p.getDescricao();
         this.fab = p.getPEC_ID();
+        this.ativo = p.getAtivo();
     }
 
     public String getCodigo() {
@@ -113,6 +118,17 @@ public class Peca implements Serializable {
 
     public void setPecasEquipamentos(List<PecaEqs> pecasEquipamentos) {
         this.pecasEquipamentos = pecasEquipamentos;
+    }
+
+    public Boolean getAtivo() {
+        if (ativo == null) {
+            ativo = true;
+        }
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

@@ -4,15 +4,15 @@
     <h:body>
 
         <p:dialog widgetVar="pecDeleteDialogWidget" id="pecDeleteDialogId" height="150" width="500" modal="true" appendTo="@(body)"
-                  header="Deseja realmente apagar os itens abaixo?"
+                  header="Deseja realmente Desativar as peças abaixo?"
                   closable="true" draggable="false" resizable="false">
             <h:form id="pecDeleteDialogForm" prependId="false">
-                <c:forEach var="pecDel" items="#{pecaBean.pecasSelected}" id="feArrayConta" >
+                <c:forEach var="pecDel" items="#{factoryPecaBean.pecasSelected}" id="feArrayConta" >
 <!--                    # {bundle.deleteRecord}: -->
                     <h:outputText value="#{pecDel.descricao}" /><br/><br/>
                 </c:forEach>
 
-                <p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" actionListener="#{pecaBean.deletePeca()}"
+                <p:commandButton value="Desativar" icon="ui-icon-trash" actionListener="#{factoryPecaBean.desativaPeca()}"
                                  update=":messageGrowl :formpeca:srvTable"
                                  oncomplete="closeDialogIfSucess(xhr, status, args, pecDeleteDialogWidget, 'pecDeleteDialogId')" />
                 <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 

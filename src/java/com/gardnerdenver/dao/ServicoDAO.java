@@ -20,13 +20,13 @@ public class ServicoDAO extends GenericDAO<Servico> {
         super(banco, Servico.class, create);
     }
 
-     public Servico findServicoByFab(int fab) {
+    public Servico findServicoByFab(int fab) {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("fab", fab);
 
         return super.findOneResult(Servico.FIND_SERVICO_BY_FAB, parameters);
     }
-    
+
 //    public Servico findServicoByServId(int servId) {
 //        Map<String, Object> parameters = new HashMap<String, Object>();
 //        parameters.put("servId", servId);
@@ -39,6 +39,16 @@ public class ServicoDAO extends GenericDAO<Servico> {
 //    }
     public void delete(Servico servico) {
         super.delete(servico.getSRV_ID(), Servico.class);
+    }
+
+    public List<Servico> findLista() {
+        return super.findListResult(Servico.FIND_ALL, null);
+    }
+
+    public Servico findById(int id) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("servId", id);
+        return super.findOneResult(Servico.FIND_SERVICO_BY_ID, parameters);
     }
 
     public List<Servico> findBusca(String descricao) {

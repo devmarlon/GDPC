@@ -113,9 +113,7 @@ public class PecaBean extends AbstractMB implements Serializable {
                 try {
                     getPecaFacade().deletePeca(pec);
                     closeDialog();
-                    displayInfoMessageToUser("Serviço removido com sucesso.");
-//                loadDogs();
-//                resetDog();
+                    displayInfoMessageToUser("Peça removida com sucesso.");
                 } catch (Exception e) {
                     displayErrorMessageToUser(pec.getDescricao() + " não pode ser removido pois está em uso");
                     keepDialogOpen();

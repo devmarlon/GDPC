@@ -555,5 +555,11 @@ footer a:hover {
     color: #e23442 !important;
     font-weight: bold;
 }
+.pecasFactory {
+    background-color: #ccc !important;
+    /*background-image: none !important;*/
+    color: #999 !important;
+    /*font-weight: bold;*/
+}
 
 

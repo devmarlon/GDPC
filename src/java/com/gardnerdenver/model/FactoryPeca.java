@@ -30,14 +30,15 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "FactoryPeca.findAll", query = "SELECT f FROM FactoryPeca f"),
+    @NamedQuery(name = "FactoryPeca.findAll", query = "SELECT f FROM FactoryPeca f order by f.ativo, f.descricao"),
     @NamedQuery(name = "FactoryPeca.findById", query = "SELECT f FROM FactoryPeca f WHERE f.PEC_ID = :pedId"),
     @NamedQuery(name = "FactoryPeca.findByCodigo", query = "SELECT f FROM FactoryPeca f WHERE f.codigo = :codigo"),
     @NamedQuery(name = "FactoryPeca.findByDescricao", query = "SELECT f FROM FactoryPeca f WHERE f.descricao = :descricao")})
 public class FactoryPeca implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static final String FIND_PECA_BY_CODIGO = "Peca.findByCodigo";
+    public static final String FIND_PECA_BY_CODIGO = "FactoryPeca.findByCodigo";
+    public static final String FIND_ALL = "FactoryPeca.findAll";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +49,8 @@ public class FactoryPeca implements Serializable {
     @Size(max = 255)
     @Column
     private String descricao;
+    @Column
+    private Boolean ativo;
 
     @OneToMany(mappedBy = "factoryPeca", fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
@@ -93,6 +96,17 @@ public class FactoryPeca implements Serializable {
 
     public void setPdsPecas(List<PadraoManutencaoPeca> pdsPecas) {
         this.pdsPecas = pdsPecas;
+    }
+
+    public Boolean getAtivo() {
+        if (ativo == null) {
+            ativo = true;
+        }
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

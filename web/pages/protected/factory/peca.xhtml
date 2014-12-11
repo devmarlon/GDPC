@@ -15,6 +15,10 @@
                                     <p:commandButton id="parcBtNew" actionListener="#{factoryPecaBean.novo}" icon="ui-icon-plusthick"
                                                      style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
 
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" value="Desativar"
+                                                     icon="ui-icon-trash" update=":pecDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{factoryPecaBean.validaDelete()}" />
+
 
 
                                 </h:panelGrid>
@@ -34,7 +38,8 @@
 
                     <p:dataTable var="pec" value="#{factoryPecaBean.dtmFactoryPecas}" rowKey="#{pec.PEC_ID}" paginator="true" 
                                  rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="srvTable" 
-                                 selection="#{factoryPecaBean.factoryPecasSelected}" emptyMessage="#{bundle.noRecords}">
+                                 selection="#{factoryPecaBean.factoryPecasSelected}" emptyMessage="#{bundle.noRecords}"
+                                 rowStyleClass="#{!pec.ativo ? 'pecasFactory' : null}">
 
                         <p:column selectionMode="multiple" style="width:4%;text-align:center" />
 
@@ -42,7 +47,7 @@
                             <h:outputText value="#{pec.codigo}" />
                         </p:column>
                         <p:column headerText="Descrição"  >
-                            <p:commandLink actionListener="#{factoryPecaBean.alterar}" update=":messageGrowl" value="#{pec.descricao}" />
+                            <p:commandLink actionListener="#{factoryPecaBean.alterar}" styleClass="#{!pec.ativo ? 'pecasFactory' : null}" update=":messageGrowl" value="#{pec.descricao}" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
