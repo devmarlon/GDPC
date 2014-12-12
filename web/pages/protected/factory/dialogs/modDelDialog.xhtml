@@ -7,13 +7,13 @@
                   header="Deseja realmente Desativar as peças abaixo?"
                   closable="true" draggable="false" resizable="false">
             <h:form id="modDeleteDialogForm" prependId="false">
-                <c:forEach var="modDel" items="#{factoryPecaBean.modelosSelected}" id="feArrayConta" >
+                <c:forEach var="modDel" items="#{factoryModeloBean.modelosSelected}" id="feArrayConta" >
 <!--                    # {bundle.deleteRecord}: -->
                     <h:outputText value="#{modDel.descricao}" /><br/><br/>
                 </c:forEach>
 
                 <p:commandButton value="Desativar" icon="ui-icon-trash" actionListener="#{factoryModeloBean.desativaModelo()}"
-                                 update=":messageGrowl :formmoda:srvTable"
+                                 update=":messageGrowl :formModelo:srvTable"
                                  oncomplete="closeDialogIfSucess(xhr, status, args, modDeleteDialogWidget, 'modDeleteDialogId')" />
                 <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 
                                  onclick="modDeleteDialogWidget.hide();" type="button" />

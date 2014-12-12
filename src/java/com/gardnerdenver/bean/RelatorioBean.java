@@ -358,24 +358,25 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //                }
             }
         }
-        
+
         loadEqs();
         loadParceiros();
+        /*
+         esAux = new ArrayList<>();
+         esList = new ArrayList<>();
+         try {
+         servicos = getEqsFacade().listCarta();
+         } catch (Exception e) {
+         System.out.println(e.getMessage());
+         }
 
-        esAux = new ArrayList<>();
-        esList = new ArrayList<>();
-        try {
-            servicos = getEqsFacade().listCarta();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        if (servicos != null) {
-            for (EquipamentoServico es : servicos) {
-                esList.add(es);
-//                esAux.add(es);
-            }
-        }
+         if (servicos != null) {
+         for (EquipamentoServico es : servicos) {
+         esList.add(es);
+         //                esAux.add(es);
+         }
+         }
+         */
         ///////////////////////////////////////////////////
 
         parceirosAux = new ArrayList<>();

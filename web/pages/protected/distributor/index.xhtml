@@ -133,11 +133,12 @@
                                 </p:overlayPanel>
                                 <p:commandButton value="Atualizar"
                                                  icon="ui-icon-refresh"
-                                                 update=":messageGrowl pneqp"
+                                                 update=":messageGrowl"
                                                  immediate="true"
                                                  disabled="#{indexBean.equipamento.EQP_ID == 0}"
                                                  action="#{indexBean.atualizaEquipamento}"
                                                  style="float: right; top: 5px"/>
+                                                <!--update=":messageGrowl pneqp"-->
                             </p:panel>
                         </h:panelGrid>
 

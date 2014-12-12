@@ -309,6 +309,10 @@ public class FactoryModeloBean extends AbstractMB implements Serializable {
     }
 
     public List<FactoryModelo> getModelosSelected() {
+        if (modelosSelected == null) {
+            modelosSelected = new ArrayList<>();
+        }
+        
         return modelosSelected;
     }
 

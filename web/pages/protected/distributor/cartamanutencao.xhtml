@@ -43,7 +43,8 @@
                                     <p:autoComplete id="nomeven" forceSelection="true" var="funcv" itemLabel="#{funcv.FUN_NOME}" 
                                                     value="#{relBean.vendedor}" itemValue="#{funcv}"
                                                     completeMethod="#{funcionarioBean.completeVend}"
-                                                    onkeydown="setaFoco(this);" maxlength="200" />
+                                                    onkeydown="setaFoco(this);" maxlength="200"
+                                                    />
                                 </h:panelGrid>
 
                                 <h:outputLabel value="Modelo" for="edMod" />
@@ -60,8 +61,7 @@
                                 <h:panelGrid style="margin: -4px auto auto 20px;width:408px;">
                                     <p:autoComplete id="clif" forceSelection="true" multiple="true" minQueryLength="0" converter="parceiroConverter" maxlength="200" 
                                                     value="#{relBean.filtroParceirosSelected}" label="#{bundle.cli}" required="false" var="clif"
-                                                    itemLabel="#{clif.PAR_RAZAO}" itemValue="#{clif}" completeMethod="#{parceiroBean.complete}"
-                                                    >
+                                                    itemLabel="#{clif.PAR_RAZAO}" itemValue="#{clif}" completeMethod="#{parceiroBean.complete}" dropdown="true" >
                                         <!--<p:ajax event="itemSelect" listener="# {indexBean.setaParceiro}" update="eqp pgMain tabServ"/>-->
                                     </p:autoComplete>
                                 </h:panelGrid>
