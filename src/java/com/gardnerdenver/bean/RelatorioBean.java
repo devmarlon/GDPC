@@ -331,9 +331,10 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //        }
 
         for (EquipamentoServico es : esAux) {
-            while ((es.getMANUTPROXIMA().compareTo(startDate) >= 0)
-                    || (es.getMANUTPROXIMAHORAS().compareTo(startDate) >= 0)
-                    && (es.getMANUTPROXIMA().compareTo(endDate) <= 0
+            //            while ((es.getMANUTPROXIMA().compareTo(startDate) >= 0)
+            //                    || (es.getMANUTPROXIMAHORAS().compareTo(startDate) >= 0)
+//             &&
+            while ((es.getMANUTPROXIMA().compareTo(endDate) <= 0
                     || es.getMANUTPROXIMAHORAS().compareTo(endDate) <= 0)) {
 //            if (es.getMANUTPROXIMA().compareTo(new Date()) < 0) {
 //                if (es.getMANUTPROXIMA().compareTo(startDate) >= 0 && es.getMANUTPROXIMA().compareTo(endDate) <= 0) {
@@ -350,7 +351,7 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //                        esList.add(es);
                         System.out.println("Criou eqs carta de manutenção " + es);
                     }
-                    break;
+//                    break;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     break;
