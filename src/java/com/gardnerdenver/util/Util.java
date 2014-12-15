@@ -12,12 +12,60 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Util {
 
     public static String local = "localhost";
 //    public static String local = "server.gestorweb.com.br";
+//    public static String local = "192.168.25.10";
+
+    public static void gravarCookie(String nome, String valor) {
+
+        try {
+
+            //FacesContext
+            FacesContext context = FacesContext.getCurrentInstance();
+
+            //Cria cookie
+            Cookie ck = new Cookie(nome, valor);
+            ck.setMaxAge(-1); //tempo de vida
+
+            //Adiciona
+            ((HttpServletResponse) context.getExternalContext().getResponse()).addCookie(ck);
+
+            System.out.println("Cookie salvo...");
+
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+    }
+
+    public static String lerCookie(String nome) {
+
+        String retorno = null;
+        try {
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+
+            //obtem a lista de cookies
+            Cookie[] cookies = request.getCookies();
+
+            //foreach
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().trim().equalsIgnoreCase(nome)) {
+                    System.out.println("Valor do cookie: " + cookie.getValue());
+                    retorno = cookie.getValue();
+                }
+            }
+
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+        return retorno;
+    }
 
     public static Connection getConexao(String db) throws SQLException {
 //        String database = UserItemFactoryBean.banco;
@@ -84,14 +132,13 @@ public class Util {
         httpServletResponse.addCookie(cookie);
     }
 
-    public static void gravarCookie(String nome, String valor) {
-        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        Cookie cookie = new Cookie(nome, valor);
-        cookie.setMaxAge(-1);
-        cookie.setComment("Cookie GestorWeb");
-        httpServletResponse.addCookie(cookie);
-    }
-
+//    public static void gravarCookie(String nome, String valor) {
+//        HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//        Cookie cookie = new Cookie(nome, valor);
+//        cookie.setMaxAge(-1);
+//        cookie.setComment("Cookie GestorWeb");
+//        httpServletResponse.addCookie(cookie);
+//    }
     public static void excluirCookie(String nome) {
         HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
         Cookie cookie = new Cookie(nome, "");

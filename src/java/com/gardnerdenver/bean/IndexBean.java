@@ -43,7 +43,6 @@ public class IndexBean extends AbstractMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private EquipamentoServicoDAO equipamentoServicoDAO = new EquipamentoServicoDAO();
 
     private Equipamento equipamento;
     private EquipamentoMedicao equipamentoMedicao;
@@ -248,9 +247,9 @@ public class IndexBean extends AbstractMB implements Serializable {
                         || horimetroManutAtual - em.getEQM_HORASTOTAIS() <= -24 && em.getEQM_HORASTOTAIS() > 0) {
                     setMessageValidaManut("Horimetro da manutenção atual excede as horas da medição do equipamento.");
                     return false;
-                } else if (horimetroManutAtual == em.getEQM_HORASTOTAIS() && em.getEQM_HORASTOTAIS() > 0) {
-                    setMessageValidaManut("Horimetro da manutenção atual é igual as horas da medição do equipamento.");
-                    return false;
+//                } else if (horimetroManutAtual == em.getEQM_HORASTOTAIS() && em.getEQM_HORASTOTAIS() > 0) {
+//                    setMessageValidaManut("Horimetro da manutenção atual é igual as horas da medição do equipamento.");
+//                    return false;
                 }
             } else {
                 setMessageValidaManut("Erro");
@@ -266,12 +265,12 @@ public class IndexBean extends AbstractMB implements Serializable {
     public List<Parceiro> completeParceiros(String name) {
         List<Parceiro> queryResult = new ArrayList<>();
 
-        if (listaParceiros == null) {
-            if (parceiroFacade == null) {
-                parceiroFacade = new ParceiroFacade();
-            }
-            listaParceiros = parceiroFacade.listParceiros();
-        }
+//        if (listaParceiros == null) {
+//            if (parceiroFacade == null) {
+//                parceiroFacade = new ParceiroFacade();
+//            }
+            listaParceiros = getParceiroFacade().listParceiros();
+//        }
 
 //        parceiros.removeAll(personWithDogs.getDogs());
 //        if (name.isEmpty()) {
@@ -651,7 +650,7 @@ public class IndexBean extends AbstractMB implements Serializable {
         if (historico == null) {
             historico = new Historico();
         }
-        
+
         return historico;
     }
 

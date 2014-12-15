@@ -54,6 +54,13 @@ public class LoginMB extends AbstractMB {
     }
 
     public void login() {
+        System.out.println("#");
+        System.out.println("#");
+        System.out.println("#");
+        System.out.println("#");
+        System.out.println("#");
+        System.out.println("banco:");
+        System.out.println(UserItemFactoryBean.getBanco());
 
         UserItemFactoryFacade userFacade = new UserItemFactoryFacade();
         UserFactoryFacade usFacade = new UserFactoryFacade();
@@ -83,6 +90,8 @@ public class LoginMB extends AbstractMB {
 
 //            funcionarioBean.getUserMB().setUser(user);
             userMB.setUser(user);
+//            Util.gravarCookie("db", user.getUserFactory().getUSU_BANCO());
+            Util.gravarCookie("database", user.getUserFactory().getUSU_BANCO());
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
             HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
@@ -113,9 +122,11 @@ public class LoginMB extends AbstractMB {
                 redirect("/pages/protected/factory/index.xhtml");
             }
             if (user.getUserFactory().isDis()) {
+                System.out.println(Util.lerCookie("db"));
                 redirect("/pages/protected/distributor/index.xhtml");
             }
         }
+
         displayErrorMessageToUser("Verifique se o seu email / senha");
     }
 

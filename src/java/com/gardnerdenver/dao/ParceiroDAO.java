@@ -13,7 +13,7 @@ public class ParceiroDAO extends GenericDAO<Parceiro> {
     private static final long serialVersionUID = 1L;
 
     public ParceiroDAO() {
-        super(UserItemFactoryBean.banco, Parceiro.class, false);
+        super(UserItemFactoryBean.banco, Parceiro.class, true);
     }
 
 //    public Parceiro findPersonWithAllDogs(int personId) {

@@ -1,5 +1,6 @@
 package com.gardnerdenver.filter;
 
+import com.gardnerdenver.bean.UserItemFactoryBean;
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -11,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.gardnerdenver.model.FactoryUserItem;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 
 public class DistributorUserPagesFilter extends AbstractFilter implements Filter {
@@ -25,10 +27,6 @@ public class DistributorUserPagesFilter extends AbstractFilter implements Filter
         HttpServletRequest req = (HttpServletRequest) request;
         FactoryUserItem user = (FactoryUserItem) req.getSession(true).getAttribute("user");
 
-        if (user != null) {
-            req.getSession().setAttribute("db", user.getUserFactory().getUSU_BANCO());
-        }
-
         if (!user.getUserFactory().isDis()) {
             accessDenied(request, response, req);
             return;
@@ -36,7 +34,8 @@ public class DistributorUserPagesFilter extends AbstractFilter implements Filter
 
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+
+        System.out.println("Filtro Filtro!!!");
         chain.doFilter(request, response);
     }
 

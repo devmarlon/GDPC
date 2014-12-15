@@ -39,27 +39,34 @@ abstract class GenericDAO<T> implements Serializable {
 
     public GenericDAO(String bancoExe, Class<T> entityClass, boolean create) {
 
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        HttpSession sessionhttp = null;
+//        if (context != null) {
+//            sessionhttp = (HttpSession) context.getExternalContext().getSession(true);
+//        }
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession sessionhttp = null;
-        if (context != null) {
-            sessionhttp = (HttpSession) context.getExternalContext().getSession(true);
-        }
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
 
         this.entityClass = entityClass;
-//        Map properties = new HashMap();
+     //        Map properties = new HashMap();
 
-//        String auxDatabase = "gdpc";
+        //        String auxDatabase = "gdpc";
         String auxDatabase;
-        if (sessionhttp == null) {
+        if (session == null) {
             auxDatabase = "gdpc";
         } else {
-            auxDatabase = (String) sessionhttp.getAttribute("db");
+            auxDatabase = (String) session.getAttribute("database");
+            System.out.println("#");
+            System.out.println("#");
+            System.out.println("####" + auxDatabase);
+            System.out.println("#");
+            System.out.println("#");
         }
         String auxUsuario = "varkon";
         String auxSenha = "qwert1234";
 
         //teste
-//        bancoExe = null;
+        //        bancoExe = null;
         if (auxDatabase != null && !create) {
             bancoExe = auxDatabase;
         }
@@ -75,12 +82,12 @@ abstract class GenericDAO<T> implements Serializable {
             System.out.println("Erro banco de dados dgpc");
             return;
         }
-//        if (auxUsuario != null) {
+        //        if (auxUsuario != null) {
         usuario = auxUsuario;
-//        }
-//        if (auxSenha != null) {
+        //        }
+        //        if (auxSenha != null) {
         senha = auxSenha;
-//        }
+        //        }
         UserItemFactoryBean.numConn++;
 
         properties.put("exclude-unlisted-classes", "true");
@@ -98,13 +105,45 @@ abstract class GenericDAO<T> implements Serializable {
             create = !database.equalsIgnoreCase(urlDbtemp);
         }
 
-        if (emf == null || create || !emf.isOpen()) {
-            emf = Persistence.createEntityManagerFactory("PU", properties);
-        }
+        //        if (emf == null || create || !emf.isOpen()) {
+        emf = Persistence.createEntityManagerFactory("PU", properties);
+        //        }
 
     }
 
-    // METODO PARA PERSISTIR
+//    public GenericDAO(String bancoExe, Class<T> entityClass, boolean create) {
+//
+//        //try {
+//        String auxUsuario = "varkon";
+//        String auxSenha = "qwert1234";
+//        Map properties = new HashMap();
+//
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+//
+//        String auxDatabase = (String) session.getAttribute("db");
+//
+//        if (auxDatabase != null) {
+//            database = auxDatabase;
+//        }
+//        if (auxUsuario != null) {
+//            usuario = auxUsuario;
+//        }
+//        if (auxSenha != null) {
+//            senha = auxSenha;
+//        }
+//
+//        //Configure the internal EclipseLink connection pool
+//        properties.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
+//        properties.put("javax.persistence.jdbc.url", "jdbc:mysql://" + Util.local + ":3306/" + database);
+//        properties.put("javax.persistence.jdbc.user", usuario);
+//        properties.put("javax.persistence.jdbc.password", senha);
+//        properties.put("javax.persistence.ddl-generation", "create-tables");
+//        properties.put("exclude-unlisted-classes", "true");
+//
+//        emf = Persistence.createEntityManagerFactory("PU", properties);
+//
+//    }
     private Class<T> entityClass;
 
     public void begin() {

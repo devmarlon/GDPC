@@ -17,6 +17,7 @@ import com.gardnerdenver.model.FactoryUserItem;
 import java.util.Date;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class UserCheckFilter
@@ -74,8 +75,13 @@ public class LoginCheckFilter extends AbstractFilter implements Filter {
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        HttpSession session = req.getSession();
+
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
+        String url = req.getRequestURL().toString();
 
         if (session.isNew()) {
             doLogin(request, response, req);
@@ -88,6 +94,14 @@ public class LoginCheckFilter extends AbstractFilter implements Filter {
             System.out.println(req.getRequestURI());
             doLogin(request, response, req);
             return;
+        }
+
+        if (user != null) {
+            String database = user.getUserFactory().getUSU_BANCO();
+
+            System.out.println("database = " + database);
+
+            req.getSession().setAttribute("database", database);
         }
 
         chain.doFilter(request, response);

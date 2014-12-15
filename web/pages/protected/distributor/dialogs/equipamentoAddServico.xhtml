@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
     <h:body>
-        <p:dialog widgetVar="eqpAddSrvDialogWidget" id="eqpAddSrvDialogId" height="370" width="550" modal="true" closable="true" draggable="false"
-                  resizable="false" appendTo="@(body)">
+        <p:dialog widgetVar="eqpAddSrvDialogWidget" id="eqpAddSrvDialogId" height="370" width="750" modal="true" closable="true" draggable="false"
+                  resizable="false" appendTo="@(body)" header="Selecione os serviços">
             <h:form id="eqpAddSrvDialogForm" prependId="false">
                 <br />
                 <p:dataTable var="srv" id="dtsrv" value="#{equipamentoBean.listAllServicos}" rowKey="#{srv.SRV_ID}" paginator="true" 

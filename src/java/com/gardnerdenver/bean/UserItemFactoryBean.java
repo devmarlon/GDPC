@@ -200,6 +200,10 @@ public class UserItemFactoryBean extends AbstractMB implements Serializable {
     }
 
     public static String getBanco() {
+        if (banco == null) {
+            banco = "";
+            System.out.println("##Banco null");
+        }
         return banco;
     }
 
@@ -209,6 +213,7 @@ public class UserItemFactoryBean extends AbstractMB implements Serializable {
 
     public static void setBanco(String banco) {
         UserItemFactoryBean.banco = banco;
+        System.out.println("#\n#\n#\n#\n#\n#\n#\n#\n#\n Setou banco = " + UserItemFactoryBean.banco);
     }
 
     public String getSenhaAtual() {
@@ -251,8 +256,5 @@ public class UserItemFactoryBean extends AbstractMB implements Serializable {
     public void setUsuarioItemCompare(FactoryUserItem usuarioItemCompare) {
         this.usuarioItemCompare = usuarioItemCompare;
     }
-
-  
-
 
 }

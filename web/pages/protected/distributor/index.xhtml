@@ -133,7 +133,7 @@
                                 </p:overlayPanel>
                                 <p:commandButton value="Atualizar"
                                                  icon="ui-icon-refresh"
-                                                 update=":messageGrowl"
+                                                 update=":messageGrowl :formDist:pgServ"
                                                  immediate="true"
                                                  disabled="#{indexBean.equipamento.EQP_ID == 0}"
                                                  action="#{indexBean.atualizaEquipamento}"

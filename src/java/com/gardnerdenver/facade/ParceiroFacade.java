@@ -14,7 +14,7 @@ public class ParceiroFacade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ParceiroDAO parceiroDAO;
+    private ParceiroDAO parceiroDAO;
     private EquipamentoDAO equipamentoDAO;
 
     public ParceiroFacade() {
