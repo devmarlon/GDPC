@@ -413,6 +413,16 @@ public class Equipamento implements Serializable {
         }
         if (!Objects.equals(this.servicos, other.servicos)) {
             return false;
+        } else {
+            for (EquipamentoServico esThis : this.servicos) {
+                for (EquipamentoServico esOther : other.servicos) {
+                    if (esThis.getID_EQS() == esOther.getID_EQS() && !esThis.equals(esOther)) {
+                        return false;
+                    }
+
+                }
+
+            }
         }
 
         return true;
