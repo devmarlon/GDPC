@@ -411,6 +411,10 @@ public class Equipamento implements Serializable {
         if (!this.getAtivo().equals(other.getAtivo())) {
             return false;
         }
+        if (!Objects.equals(this.servicos, other.servicos)) {
+            return false;
+        }
+
         return true;
     }
 
