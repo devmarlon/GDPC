@@ -99,7 +99,6 @@ public class LoginCheckFilter extends AbstractFilter implements Filter {
         if (user != null) {
             String database = user.getUserFactory().getUSU_BANCO();
 
-            System.out.println("database = " + database);
 
             req.getSession().setAttribute("database", database);
         }

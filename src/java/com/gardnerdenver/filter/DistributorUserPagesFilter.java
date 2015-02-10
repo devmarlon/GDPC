@@ -35,7 +35,6 @@ public class DistributorUserPagesFilter extends AbstractFilter implements Filter
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        System.out.println("Filtro Filtro!!!");
         chain.doFilter(request, response);
     }
 

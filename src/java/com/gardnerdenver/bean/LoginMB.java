@@ -10,6 +10,7 @@ import com.gardnerdenver.model.Configuracao;
 import com.gardnerdenver.model.Funcionario;
 import com.gardnerdenver.model.FactoryUserItem;
 import com.gardnerdenver.util.Util;
+import java.io.Serializable;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,7 +22,7 @@ import org.hibernate.TransactionException;
 
 @ViewScoped
 @ManagedBean
-public class LoginMB extends AbstractMB {
+public class LoginMB extends AbstractMB implements Serializable{
 
     @ManagedProperty(value = UserItemFactoryBean.INJECTION_NAME)
     private UserItemFactoryBean userMB;

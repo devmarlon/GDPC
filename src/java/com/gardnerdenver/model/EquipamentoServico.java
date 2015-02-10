@@ -203,9 +203,13 @@ public class EquipamentoServico implements Serializable {
             int semanas = getSRV_FREQUENCIAHORAS() / hrSemana;
             int dias = semanas * 7;
             DateTime dateTime = new DateTime(MANUTATUAL);
-//        dateTime.withDate(MANUTANTERIOR.getYear(), MANUTANTERIOR.getMonth(), MANUTANTERIOR.getDay());
+//            System.out.println("MANUTATUAL CALCULO MANUTPROXIMAHORAS  = " + MANUTATUAL);
+//            System.out.println("dias = " + dias);
             dateTime = dateTime.plusDays(dias);
             MANUTPROXIMAHORAS = dateTime.toDate();
+            if (dias <= 0) {
+                MANUTPROXIMAHORAS = null;
+            }
         }
 
         return MANUTPROXIMAHORAS;
@@ -330,7 +334,5 @@ public class EquipamentoServico implements Serializable {
         }
         return true;
     }
-
-  
 
 }

@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +49,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import org.joda.time.DateTime;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -302,13 +304,46 @@ public class RelatorioBean extends AbstractMB implements Serializable {
         }
     }
 
+    public static void main(String... args) {
+
+        System.out.println();
+
+        Calendar calendario
+                = new Calendar.Builder()
+                .setDate(2014, Calendar.APRIL, 8).build();
+
+        System.out.println("calendario.getTime() = " + calendario.getTime());
+        System.out.println("new Date() = " + new Date());
+        System.out.println(calendario.getTime().compareTo(new Date()) > 0);
+
+//        System.out.println(calendario.getTime().before(new Date()));
+    }
+
+//    public Date calculaProximaManutHoras(EquipamentoServico es) {
+//
+//        int hrSemana = es.getEquipamento().getEQP_REGIMEDIASSEMANA() * es.getEquipamento().getEQP_REGIMEHORASDIA();
+//        Date MANUTPROXIMAHORAS = new Date();
+//        if (hrSemana > 0) {
+//            double semanas = es.getSRV_FREQUENCIAHORAS() / hrSemana;
+//            double dias = semanas * 7;
+//            
+//            DateTime dateTime = new DateTime(es.getMANUTATUAL());
+//            System.out.println("MANUTATUAL CALCULO MANUTPROXIMAHORAS  = " + es.getMANUTATUAL());
+////        dateTime.withDate(MANUTANTERIOR.getYear(), MANUTANTERIOR.getMonth(), MANUTANTERIOR.getDay());
+//            int d = (int) dias;
+//            dateTime = dateTime.plusDays(d);
+//            MANUTPROXIMAHORAS = dateTime.toDate();
+//        }
+//        System.out.println("MANUTPROXIMAHORAS = " + MANUTPROXIMAHORAS);
+//        return MANUTPROXIMAHORAS;
+//    }
     public String busca() {
         boolean parTemEqs = false;
         boolean temEqs = false;
 
         List<EquipamentoServico> servicos = null;
-        loadEqs();
-        loadParceiros();
+//        loadEqs();
+//        loadParceiros();
 
         List<EquipamentoServico> esAux = new ArrayList<>();
         esList = new ArrayList<>();
@@ -331,32 +366,49 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //        }
 
         for (EquipamentoServico es : esAux) {
-            //            while ((es.getMANUTPROXIMA().compareTo(startDate) >= 0)
-            //                    || (es.getMANUTPROXIMAHORAS().compareTo(startDate) >= 0)
-//             &&
-            while ((es.getMANUTPROXIMA().compareTo(endDate) <= 0
-                    || es.getMANUTPROXIMAHORAS().compareTo(endDate) <= 0)) {
-//            if (es.getMANUTPROXIMA().compareTo(new Date()) < 0) {
-//                if (es.getMANUTPROXIMA().compareTo(startDate) >= 0 && es.getMANUTPROXIMA().compareTo(endDate) <= 0) {
-//                if (es.getMANUTATUAL().compareTo(endDate) <= 0 || es.getMANUTATUAL().compareTo(endDate) <= 0) {
-                es.setMANUTATUAL(es.getMANUTPROXIMA());
+
+            System.out.println("es = " + es);
+
+//            es.setMANUTPROXIMAHORAS(calculaProximaManutHoras(es));
+            while (es.getMANUTPROXIMA().compareTo(endDate) < 0 || es.getMANUTPROXIMAHORAS().compareTo(endDate) < 0) {
+                if (es.getMANUTPROXIMAHORAS() == null) {
+                    System.out.println("continue null");
+                    continue;
+                }
+
+                if (es.getMANUTPROXIMA().compareTo(endDate) < 0) {
+                    es.setMANUTATUAL(es.getMANUTPROXIMA());
+                } else if (es.getMANUTPROXIMAHORAS().compareTo(endDate) < 0) {
+                    es.setMANUTATUAL(es.getMANUTPROXIMAHORAS());
+                }
+//                es.setMANUTPROXIMAHORAS(calculaProximaManutHoras(es));
+
                 es.setMANUTATUALRHORAS(es.getSRV_FREQUENCIAHORAS() + es.getMANUTATUALRHORAS());
                 es.setREALIZADO(false);
+                System.out.println("es.getID_EQS() = " + es.getID_EQS());
                 es.setID_EQS(0);
                 es.setEquipamentosPecas(null);
 
-                try {
-                    if (es.getMANUTPROXIMA().compareTo(endDate) <= 0 || es.getMANUTPROXIMAHORAS().compareTo(endDate) <= 0) {
-                        getEqsFacade().createEquipamentoServico(es);
-//                        esList.add(es);
-                        System.out.println("Criou eqs carta de manutenção " + es);
-                    }
-//                    break;
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    break;
-                }
+//                if (es.getMANUTPROXIMA().compareTo(endDate) > 0 || es.getMANUTPROXIMAHORAS().compareTo(endDate) > 0) {
+//                    System.out.println("Continuou");
+//                    continue;
 //                }
+                if (es.getMANUTPROXIMA().compareTo(endDate) < 0 || es.getMANUTPROXIMAHORAS().compareTo(endDate) < 0) {
+
+                    System.out.println("");
+
+                    System.out.println(es.getMANUTPROXIMA().before(endDate) + "  es.getMANUTPROXIMA() = " + es.getMANUTPROXIMA());
+                    System.out.println(es.getMANUTPROXIMAHORAS().before(endDate) + "  es.getMANUTPROXIMAHORAS() = " + es.getMANUTPROXIMAHORAS());
+                    System.out.println("endDate = " + endDate);
+
+                    try {
+                        getEqsFacade().createEquipamentoServico(es);
+                        System.out.println("Criou eqs carta de manutenção " + es);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                }
             }
         }
 
