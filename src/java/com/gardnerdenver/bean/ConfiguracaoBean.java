@@ -174,16 +174,15 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
         try {
             getCfgFacade().updateConfig(configuracao);
             displayInfoMessageToUser("Configuração salva com sucesso.");
-//            showConf();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            displayErrorMessageToUser("Não foi possível salvar as conficurações.");
+            displayErrorMessageToUser("Não foi possível salvar as configurações.");
         }
         if (ae != null) {
             redirect("/pages/protected/distributor/configuracao.xhtml");
         }
-//        return null;
+
     }
 
     public void isCPFCNPJ() {
@@ -236,7 +235,9 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
     public void handleFileUploadCab(FileUploadEvent event) {
         cab = event.getFile();
         uploadCab();
+        getCabImagem();
         showConf();
+
     }
 
     public void uploadCab() {
@@ -548,7 +549,7 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                cabImagem = new DefaultStreamedContent(inputStream, "image/" + ext, configuracao.getEMP_CAB());
+                cabImagem = new DefaultStreamedContent(inputStream, "image/" + ext, Util.getConfiguracao().getEMP_CAB());
             }
 ////            logoImagem = new DefaultStreamedContent(inputStream, "image/jpeg", configuracao.getEMP_LOGO());
 //            logoImagem = new DefaultStreamedContent(inputStream, "image/" + ext);
