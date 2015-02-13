@@ -29,6 +29,6 @@ public class HistoricoDao extends GenericDAO<Historico> {
     }
 
     public void delete(Historico his) {
-        super.delete(his.getHisId(), Historico.class);
+        super.delete(his.getHisId());
     }
 }

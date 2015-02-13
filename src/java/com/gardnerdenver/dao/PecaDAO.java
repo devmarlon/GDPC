@@ -38,7 +38,7 @@ public class PecaDAO extends GenericDAO<Peca> {
     }
 
     public void delete(Peca peca) {
-        super.delete(peca.getPEC_ID(), Peca.class);
+        super.delete(peca.getPEC_ID());
     }
     
     public List<Peca> findLista() {

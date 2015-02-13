@@ -15,7 +15,7 @@ public class EquipamentoMedicaoDAO extends GenericDAO<EquipamentoMedicao> {
     }
 
     public void delete(EquipamentoMedicao equipamentoMedicao) {
-        super.delete(equipamentoMedicao.getEQM_ID(), EquipamentoMedicao.class);
+        super.delete(equipamentoMedicao.getEQM_ID());
     }
 
     public EquipamentoMedicao findLastUpdate(int eqpId) {

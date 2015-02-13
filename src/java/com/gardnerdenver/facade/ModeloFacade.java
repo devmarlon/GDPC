@@ -23,84 +23,84 @@ public class ModeloFacade implements Serializable {
 
     public void create(Modelo m) {
         try {
-            dao.begin();
+            dao.beginTransaction();
             dao.save(m);
         } catch (Exception e) {
             dao.rollback();
             System.out.println(e.getMessage());
         } finally {
-            dao.commitAndClose();
+            dao.commitAndCloseTransaction();
         }
 
-//        dao.begin();
+//        dao.beginTransaction();
 //        peca.setMOD_ID(0);
 //        dao.save(peca);
-//        dao.commitAndClose();
+//        dao.commitAndCloseTransaction();
     }
 
     public void update(Modelo peca) {
-        dao.begin();
+        dao.beginTransaction();
         dao.update(peca);
-        dao.commitAndClose();
+        dao.commitAndCloseTransaction();
     }
 //    public void deletePerson(Servico parceiro) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        Servico persistedPersonWithIdOnly = pecaDAO.findReferenceOnly(parceiro.getPAR_ID());
 //        pecaDAO.delete(persistedPersonWithIdOnly);
-//        pecaDAO.commitAndClose();
+//        pecaDAO.commitAndCloseTransaction();
 //
 //    }
 
     public void delete(Modelo peca) {
-        dao.begin();
+        dao.beginTransaction();
         Modelo persistedServicoWithIdOnly = dao.findReferenceOnly(peca.getMOD_ID());
         dao.delete(persistedServicoWithIdOnly);
-        dao.commitAndClose();
+        dao.commitAndCloseTransaction();
     }
 
     public Modelo findModelo(int pecaId) {
-        dao.begin();
+        dao.beginTransaction();
         Modelo peca = dao.find(pecaId);
-        dao.close();
+        dao.closeTransaction();
         return peca;
     }
 
     public Modelo findModeloByFab(int fab) {
-        dao.begin();
+        dao.beginTransaction();
         Modelo peca = dao.findModeloByFab(fab);
-        dao.close();
+        dao.closeTransaction();
         return peca;
     }
 
     public List<Modelo> listAll() {
-        dao.begin();
+        dao.beginTransaction();
         List<Modelo> result = dao.findAll();
-        dao.close();
+        dao.closeTransaction();
         return result;
     }
 
     public List<Modelo> listBusca(String d) {
-        dao.begin();
+        dao.beginTransaction();
         List<Modelo> result = dao.findBusca(d);
-        dao.close();
+        dao.closeTransaction();
         return result;
     }
 
 //    public List<Modelo> listByEqs(int eqsId) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        List<Modelo> result = pecaDAO.findPecaByEqs(eqsId);
-//        pecaDAO.commitAndClose();
+//        pecaDAO.commitAndCloseTransaction();
 //
 //        return result;
 //    }
 //    public Servico findPersonWithAllDogs(int personId) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 ////        Servico person = pecaDAO.findPersonWithAllDogs(personId);
-//        pecaDAO.close();
+//        pecaDAO.closeTransaction();
 ////        return person;
 //    }
 //    public void addServicoToEquipamento(int servId, int equipId, EquipamentoServico es) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        equipamentoDAO.joinTransaction();
 //        Equipamento equipamento = equipamentoDAO.find(equipId);
 //        Servico servico = pecaDAO.find(servId);
@@ -109,15 +109,15 @@ public class ModeloFacade implements Serializable {
 //        es.setServico(servico);
 //        equipamento.getServicos().add(es);
 //        servico.getEquipamentos().add(es);
-//        pecaDAO.commitAndClose();
+//        pecaDAO.commitAndCloseTransaction();
 //    }
 //    public void removeEquipamentoFromPerson(int equip_id, int par_id) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        equipamentoDAO.joinTransaction();
 //        Equipamento equipamento = equipamentoDAO.find(equip_id);
 //        Servico parceiro = pecaDAO.find(par_id);
 //        parceiro.getEquipamentos().remove(equipamento);
 //        equipamento.setParceiro(null);
-//        pecaDAO.commitAndClose();
+//        pecaDAO.commitAndCloseTransaction();
 //    }
 }

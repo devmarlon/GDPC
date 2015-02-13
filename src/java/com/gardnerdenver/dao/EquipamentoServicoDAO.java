@@ -29,22 +29,22 @@ public class EquipamentoServicoDAO extends GenericDAO<EquipamentoServico> {
     }
 
     public List<EquipamentoServico> findListByEqp2(int eqpId) {
-        super.begin();
+        super.beginTransaction();
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("eqpId", eqpId);
         List<EquipamentoServico> list = super.findListResult(EquipamentoServico.FIND_EQS_BY_EQP, parameters);
-        super.close();
+        super.closeEntityManager();
 //        return super.findListResult(EquipamentoServico.FIND_EQS_BY_EQP, parameters);
         return list;
     }
 
     public List<EquipamentoServico> findListByEqp3(int eqpId) {
         List<EquipamentoServico> list;
-        super.begin();
+        super.beginTransaction();
         Query query = super.em.createNamedQuery(EquipamentoServico.FIND_EQS_BY_EQP);
         query.setParameter("eqpId", eqpId);
         list = query.getResultList();
-        super.close();
+        super.closeEntityManager();
 
         return list;
     }
@@ -72,7 +72,7 @@ public class EquipamentoServicoDAO extends GenericDAO<EquipamentoServico> {
     }
 
     public void delete(EquipamentoServico es) {
-        super.delete(es.getID_EQS(), EquipamentoServico.class);
+        super.delete(es.getID_EQS());
     }
 
 }

@@ -11,7 +11,7 @@ public class DogDAO extends GenericDAO<Dog> {
     }
 
     public void delete(Dog dog) {
-        super.delete(dog.getId(), Dog.class);
+        super.delete(dog.getId());
     }
 
 }

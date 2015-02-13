@@ -19,7 +19,7 @@ public class FuncionarioDAO extends GenericDAO<Funcionario> {
     }
 
     public void delete(Funcionario funcionario) {
-        super.delete(funcionario.getFUN_ID(), Funcionario.class);
+        super.delete(funcionario.getFUN_ID());
     }
 
     public Funcionario findUserByEmail(String email) {

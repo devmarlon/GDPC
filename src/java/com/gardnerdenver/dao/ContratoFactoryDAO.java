@@ -15,7 +15,7 @@ public class ContratoFactoryDAO extends GenericGdpcDAO<FactoryContrato> {
     }
 
     public void delete(FactoryContrato userFactory) {
-        super.delete(userFactory, FactoryContrato.class);
+        super.delete(userFactory);
     }
 
     public List<FactoryContrato> findListDist() {

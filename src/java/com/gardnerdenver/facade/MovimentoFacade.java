@@ -23,9 +23,9 @@ public class MovimentoFacade implements Serializable {
             mit.setMIT_ID(mitId);
             mitId++;
         }
-        movimentoDao.begin();
+        movimentoDao.beginTransaction();
         movimentoDao.save(mov);
-        movimentoDao.commitAndClose();
+        movimentoDao.commitAndCloseTransaction();
     }
     
     public void updateMovimento(Movimento mov) {
@@ -38,37 +38,37 @@ public class MovimentoFacade implements Serializable {
 //            mitIdOld = mit.getMIT_ID();
 //            mit.getMovimento().setMOV_ID(mov.getMOV_ID());
 //        }
-        movimentoDao.begin();
+        movimentoDao.beginTransaction();
         movimentoDao.update(mov);
-        movimentoDao.commitAndClose();
+        movimentoDao.commitAndCloseTransaction();
     }
     
     public Movimento findMovimento(int movId) {
-        movimentoDao.begin();
+        movimentoDao.beginTransaction();
         Movimento eqp = movimentoDao.find(movId);
-        movimentoDao.close();
+        movimentoDao.closeTransaction();
         return eqp;
     }
     
     public List<Movimento> listAll() {
-        movimentoDao.begin();
+        movimentoDao.beginTransaction();
         List<Movimento> result = movimentoDao.findAll();
-        movimentoDao.close();
+        movimentoDao.closeTransaction();
         return result;
     }
     
     public List<MovimentoItem> listAllMitsByMov(int movId) {
-        movimentoItemDao.begin();
+        movimentoItemDao.beginTransaction();
         List<MovimentoItem> result = movimentoItemDao.findByMovId(movId);
-        movimentoItemDao.close();
+        movimentoItemDao.closeTransaction();
         return result;
     }
     
     public void deleteMovimento(Movimento eqp) {
-        movimentoDao.begin();
+        movimentoDao.beginTransaction();
         Movimento persistedEqp = movimentoDao.findReferenceOnly(eqp.getMOV_ID());
         movimentoDao.delete(persistedEqp);
-        movimentoDao.commitAndClose();
+        movimentoDao.commitAndCloseTransaction();
     }
     
     public void deleteMovimentoItemByMov(Movimento mov) {

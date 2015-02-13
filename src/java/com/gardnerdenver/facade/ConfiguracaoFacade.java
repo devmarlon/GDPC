@@ -22,15 +22,15 @@ public class ConfiguracaoFacade implements Serializable {
     }
 
     public void createConfig(Configuracao cfg) {
-        configDao.begin();
+        configDao.beginTransaction();
         configDao.save(cfg);
-        configDao.commitAndClose();
+        configDao.commitAndCloseTransaction();
     }
 
     public void updateConfig(Configuracao cfg) {
-        configDao.begin();
+        configDao.beginTransaction();
         configDao.update(cfg);
-        configDao.commitAndClose();
+        configDao.commitAndCloseTransaction();
     }
 
 //    public void updateDog(Configuracao dog) {
@@ -42,16 +42,16 @@ public class ConfiguracaoFacade implements Serializable {
 //        configDao.commitAndCloseTransaction();
 //    }
     public Configuracao findConfig(int cfgId) {
-        configDao.begin();
+        configDao.beginTransaction();
         Configuracao cfg = configDao.find(cfgId);
-        configDao.close();
+        configDao.closeTransaction();
         return cfg;
     }
 
     public List<Configuracao> listAll() {
-        configDao.begin();
+        configDao.beginTransaction();
         List<Configuracao> result = configDao.findAll();
-        configDao.close();
+        configDao.closeTransaction();
         return result;
     }
 

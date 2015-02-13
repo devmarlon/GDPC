@@ -18,6 +18,6 @@ public class PadraoManutencaoServicoDao extends GenericGdpcDAO<PadraoManutencaoS
 //        return super.findOneResult(Person.FIND_USER_BY_ID_WITH_DOGS, parameters);
 //    }
     public void delete(PadraoManutencaoServico pds) {
-        super.delete(pds.getPDS_ID(), PadraoManutencaoServico.class);
+        super.delete(pds.getPDS_ID());
     }
 }

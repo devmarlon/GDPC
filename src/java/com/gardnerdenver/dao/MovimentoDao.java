@@ -1,7 +1,6 @@
 package com.gardnerdenver.dao;
 
 import com.gardnerdenver.bean.UserItemFactoryBean;
-import static com.gardnerdenver.dao.GenericDAO.emf;
 import com.gardnerdenver.model.Funcionario;
 import com.gardnerdenver.model.Generico;
 import com.gardnerdenver.model.Movimento;
@@ -23,16 +22,16 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
     }
 
     public void delete(Movimento movimento) {
-        super.delete(movimento.getMOV_ID(), Movimento.class);
+        super.delete(movimento.getMOV_ID());
     }
 
     public int nextId() {
         Object id;
-        super.begin();
+        super.createEntityManager();
         Query query = super.em.createQuery("SELECT MAX(m.MOV_ID) FROM Movimento m ");
 //        query.setParameter("movTipo", movTipo);
         id = query.getSingleResult();
-        super.close();
+        super.closeEntityManager();
         if (id == null) {
             return 0;
         } else {
@@ -40,13 +39,11 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
     }
 
-    
-
     public boolean deleteMov(Movimento mov) {
 
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.beginTransaction();
+            
 
             Query query = em.createQuery("DELETE FROM MovimentoItem m WHERE m.movimento.MOV_ID = :movId AND m.movimento.MOV_STATUS = :movStatus");
             query.setParameter("movId", mov.getMOV_ID());
@@ -55,7 +52,7 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
 //            mov = em.merge(mov);
 //            em.remove(mov);
 
-            em.getTransaction().commit();
+            super.commitAndCloseTransaction();
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -71,11 +68,11 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         //EntityManager em = getEntityManager();
         //EntityManager em = null;
         try {
-            em = emf.createEntityManager();
+           super.beginTransaction();
             em.getTransaction().begin();
             obj = em.merge(obj);
             em.remove(obj);
-            em.getTransaction().commit();
+            super.commitAndCloseTransaction();
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -145,11 +142,11 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         String sql = "SELECT m FROM Movimento m WHERE m.MOV_COBCTO = FALSE AND (m.MOV_TIPO = 'PED' AND m.MOV_STATUS <> 2 AND m.MOV_STATUS <> 254) OR (m.MOV_TIPO = 'ODS' AND m.MOV_STATUS = 7) ";
 
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             Query query = em.createQuery(sql);
             //query = em.createQuery(" SELECT m FROM MOVIMENTO m WHERE (m.MOV_TIPO = 'PED' AND m.MOV_STATUS <> 252 AND m.MOV_STATUS <> 254) OR (m.MOV_TIPO = 'ODS' AND m.MOV_STATUS = 167) ");
             movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -199,8 +196,7 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
     public List< Movimento> getListaVEN(int fun, Date ini, Date fim) {
         List< Movimento> lista = null;
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             String auxFunc = " ";
             if (fun > 0) {
                 auxFunc = " AND m.FUN_ID = " + fun + " ";
@@ -215,6 +211,7 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
             //System.out.println("sql: " + sql);
             Query query = em.createQuery(sql);
             lista = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -230,10 +227,10 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
         List<Movimento> Movs = null;
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE m.MOV_TIPO = '" + TIPO + "' AND m.MOV_ID = " + ID);
             Movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -273,10 +270,10 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
         Object mov = 0;
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+           super.createEntityManager();
             Query query = em.createQuery("SELECT MAX(m.MOV_ID) FROM Movimento m WHERE m.MOV_TIPO = '" + TIPO + "'");
             mov = query.getSingleResult();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -296,10 +293,10 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
             return movs;
         }
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE m.MOV_TIPO = '" + TIPO + "'");
             movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -316,11 +313,11 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         List<Movimento> movs = new ArrayList<>();
 
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+           super.createEntityManager();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE m.parceiro.PAR_ID = :par AND m.MOV_STATUS <> 8 AND m.MOV_COBCTO = FALSE AND ((m.MOV_TIPO = 'PED' AND m.MOV_STATUS = 3) OR (m.MOV_TIPO = 'ODS' AND m.MOV_STATUS = 7))");
             query.setParameter("par", par);
             movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -442,11 +439,11 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
 
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE" + where + sql
                     + " ORDER BY m." + CAMPO + " " + ORDEM);
             movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -626,12 +623,12 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
 
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             String sqlQry = "SELECT m FROM Movimento m WHERE" + where + sql
                     + " ORDER BY m." + CAMPO + " " + ORDEM;
             Query query = em.createQuery(sqlQry);
             movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -759,11 +756,11 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
 
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE" + where + sql
                     + " ORDER BY m." + CAMPO + " " + ORDEM);
             movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -779,12 +776,12 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
     public List<Movimento> getListaCliHist(int par, String tipo) {
         List<Movimento> mov = null;
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.createEntityManager();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE m.parceiro.PAR_ID = :par AND m.MOV_TIPO = :tipo ");
             query.setParameter("par", par);
             query.setParameter("tipo", tipo);
             mov = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
@@ -800,12 +797,12 @@ public class MovimentoDao extends GenericDAO<Movimento> implements Serializable 
         }
         List<Movimento> Movs = null;
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            super.beginTransaction();
             Query query = em.createQuery("SELECT m FROM Movimento m WHERE m.MOV_ID = :id");
 //            query.setParameter("tipo", tipo);
             query.setParameter("id", id);
             Movs = query.getResultList();
+            super.closeEntityManager();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {

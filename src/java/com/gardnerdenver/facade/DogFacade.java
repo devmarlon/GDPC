@@ -13,38 +13,38 @@ public class DogFacade implements Serializable {
     private DogDAO dogDAO = new DogDAO();
 
     public void createDog(Dog dog) {
-        dogDAO.begin();
+        dogDAO.beginTransaction();
         dogDAO.save(dog);
-        dogDAO.commitAndClose();
+        dogDAO.commitAndCloseTransaction();
     }
 
     public void updateDog(Dog dog) {
-        dogDAO.begin();
+        dogDAO.beginTransaction();
         Dog persistedDog = dogDAO.find(dog.getId());
         persistedDog.setAge(dog.getAge());
         persistedDog.setName(dog.getName());
         dogDAO.update(persistedDog);
-        dogDAO.commitAndClose();
+        dogDAO.commitAndCloseTransaction();
     }
 
     public Dog findDog(int dogId) {
-        dogDAO.begin();
+        dogDAO.beginTransaction();
         Dog dog = dogDAO.find(dogId);
-        dogDAO.close();
+        dogDAO.closeTransaction();
         return dog;
     }
 
     public List<Dog> listAll() {
-        dogDAO.begin();
+        dogDAO.beginTransaction();
         List<Dog> result = dogDAO.findAll();
-        dogDAO.close();
+        dogDAO.closeTransaction();
         return result;
     }
 
     public void deleteDog(Dog dog) {
-        dogDAO.begin();
+        dogDAO.beginTransaction();
         Dog persistedDog = dogDAO.findReferenceOnly(dog.getId());
         dogDAO.delete(persistedDog);
-        dogDAO.commitAndClose();
+        dogDAO.commitAndCloseTransaction();
     }
 }

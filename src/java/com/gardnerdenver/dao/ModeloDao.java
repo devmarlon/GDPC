@@ -38,7 +38,7 @@ public class ModeloDao extends GenericDAO<Modelo> {
     }
 
     public void delete(Modelo peca) {
-        super.delete(peca.getMOD_ID(), Modelo.class);
+        super.delete(peca.getMOD_ID());
     }
 
     public List<Modelo> findBusca(String descricao) {

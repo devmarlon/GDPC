@@ -27,79 +27,79 @@ public class ParceiroFacade implements Serializable {
     }
 
     public void createParceiro(Parceiro parceiro) {
-        parceiroDAO.begin();
+        parceiroDAO.beginTransaction();
         parceiroDAO.save(parceiro);
-        parceiroDAO.commitAndClose();
+        parceiroDAO.commitAndCloseTransaction();
     }
 
     public void updateParceiro(Parceiro parceiro) {
-        parceiroDAO.begin();
+        parceiroDAO.beginTransaction();
         parceiroDAO.update(parceiro);
-        parceiroDAO.commitAndClose();
+        parceiroDAO.commitAndCloseTransaction();
     }
 
     public void deletePerson(Parceiro parceiro) {
-        parceiroDAO.begin();
+        parceiroDAO.beginTransaction();
         Parceiro persistedPersonWithIdOnly = parceiroDAO.findReferenceOnly(parceiro.getPAR_ID());
         parceiroDAO.delete(persistedPersonWithIdOnly);
-        parceiroDAO.commitAndClose();
+        parceiroDAO.commitAndCloseTransaction();
 
     }
 
     public Parceiro findParceiro(int parId) {
-        parceiroDAO.begin();
+        parceiroDAO.createEntityManager();
         Parceiro person = parceiroDAO.find(parId);
-        parceiroDAO.close();
+        parceiroDAO.closeEntityManager();
         return person;
     }
 
     public List<Parceiro> listAll() {
-        parceiroDAO.begin();
+        parceiroDAO.createEntityManager();
         List<Parceiro> result = parceiroDAO.findAll();
-        parceiroDAO.close();
+        parceiroDAO.closeEntityManager();
 
         return result;
     }
 
     public List<Parceiro> listParceiros() {
-        parceiroDAO.begin();
+        parceiroDAO.createEntityManager();
         List<Parceiro> result = parceiroDAO.findParceiros();
-        parceiroDAO.close();
+        parceiroDAO.closeEntityManager();
 
         return result;
     }
 
     public List<Parceiro> listParceirosBusca(String NOME, String CPFCNPJ, String ENDERECO, String BAIRRO, String OUTRO, Estado ESTADO, Municipio CIDADE) {
-        parceiroDAO.begin();
+        parceiroDAO.createEntityManager();
         List<Parceiro> result = parceiroDAO.findParceirosBusca(NOME, CPFCNPJ, ENDERECO, BAIRRO, OUTRO, ESTADO, CIDADE);
-        parceiroDAO.close();
+        parceiroDAO.closeEntityManager();
 
         return result;
     }
 
 //    public Parceiro findPersonWithAllDogs(int personId) {
-//        parceiroDAO.begin();
+//        parceiroDAO.beginTransaction();
 ////        Parceiro person = parceiroDAO.findPersonWithAllDogs(personId);
-//        parceiroDAO.close();
+//        parceiroDAO.closeTransaction();
 ////        return person;
 //    }
     public void addEquipamentoToPerson(int equip_id, int par_id) {
-        parceiroDAO.begin();
+        parceiroDAO.beginTransaction();
         equipamentoDAO.joinTransaction();
         Equipamento equipamento = equipamentoDAO.find(equip_id);
         Parceiro parceiro = parceiroDAO.find(par_id);
         parceiro.getEquipamentos().add(equipamento);
         equipamento.setParceiro(parceiro);
-        parceiroDAO.commitAndClose();
+        parceiroDAO.commitAndCloseTransaction();
     }
 
     public void removeEquipamentoFromPerson(int equip_id, int par_id) {
-        parceiroDAO.begin();
+        parceiroDAO.beginTransaction();
         equipamentoDAO.joinTransaction();
         Equipamento equipamento = equipamentoDAO.find(equip_id);
         Parceiro parceiro = parceiroDAO.find(par_id);
         parceiro.getEquipamentos().remove(equipamento);
         equipamento.setParceiro(null);
-        parceiroDAO.commitAndClose();
+        parceiroDAO.commitAndCloseTransaction();
     }
 }

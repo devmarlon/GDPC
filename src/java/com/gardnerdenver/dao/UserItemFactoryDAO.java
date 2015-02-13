@@ -16,7 +16,7 @@ public class UserItemFactoryDAO extends GenericGdpcDAO<FactoryUserItem> {
     }
 
     public void delete(FactoryUserItem f) {
-        super.delete(f.getUSI_ID(), FactoryUserItem.class);
+        super.delete(f.getUSI_ID());
     }
 
     public FactoryUserItem findUserByEmail(String email) {

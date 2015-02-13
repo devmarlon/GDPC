@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Util {
 
-    public static String local = "localhost";
-//    public static String local = "server.gestorweb.com.br";
+//    public static String local = "localhost";
+    public static String local = "server.gestorweb.com.br";
 //    public static String local = "192.168.25.10";
 
     public static void gravarCookie(String nome, String valor) {

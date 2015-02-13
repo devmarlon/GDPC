@@ -25,7 +25,7 @@ public class FactoryServicoDao extends GenericGdpcDAO<FactoryServico> {
 //        super.delete(parceiro.getPAR_ID(), Parceiro.class);
 //    }
     public void delete(FactoryServico servico) {
-        super.delete(servico.getSRV_ID(), FactoryServico.class);
+        super.delete(servico.getSRV_ID());
     }
 
     public List<FactoryServico> findLista() {
@@ -47,7 +47,7 @@ public class FactoryServicoDao extends GenericGdpcDAO<FactoryServico> {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
 //            em.close();
-//            super.closeTransaction();
+//            super.closeEntityManager();
         }
 
         return eqps;

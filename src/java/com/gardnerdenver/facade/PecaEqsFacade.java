@@ -22,7 +22,7 @@ public class PecaEqsFacade implements Serializable {
 
     public void deletePecaServico(PecaEqs pqs) {
         pecaEqsDao.deleteByID(pqs.getPES_ID());
-//        pecaEqsDao.begin();
+//        pecaEqsDao.beginTransaction();
 //        PecaEqs persistedPqs = pecaEqsDao.findReferenceOnly(pqs.getPES_ID());
 //        persistedPqs.setEqs(null);
 //        persistedPqs.setPeca(null);
@@ -31,23 +31,23 @@ public class PecaEqsFacade implements Serializable {
     }
 
     public void createPeca(PecaEqs peca) {
-        pecaEqsDao.begin();
+        pecaEqsDao.beginTransaction();
         peca.setPES_ID(0);
         pecaEqsDao.save(peca);
-        pecaEqsDao.commitAndClose();
+        pecaEqsDao.commitAndCloseTransaction();
     }
 
     public void updatePeca(PecaEqs pecaEqs) {
-        pecaEqsDao.begin();
+        pecaEqsDao.beginTransaction();
         PecaEqs persistedPeca = pecaEqsDao.find(pecaEqs.getPES_ID());
         persistedPeca.setQuantidade(pecaEqs.getQuantidade());
         persistedPeca.setPeca(pecaEqs.getPeca());
         persistedPeca.setEqs(pecaEqs.getEqs());
         pecaEqsDao.update(persistedPeca);
-        pecaEqsDao.commitAndClose();
+        pecaEqsDao.commitAndCloseTransaction();
     }
 //    public void deletePerson(Servico parceiro) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        Servico persistedPersonWithIdOnly = pecaDAO.findReferenceOnly(parceiro.getPAR_ID());
 //        pecaDAO.delete(persistedPersonWithIdOnly);
 //        pecaDAO.commitAndCloseTransaction();
@@ -55,42 +55,42 @@ public class PecaEqsFacade implements Serializable {
 //    }
 
     public PecaEqs findPecaEqs(int pecaId) {
-        pecaEqsDao.begin();
+        pecaEqsDao.createEntityManager();
         PecaEqs peca = pecaEqsDao.find(pecaId);
-        pecaEqsDao.close();
+        pecaEqsDao.closeEntityManager();
         return peca;
     }
 
     public List<PecaEqs> findPecaEqsByEqs(int eqsId) {
-        pecaEqsDao.begin();
+        pecaEqsDao.createEntityManager();
         List<PecaEqs> peca = pecaEqsDao.findListByEqs(eqsId);
-        pecaEqsDao.close();
+        pecaEqsDao.closeEntityManager();
         return peca;
     }
 
     public List<PecaEqs> listAll() {
-        pecaEqsDao.begin();
+        pecaEqsDao.createEntityManager();
         List<PecaEqs> result = pecaEqsDao.findAll();
-        pecaEqsDao.close();
+        pecaEqsDao.closeEntityManager();
 
         return result;
     }
 
 //    public List<PecaEqs> listByEqs(int eqsId) {
-//        pecaEqsDao.begin();
+//        pecaEqsDao.beginTransaction();
 ////        List<PecaEqs> result = pecaEqsDao.
 //        pecaEqsDao.commitAndCloseTransaction();
 //
 //        return result;
 //    }
 //    public Servico findPersonWithAllDogs(int personId) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 ////        Servico person = pecaDAO.findPersonWithAllDogs(personId);
 //        pecaDAO.closeTransaction();
 ////        return person;
 //    }
 //    public void addServicoToEquipamento(int servId, int equipId, EquipamentoServico es) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        equipamentoDAO.joinTransaction();
 //        Equipamento equipamento = equipamentoDAO.find(equipId);
 //        Servico servico = pecaDAO.find(servId);
@@ -102,7 +102,7 @@ public class PecaEqsFacade implements Serializable {
 //        pecaDAO.commitAndCloseTransaction();
 //    }
 //    public void removeEquipamentoFromPerson(int equip_id, int par_id) {
-//        pecaDAO.begin();
+//        pecaDAO.beginTransaction();
 //        equipamentoDAO.joinTransaction();
 //        Equipamento equipamento = equipamentoDAO.find(equip_id);
 //        Servico parceiro = pecaDAO.find(par_id);

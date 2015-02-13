@@ -21,7 +21,7 @@ public class EquipamentoDAO extends GenericDAO<Equipamento> {
     }
 
     public void delete(Equipamento equipamento) {
-        super.delete(equipamento.getEQP_ID(), Equipamento.class);
+        super.delete(equipamento.getEQP_ID());
     }
 
     public Equipamento findEqpBySN(String sn) {
@@ -51,7 +51,7 @@ public class EquipamentoDAO extends GenericDAO<Equipamento> {
         List<Equipamento> eqps = null;
         try {
 //            super.beginTransaction();
-            super.begin();
+            super.createEntityManager();
 
             Query query = super.em.createQuery("SELECT e FROM Equipamento e WHERE e.EQP_FABRICANTE LIKE '%" + fabricante + "%' AND e.EQP_SERIE LIKE '%" + serie + "%' AND e.EQP_MODELO LIKE '%" + modelo + "%' AND e.EQP_DESCRICAO LIKE '%" + descricao + "%' " + sql);
 //            System.out.println("SELECT p FROM Parceiro p WHERE " + where + sql);
@@ -60,8 +60,8 @@ public class EquipamentoDAO extends GenericDAO<Equipamento> {
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
-//            super.closeTransaction();
-            super.close();
+//            super.closeEntityManager();
+            super.closeEntityManager();
         }
 
         return eqps;

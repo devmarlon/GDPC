@@ -19,7 +19,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -549,7 +548,7 @@ public class ConfiguracaoBean extends AbstractMB implements Serializable {
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(ConfiguracaoBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                cabImagem = new DefaultStreamedContent(inputStream, "image/" + ext, Util.getConfiguracao().getEMP_CAB());
+                cabImagem = new DefaultStreamedContent(inputStream, "image/" + ext, configuracao.getEMP_CAB());
             }
 ////            logoImagem = new DefaultStreamedContent(inputStream, "image/jpeg", configuracao.getEMP_LOGO());
 //            logoImagem = new DefaultStreamedContent(inputStream, "image/" + ext);

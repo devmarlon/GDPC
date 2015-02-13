@@ -2,6 +2,8 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="PU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
         <class>com.gardnerdenver.model.Equipamento</class>
         <class>com.gardnerdenver.model.EquipamentoMedicao</class>
         <class>com.gardnerdenver.model.Funcionario</class>
@@ -27,12 +29,21 @@
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <!--            <property name="hibernate.c3p0.idle_test_period"  value="50"/>-->
+            <property name="hibernate.c3p0.min_size" value="10"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.acquire_increment" value="1"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.timeout" value="1800"/>
             <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
             
         </properties>
     </persistence-unit>
     <persistence-unit name="gdpcPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
         <class>com.gardnerdenver.model.FactoryUser</class>
         <class>com.gardnerdenver.model.FactoryUserItem</class>
         <class>com.gardnerdenver.model.Municipio</class>
@@ -59,6 +70,13 @@
             <property name="hibernate.format_sql" value="false"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!--<property name="hibernate.c3p0.idle_test_period"  value="50"/>-->
+            <property name="hibernate.c3p0.min_size" value="10"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.acquire_increment" value="1"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.timeout" value="1800"/>
         </properties>
     </persistence-unit>
 </persistence>

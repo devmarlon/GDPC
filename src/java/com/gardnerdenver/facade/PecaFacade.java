@@ -26,16 +26,16 @@ public class PecaFacade implements Serializable {
     }
 
     public void createPeca(Peca peca) {
-        pecaDAO.begin();
+        pecaDAO.beginTransaction();
         peca.setPEC_ID(0);
         pecaDAO.save(peca);
-        pecaDAO.commitAndClose();
+        pecaDAO.commitAndCloseTransaction();
     }
 
     public void updatePeca(Peca peca) {
-        pecaDAO.begin();
+        pecaDAO.beginTransaction();
         pecaDAO.update(peca);
-        pecaDAO.commitAndClose();
+        pecaDAO.commitAndCloseTransaction();
     }
 //    public void deletePerson(Servico parceiro) {
 //        pecaDAO.beginTransaction();
@@ -46,44 +46,44 @@ public class PecaFacade implements Serializable {
 //    }
 
     public void deletePeca(Peca peca) {
-        pecaDAO.begin();
+        pecaDAO.beginTransaction();
         Peca persistedServicoWithIdOnly = pecaDAO.findReferenceOnly(peca.getPEC_ID());
         pecaDAO.delete(persistedServicoWithIdOnly);
-        pecaDAO.commitAndClose();
+        pecaDAO.commitAndCloseTransaction();
     }
 
     public Peca findPeca(int pecaId) {
-        pecaDAO.begin();
+        pecaDAO.createEntityManager();
         Peca peca = pecaDAO.find(pecaId);
-        pecaDAO.close();
+        pecaDAO.closeEntityManager();
         return peca;
     }
 
     public Peca findPecaByCod(String pecaCod) {
-        pecaDAO.begin();
+        pecaDAO.createEntityManager();
         Peca peca = pecaDAO.findPecaByCode(pecaCod);
-        pecaDAO.close();
+        pecaDAO.closeEntityManager();
         return peca;
     }
 
     public Peca findPecaByFab(int fab) {
-        pecaDAO.begin();
+        pecaDAO.createEntityManager();
         Peca peca = pecaDAO.findPecaByFab(fab);
-        pecaDAO.close();
+        pecaDAO.closeEntityManager();
         return peca;
     }
 
     public List<Peca> listAll() {
-        pecaDAO.begin();
+        pecaDAO.createEntityManager();
         List<Peca> result = pecaDAO.findLista();
-        pecaDAO.close();
+        pecaDAO.closeEntityManager();
         return result;
     }
 
     public List<Peca> listBusca(String d) {
-        pecaDAO.begin();
+        pecaDAO.createEntityManager();
         List<Peca> result = pecaDAO.findBusca(d);
-        pecaDAO.close();
+        pecaDAO.closeEntityManager();
         return result;
     }
 

@@ -21,9 +21,9 @@ public class FuncionarioFacade implements Serializable {
     }
 
     public Funcionario isValidLogin(String email, String password) {
-        funcDao.begin();
+        funcDao.createEntityManager();
         Funcionario func = funcDao.findUserByEmail(email);
-
+        funcDao.closeEntityManager();
         if (func == null || !func.getFUN_SENHA().equals(password)) {
             return null;
         }
@@ -32,52 +32,52 @@ public class FuncionarioFacade implements Serializable {
     }
 
     public void createFuncionario(Funcionario funcionario) {
-        funcDao.begin();
+        funcDao.beginTransaction();
         funcDao.save(funcionario);
-        funcDao.commitAndClose();
+        funcDao.commitAndCloseTransaction();
     }
 
     public void updateFuncionario(Funcionario funionario) {
-        funcDao.begin();
+        funcDao.beginTransaction();
 //        Funcionario persistedDog = funcDao.find(dog.getId());
 //        persistedDog.setAge(dog.getAge());
 //        persistedDog.setName(dog.getName());
         funcDao.update(funionario);
-        funcDao.commitAndClose();
+        funcDao.commitAndCloseTransaction();
     }
 
     public Funcionario findFuncionario(int funId) {
-        funcDao.begin();
+        funcDao.beginTransaction();
         Funcionario func = funcDao.find(funId);
-        funcDao.close();
+        funcDao.closeTransaction();
         return func;
     }
 
     public List<Funcionario> listAll() {
-        funcDao.begin();
+        funcDao.beginTransaction();
         List<Funcionario> result = funcDao.findAll();
-        funcDao.close();
+        funcDao.closeTransaction();
         return result;
     }
 
     public List<Funcionario> listVends() {
-        funcDao.begin();
+        funcDao.beginTransaction();
         List<Funcionario> result = funcDao.findVends();
-        funcDao.close();
+        funcDao.closeTransaction();
         return result;
     }
 
     public List<Funcionario> listTecs() {
-        funcDao.begin();
+        funcDao.beginTransaction();
         List<Funcionario> result = funcDao.findTecs();
-        funcDao.close();
+        funcDao.closeTransaction();
         return result;
     }
 
     public void deleteFuncionario(Funcionario funcionario) {
-        funcDao.begin();
+        funcDao.beginTransaction();
         Funcionario persistedFunc = funcDao.findReferenceOnly(funcionario.getFUN_ID());
         funcDao.delete(persistedFunc);
-        funcDao.commitAndClose();
+        funcDao.commitAndCloseTransaction();
     }
 }

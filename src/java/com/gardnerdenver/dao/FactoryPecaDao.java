@@ -26,7 +26,7 @@ public class FactoryPecaDao extends GenericGdpcDAO<FactoryPeca> {
     }
 
     public void delete(FactoryPeca peca) {
-        super.delete(peca.getPEC_ID(), FactoryPeca.class);
+        super.delete(peca.getPEC_ID());
     }
 
     public List<FactoryPeca> findBusca(String descricao) {

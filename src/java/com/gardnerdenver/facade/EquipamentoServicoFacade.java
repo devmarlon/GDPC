@@ -35,17 +35,17 @@ public class EquipamentoServicoFacade implements Serializable {
 
     public void createEquipamentoServico(EquipamentoServico eqp) {
 //        equipamentoServicoDAO = new EquipamentoServicoDAO();
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.beginTransaction();
         equipamentoServicoDAO.save(eqp);
-        equipamentoServicoDAO.commitAndClose();
+        equipamentoServicoDAO.commitAndCloseTransaction();
 //        equipamentoServicoDAO.insert(eqp);
     }
 
     public void updateEquipamentoServico(EquipamentoServico eqp) {
 //        equipamentoServicoDAO = new EquipamentoServicoDAO();
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.beginTransaction();
         equipamentoServicoDAO.update(eqp);
-        equipamentoServicoDAO.commitAndClose();
+        equipamentoServicoDAO.commitAndCloseTransaction();
 //        equipamentoServicoDAO.insert(eqp);
     }
 
@@ -65,7 +65,7 @@ public class EquipamentoServicoFacade implements Serializable {
 //        eqs.setServico(es.getServico());
 //        es.setEquipamentosPecas(null);
 //        es.setMovimentoItem(null);
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.beginTransaction();
 
 //        servicoDAO.joinTransaction();
 //        equipamentoDAO.joinTransaction();
@@ -81,88 +81,88 @@ public class EquipamentoServicoFacade implements Serializable {
 //		Person person = personDAO.find(personId);
 //		person.getDogs().add(dog);
 //		dog.getPerson().add(person);
-        equipamentoServicoDAO.commitAndClose();
+        equipamentoServicoDAO.commitAndCloseTransaction();
     }
 
 //	public void updateDog(EquipamentoServico dog) {
-//		equipamentoServicoDAO.begin();
+//		equipamentoServicoDAO.beginTransaction();
 //		EquipamentoServico persistedDog = equipamentoServicoDAO.find(dog.getId());
 //		persistedDog.setAge(dog.getAge());
 //		persistedDog.setName(dog.getName());
 //		equipamentoServicoDAO.update(persistedDog);
-//		equipamentoServicoDAO.commitAndClose();
+//		equipamentoServicoDAO.commitAndCloseTransaction();
 //	}
     public EquipamentoServico findEquipamento(int eqpId) {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         EquipamentoServico eqp = equipamentoServicoDAO.find(eqpId);
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return eqp;
     }
 
     public List<EquipamentoServico> listAll() {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         List<EquipamentoServico> result = equipamentoServicoDAO.findAll();
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return result;
     }
 
     public List<EquipamentoServico> listByEqpId(int eqpId) {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         List<EquipamentoServico> result = equipamentoServicoDAO.findListByEqp(eqpId);
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return result;
     }
 
     public List<EquipamentoServico> listCarta() {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         List<EquipamentoServico> result = equipamentoServicoDAO.findListCarta();
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return result;
     }
 
     public List<EquipamentoServico> listByEqpIdCarta(int eqpId) {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         List<EquipamentoServico> result = equipamentoServicoDAO.findListByEqpCarta(eqpId);
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return result;
     }
 
     public List<EquipamentoServico> listHistByEqpId(int eqpId) {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         List<EquipamentoServico> result = equipamentoServicoDAO.findListHistByEqp(eqpId);
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return result;
     }
 
     public List<EquipamentoServico> listBySrvEqp(int srvId, int eqpId) {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.createEntityManager();
         List<EquipamentoServico> result = equipamentoServicoDAO.findListByServEqp(srvId, eqpId);
-        equipamentoServicoDAO.close();
+        equipamentoServicoDAO.closeEntityManager();
         return result;
     }
 
     public void deleteEquipamentoServico(EquipamentoServico eqp) {
-        equipamentoServicoDAO.begin();
+        equipamentoServicoDAO.beginTransaction();
         EquipamentoServico persistedEqp = equipamentoServicoDAO.findReferenceOnly(eqp.getID_EQS());
         equipamentoServicoDAO.delete(persistedEqp);
-        equipamentoServicoDAO.commitAndClose();
+        equipamentoServicoDAO.commitAndCloseTransaction();
     }
 
     public void deleteEquipamentoServicoAllHist(EquipamentoServico eqs) {
         MovimentoItem mit = mitDao.getItemByEqsID(eqs.getID_EQS());
         if (mit != null) {
             Movimento mov = movDao.getMovByTipoId(mit.getMovimento().getMOV_ID());
-//            movDao.begin();
+//            movDao.beginTransaction();
             movDao.delete2(mov);
-//            movDao.commitAndClose();
+//            movDao.commitAndCloseTransaction();
         }
 //        eqp.getMovimentoItem().getC
         List<EquipamentoServico> lstAll = listBySrvEqp(eqs.getServico().getSRV_ID(), eqs.getEquipamento().getEQP_ID());
         for (EquipamentoServico persistedEqp : lstAll) {
 
-            equipamentoServicoDAO.begin();
+            equipamentoServicoDAO.beginTransaction();
             equipamentoServicoDAO.delete(persistedEqp);
-            equipamentoServicoDAO.commitAndClose();
+            equipamentoServicoDAO.commitAndCloseTransaction();
         }
 
     }

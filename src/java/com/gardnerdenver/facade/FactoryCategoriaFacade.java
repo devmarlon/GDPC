@@ -47,30 +47,30 @@ public class FactoryCategoriaFacade implements Serializable {
     }
 
     public FactoryCategoria findCategoriaById(int catId) {
-        categoriaDao.beginTransaction();
+        categoriaDao.createEntityManager();
         FactoryCategoria cat = categoriaDao.find(catId);
-        categoriaDao.closeTransaction();
+        categoriaDao.closeEntityManager();
         return cat;
     }
 
     public FactoryCategoria findPecaByCod(String catCod) {
-        categoriaDao.beginTransaction();
+        categoriaDao.createEntityManager();
         FactoryCategoria peca = categoriaDao.findCategoriaById(catCod);
-        categoriaDao.closeTransaction();
+        categoriaDao.closeEntityManager();
         return peca;
     }
 
     public List<FactoryCategoria> listAll() {
-        categoriaDao.beginTransaction();
+        categoriaDao.createEntityManager();
         List<FactoryCategoria> result = categoriaDao.findAll();
-        categoriaDao.closeTransaction();
+        categoriaDao.closeEntityManager();
         return result;
     }
 
     public List<FactoryCategoria> listBusca(String d) {
-        categoriaDao.beginTransaction();
+        categoriaDao.createEntityManager();
         List<FactoryCategoria> result = categoriaDao.findBusca(d);
-        categoriaDao.closeTransaction();
+        categoriaDao.closeEntityManager();
         return result;
     }
 

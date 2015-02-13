@@ -15,7 +15,7 @@ public class UserFactoryDAO extends GenericGdpcDAO<FactoryUser> {
     }
 
     public void delete(FactoryUser userFactory) {
-        super.delete(userFactory, FactoryUser.class);
+        super.delete(userFactory);
     }
 
     public List<FactoryUser> findListDist() {

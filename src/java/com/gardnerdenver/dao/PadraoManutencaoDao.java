@@ -21,6 +21,6 @@ public class PadraoManutencaoDao extends GenericGdpcDAO<PadraoManutencao> {
         return super.findListResult(PadraoManutencao.FIND_PADRAO_BY_MODELO, parameters);
     }
     public void delete(PadraoManutencao pdm) {
-        super.delete(pdm.getPDM_ID(), PadraoManutencao.class);
+        super.delete(pdm.getPDM_ID());
     }
 }

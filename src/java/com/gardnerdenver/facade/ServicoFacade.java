@@ -28,62 +28,62 @@ public class ServicoFacade implements Serializable {
     }
 
     public Servico findServicoByFab(int fab) {
-        servicoDAO.begin();
+        servicoDAO.createEntityManager();
         Servico peca = servicoDAO.findServicoByFab(fab);
-        servicoDAO.close();
+        servicoDAO.closeEntityManager();
         return peca;
     }
 
     public void createServico(Servico servico) {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         servicoDAO.save(servico);
-        servicoDAO.commitAndClose();
+        servicoDAO.commitAndCloseTransaction();
     }
 
     public void updateServico(Servico servico) {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         servicoDAO.update(servico);
-        servicoDAO.commitAndClose();
+        servicoDAO.commitAndCloseTransaction();
     }
 
     public void deleteServico(Servico serv) {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         Servico persistedServicoWithIdOnly = servicoDAO.findReferenceOnly(serv.getSRV_ID());
         servicoDAO.delete(persistedServicoWithIdOnly);
-        servicoDAO.commitAndClose();
+        servicoDAO.commitAndCloseTransaction();
 
     }
 
     public Servico findServico(int servId) {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         Servico servico = servicoDAO.findById(servId);
-        servicoDAO.close();
+        servicoDAO.closeTransaction();
         return servico;
     }
 
     public List<Servico> listAll() {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         List<Servico> result = servicoDAO.findLista();
-        servicoDAO.close();
+        servicoDAO.closeTransaction();
 
         return result;
     }
 
     public List<Servico> listBusca(String d) {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         List<Servico> result = servicoDAO.findBusca(d);
-        servicoDAO.close();
+        servicoDAO.closeTransaction();
         return result;
     }
 
 //    public Servico findPersonWithAllDogs(int personId) {
-//        servicoDAO.begin();
+//        servicoDAO.beginTransaction();
 ////        Servico person = servicoDAO.findPersonWithAllDogs(personId);
-//        servicoDAO.close();
+//        servicoDAO.closeTransaction();
 ////        return person;
 //    }
     public void addServicoToEquipamento(int servId, int equipId, EquipamentoServico es) {
-        servicoDAO.begin();
+        servicoDAO.beginTransaction();
         equipamentoDAO.joinTransaction();
         Equipamento equipamento = equipamentoDAO.find(equipId);
         Servico servico = servicoDAO.find(servId);
@@ -92,16 +92,16 @@ public class ServicoFacade implements Serializable {
         es.setServico(servico);
         equipamento.getServicos().add(es);
         servico.getEquipamentos().add(es);
-        servicoDAO.commitAndClose();
+        servicoDAO.commitAndCloseTransaction();
     }
 
 //    public void removeEquipamentoFromPerson(int equip_id, int par_id) {
-//        servicoDAO.begin();
+//        servicoDAO.beginTransaction();
 //        equipamentoDAO.join();
 //        Equipamento equipamento = equipamentoDAO.find(equip_id);
 //        Servico parceiro = servicoDAO.find(par_id);
 //        parceiro.getEquipamentos().remove(equipamento);
 //        equipamento.setParceiro(null);
-//        servicoDAO.commitAndClose();
+//        servicoDAO.commitAndCloseTransaction();
 //    }
 }

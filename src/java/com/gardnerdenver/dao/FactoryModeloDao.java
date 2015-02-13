@@ -22,7 +22,7 @@ public class FactoryModeloDao extends GenericGdpcDAO<FactoryModelo> {
     }
 
     public void delete(FactoryModelo peca) {
-        super.delete(peca.getMOD_ID(), FactoryModelo.class);
+        super.delete(peca.getMOD_ID());
     }
 
     public List<FactoryModelo> findBusca(String descricao) {

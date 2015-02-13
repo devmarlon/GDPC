@@ -17,42 +17,42 @@ public class EquipamentoMedicaoFacade implements Serializable {
     }
 
     public void createEqm(EquipamentoMedicao eqm) {
-        eqmDAO.begin();
+        eqmDAO.beginTransaction();
         eqmDAO.save(eqm);
-        eqmDAO.commitAndClose();
+        eqmDAO.commitAndCloseTransaction();
     }
 
     public EquipamentoMedicao findEquipamento(int eqpId) {
-        eqmDAO.begin();
+        eqmDAO.createEntityManager();
         EquipamentoMedicao eqp = eqmDAO.find(eqpId);
-        eqmDAO.close();
+        eqmDAO.closeEntityManager();
         return eqp;
     }
 
     public EquipamentoMedicao findLastUpdate(int eqpId) {
-        eqmDAO.begin();
+        eqmDAO.createEntityManager();
         EquipamentoMedicao eqm = eqmDAO.findLastUpdate(eqpId);
-        eqmDAO.close();
+        eqmDAO.closeEntityManager();
         return eqm;
     }
 
     public List<EquipamentoMedicao> listAll() {
-        eqmDAO.begin();
+        eqmDAO.beginTransaction();
         List<EquipamentoMedicao> result = eqmDAO.findAll();
-        eqmDAO.close();
+        eqmDAO.closeEntityManager();
         return result;
     }
     public List<EquipamentoMedicao> listByEqp(int eqpId) {
-        eqmDAO.begin();
+        eqmDAO.createEntityManager();
         List<EquipamentoMedicao> result = eqmDAO.findListByEqp(eqpId);
-        eqmDAO.close();
+        eqmDAO.closeEntityManager();
         return result;
     }
 
     public void deleteEquipamento(EquipamentoMedicao eqp) {
-        eqmDAO.begin();
+        eqmDAO.beginTransaction();
         EquipamentoMedicao persistedEqp = eqmDAO.findReferenceOnly(eqp.getEQM_ID());
         eqmDAO.delete(persistedEqp);
-        eqmDAO.commitAndClose();
+        eqmDAO.commitAndCloseTransaction();
     }
 }

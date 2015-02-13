@@ -162,7 +162,7 @@ public class ParceiroDAO extends GenericDAO<Parceiro> {
         try {
 //            em = emf.createEntityManager();
 //            em.getTransaction().begin();
-            super.begin();
+            super.beginTransaction();
 
             Query query = super.em.createQuery("SELECT p FROM Parceiro p WHERE " + where + sql);
 //            System.out.println("SELECT p FROM Parceiro p WHERE " + where + sql);
@@ -172,7 +172,7 @@ public class ParceiroDAO extends GenericDAO<Parceiro> {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
 //            em.close();
-            super.close();
+            super.closeEntityManager();
         }
 
         return Parceiros;
@@ -184,12 +184,12 @@ public class ParceiroDAO extends GenericDAO<Parceiro> {
 //        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
 //        cq.select(cq.from(entityClass));
 //        return em.createQuery(cq).getResultList();
-//        super.closeTransaction();
+//        super.closeEntityManager();
 
         return super.findListResult(Parceiro.FIND_PARCEIRO, null);
     }
 
     public void delete(Parceiro parceiro) {
-        super.delete(parceiro.getPAR_ID(), Parceiro.class);
+        super.delete(parceiro.getPAR_ID());
     }
 }

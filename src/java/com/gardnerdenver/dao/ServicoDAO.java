@@ -38,7 +38,7 @@ public class ServicoDAO extends GenericDAO<Servico> {
 //        super.delete(parceiro.getPAR_ID(), Parceiro.class);
 //    }
     public void delete(Servico servico) {
-        super.delete(servico.getSRV_ID(), Servico.class);
+        super.delete(servico.getSRV_ID());
     }
 
     public List<Servico> findLista() {
@@ -66,7 +66,7 @@ public class ServicoDAO extends GenericDAO<Servico> {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
         } finally {
 //            em.close();
-//            super.closeTransaction();
+//            super.closeEntityManager();
         }
 
         return eqps;

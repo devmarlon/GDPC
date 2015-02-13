@@ -28,23 +28,23 @@ public class UserFactoryFacade implements Serializable {
     }
 
     public FactoryUser findUserFactory(int dogId) {
-        userFactoryDao.beginTransaction();
+        userFactoryDao.createEntityManager();
         FactoryUser dog = userFactoryDao.find(dogId);
-        userFactoryDao.closeTransaction();
+        userFactoryDao.closeEntityManager();
         return dog;
     }
 
     public List<FactoryUser> listAll() {
-        userFactoryDao.beginTransaction();
+        userFactoryDao.createEntityManager();
         List<FactoryUser> result = userFactoryDao.findAll();
-        userFactoryDao.closeTransaction();
+        userFactoryDao.closeEntityManager();
         return result;
     }
 
     public List<FactoryUser> listDist() {
-        userFactoryDao.beginTransaction();
+        userFactoryDao.createEntityManager();
         List<FactoryUser> result = userFactoryDao.findListDist();
-        userFactoryDao.closeTransaction();
+        userFactoryDao.closeEntityManager();
         return result;
     }
 

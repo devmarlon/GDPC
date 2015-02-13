@@ -16,66 +16,66 @@ public class PersonFacade implements Serializable {
     private DogDAO dogDAO = new DogDAO();
 
     public void createPerson(Person person) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         personDAO.save(person);
-        personDAO.commitAndClose();
+        personDAO.commitAndCloseTransaction();
     }
 
     public void updatePerson(Person person) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         Person persistedPerson = personDAO.find(person.getId());
         persistedPerson.setName(person.getName());
         persistedPerson.setAge(person.getAge());
-        personDAO.commitAndClose();
+        personDAO.commitAndCloseTransaction();
     }
 
     public void deletePerson(Person person) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         Person persistedPersonWithIdOnly = personDAO.findReferenceOnly(person.getId());
         personDAO.delete(persistedPersonWithIdOnly);
-        personDAO.commitAndClose();
+        personDAO.commitAndCloseTransaction();
 
     }
 
     public Person findPerson(int personId) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         Person person = personDAO.find(personId);
-        personDAO.close();
+        personDAO.closeTransaction();
         return person;
     }
 
     public List<Person> listAll() {
-        personDAO.begin();
+        personDAO.beginTransaction();
         List<Person> result = personDAO.findAll();
-        personDAO.close();
+        personDAO.closeTransaction();
 
         return result;
     }
 
     public Person findPersonWithAllDogs(int personId) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         Person person = personDAO.findPersonWithAllDogs(personId);
-        personDAO.close();
+        personDAO.closeTransaction();
         return person;
     }
 
     public void addDogToPerson(int dogId, int personId) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         dogDAO.joinTransaction();
         Dog dog = dogDAO.find(dogId);
         Person person = personDAO.find(personId);
         person.getDogs().add(dog);
         dog.getPerson().add(person);
-        personDAO.commitAndClose();
+        personDAO.commitAndCloseTransaction();
     }
 
     public void removeDogFromPerson(int dogId, int personId) {
-        personDAO.begin();
+        personDAO.beginTransaction();
         dogDAO.joinTransaction();
         Dog dog = dogDAO.find(dogId);
         Person person = personDAO.find(personId);
         person.getDogs().remove(dog);
         dog.getPerson().remove(person);
-        personDAO.commitAndClose();
+        personDAO.commitAndCloseTransaction();
     }
 }

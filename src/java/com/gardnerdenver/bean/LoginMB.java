@@ -55,13 +55,6 @@ public class LoginMB extends AbstractMB implements Serializable{
     }
 
     public void login() {
-        System.out.println("#");
-        System.out.println("#");
-        System.out.println("#");
-        System.out.println("#");
-        System.out.println("#");
-        System.out.println("banco:");
-        System.out.println(UserItemFactoryBean.getBanco());
 
         UserItemFactoryFacade userFacade = new UserItemFactoryFacade();
         UserFactoryFacade usFacade = new UserFactoryFacade();

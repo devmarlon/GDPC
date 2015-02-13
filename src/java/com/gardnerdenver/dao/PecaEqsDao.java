@@ -23,18 +23,17 @@ public class PecaEqsDao extends GenericDAO<PecaEqs> {
     }
 
     public void delete(PecaEqs peca) {
-        super.delete(peca.getPES_ID(), PecaEqs.class);
+        super.delete(peca.getPES_ID());
     }
 
     public boolean deleteByID(int ID) {
         boolean result = true;
         try {
-            em = emf.createEntityManager();
-            em.getTransaction().begin();
+            beginTransaction();
             Query query = em.createQuery("DELETE FROM PecaEqs p WHERE p.PES_ID = :pesId");
             query.setParameter("pesId", ID);
             query.executeUpdate();
-            em.getTransaction().commit();
+            commitAndCloseTransaction();
         } catch (Exception e) {
             result = false;
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());

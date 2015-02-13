@@ -17,6 +17,6 @@ public class PadraoManutencaoPecaDao extends GenericGdpcDAO<PadraoManutencaoPeca
 //        return super.findOneResult(Person.FIND_USER_BY_ID_WITH_DOGS, parameters);
 //    }
     public void delete(PadraoManutencaoPeca pmp) {
-        super.delete(pmp.getPMP_ID(), PadraoManutencaoPeca.class);
+        super.delete(pmp.getPMP_ID());
     }
 }

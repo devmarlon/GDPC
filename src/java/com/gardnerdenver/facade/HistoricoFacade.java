@@ -13,42 +13,42 @@ public class HistoricoFacade implements Serializable {
     private HistoricoDao pdmDao = new HistoricoDao();
 
     public void create(Historico pdm) {
-        pdmDao.begin();
+        pdmDao.beginTransaction();
         pdmDao.save(pdm);
-        pdmDao.commitAndClose();
+        pdmDao.commitAndCloseTransaction();
     }
 
     public void update(Historico pdm) {
-        pdmDao.begin();
+        pdmDao.beginTransaction();
         pdmDao.update(pdm);
-        pdmDao.commitAndClose();
+        pdmDao.commitAndCloseTransaction();
     }
 
     public void delete(Historico pdm) {
-        pdmDao.begin();
+        pdmDao.beginTransaction();
         Historico persistedPersonWithIdOnly = pdmDao.findReferenceOnly(pdm.getHisId());
         pdmDao.delete(persistedPersonWithIdOnly);
-        pdmDao.commitAndClose();
+        pdmDao.commitAndCloseTransaction();
 
     }
 
     public Historico find(int pdmId) {
-        pdmDao.begin();
+        pdmDao.beginTransaction();
         Historico person = pdmDao.find(pdmId);
-        pdmDao.close();
+        pdmDao.closeTransaction();
         return person;
     }
 
     public List<Historico> listByParceiro(int parId) {
-        pdmDao.begin();
+        pdmDao.createEntityManager();
         List<Historico> result = pdmDao.findHistoricoByParceiro(parId);
-        pdmDao.close();
+        pdmDao.closeEntityManager();
         return result;
     }
     public List<Historico> listAll() {
-        pdmDao.begin();
+        pdmDao.createEntityManager();
         List<Historico> result = pdmDao.findAll();
-        pdmDao.close();
+        pdmDao.closeEntityManager();
         return result;
     }
 

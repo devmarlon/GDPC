@@ -18,50 +18,50 @@ public class EquipamentoFacade implements Serializable {
     }
 
     public void createEquipamento(Equipamento eqp) {
-        equipamentoDAO.begin();
+        equipamentoDAO.beginTransaction();
         equipamentoDAO.save(eqp);
-        equipamentoDAO.commitAndClose();
+        equipamentoDAO.commitAndCloseTransaction();
     }
 
     public boolean verificaSN(String sn) {
-        equipamentoDAO.begin();
+        equipamentoDAO.createEntityManager();
         Equipamento eqp = equipamentoDAO.findEqpBySN(sn);
-        equipamentoDAO.close();
+        equipamentoDAO.closeEntityManager();
 
         return eqp != null;
     }
 
     public void updateEquipamento(Equipamento eqp) {
-        equipamentoDAO.begin();
+        equipamentoDAO.beginTransaction();
         equipamentoDAO.update(eqp);
-        equipamentoDAO.commitAndClose();
+        equipamentoDAO.commitAndCloseTransaction();
     }
 
     public Equipamento findEquipamento(int eqpId) {
-        equipamentoDAO.begin();
+        equipamentoDAO.createEntityManager();
         Equipamento eqp = equipamentoDAO.find(eqpId);
-        equipamentoDAO.close();
+        equipamentoDAO.closeEntityManager();
         return eqp;
     }
 
     public List<Equipamento> listBusca(String descricao, Parceiro par, int catId, String modelo, String serie, String fabricante) {
-        equipamentoDAO.begin();
+        equipamentoDAO.createEntityManager();
         List<Equipamento> result = equipamentoDAO.findBusca(descricao, par, catId, modelo, serie, fabricante);
-        equipamentoDAO.close();
+        equipamentoDAO.closeEntityManager();
         return result;
     }
 
     public List<Equipamento> listAll() {
-        equipamentoDAO.begin();
+        equipamentoDAO.createEntityManager();
         List<Equipamento> result = equipamentoDAO.findAll();
-        equipamentoDAO.close();
+        equipamentoDAO.closeEntityManager();
         return result;
     }
 
     public void deleteEquipamento(Equipamento eqp) {
-        equipamentoDAO.begin();
+        equipamentoDAO.beginTransaction();
         Equipamento persistedEqp = equipamentoDAO.findReferenceOnly(eqp.getEQP_ID());
         equipamentoDAO.delete(persistedEqp);
-        equipamentoDAO.commitAndClose();
+        equipamentoDAO.commitAndCloseTransaction();
     }
 }
