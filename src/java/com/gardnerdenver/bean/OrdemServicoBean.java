@@ -267,6 +267,7 @@ public class OrdemServicoBean extends AbstractMB implements Serializable {
     public void imprimir(ActionEvent ae) {
         String bt = ae.getComponent().getId();
         String link = "/gdpc";
+//        String link = "";
         String name;
 //        if (Util.localhost) {
 //            link = "/gdpc";

@@ -969,7 +969,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("MUN", request.getParameter("mun"));
                     System.out.println(parametros.toString());
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 

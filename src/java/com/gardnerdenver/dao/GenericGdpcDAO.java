@@ -21,7 +21,7 @@ import org.hibernate.Session;
 public abstract class GenericGdpcDAO<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static EntityManagerFactory emf;
+    public static EntityManagerFactory emf;
     EntityManager em;
     private static Map properties;
     private Class<T> entityClass;
@@ -44,6 +44,9 @@ public abstract class GenericGdpcDAO<T> implements Serializable {
     }
 
     public void beginTransaction() {
+        if (em != null) {
+            closeTransaction();
+        }
         createEntityManager();
         em.getTransaction().begin();
     }
@@ -126,9 +129,14 @@ public abstract class GenericGdpcDAO<T> implements Serializable {
 //            System.out.println(UserItemFactoryBean.banco + " numConn = " + UserItemFactoryBean.numConn);
 //            UserItemFactoryBean.numConn = 0;
 //        }
-        if (emf == null) {
-            emf = Persistence.createEntityManagerFactory("gdpcPU", properties);
-        }
+//        if (emf != null) {
+//            if (emf.isOpen()) {
+//                emf.close();
+//            }
+//        }
+//        if (emf == null) {
+        emf = Persistence.createEntityManagerFactory("gdpcPU", properties);
+//        }
 
         this.entityClass = entityClass;
     }
@@ -215,7 +223,7 @@ public abstract class GenericGdpcDAO<T> implements Serializable {
         return result;
     }
 
-    private void populateQueryParameters(Query query, Map<String, Object> parameters) {
+    public void populateQueryParameters(Query query, Map<String, Object> parameters) {
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
         }

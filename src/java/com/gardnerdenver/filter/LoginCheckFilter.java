@@ -54,7 +54,52 @@ public class LoginCheckFilter extends AbstractFilter implements Filter {
             allowedURIs.add("/gdpc/fundoLogin.jpg");
             allowedURIs.add("/gdpc/javax.faces.resource/primefaces-extensions.js.xhtml");
             allowedURIs.add("/gdpc/javax.faces.resource/keyfilter/keyfilter.js.xhtml");
-            allowedURIs.add("/gdpc/simuladores/");
+
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/main.css.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/estilo.css.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/loginstyle.css.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/theme.css.xhtml");
+            allowedURIs.add("/gdpc/javax.faces.resource/primefaces.js.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/primefaces.css.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/jquery/jquery.js.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/jquery/jquery-plugins.js.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/messages/messages.png.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/images/ui-icons_2e83ff_256x240.png.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/images/ui-icons_38667f_256x240.png.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/fundoLogin.jpg");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/logoGD.png.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/fundoLogin.jpg");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/primefaces-extensions.js.xhtml");
+            allowedURIs.add("/gdpc/pages/public/login.xhtmlgdpc/javax.faces.resource/keyfilter/keyfilter.js.xhtml");
+
+            allowedURIs.add("/fundoLogin.jpg");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/main.css.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/estilo.css.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/loginstyle.css.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/theme.css.xhtml");
+            allowedURIs.add("/javax.faces.resource/primefaces.js.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/primefaces.css.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/jquery/jquery.js.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/jquery/jquery-plugins.js.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/messages/messages.png.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/images/ui-icons_2e83ff_256x240.png.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/images/ui-icons_38667f_256x240.png.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/fundoLogin.jpg");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/logoGD.png.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/fundoLogin.jpg");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/primefaces-extensions.js.xhtml");
+            allowedURIs.add("/pages/public/login.xhtmlgdpc/javax.faces.resource/keyfilter/keyfilter.js.xhtml");
+
+            allowedURIs.add("/javax.faces.resource/theme.css.xhtml");
+            allowedURIs.add("/javax.faces.resource/loginstyle.css.xhtml");
+            allowedURIs.add("/javax.faces.resource/primefaces.css.xhtml");
+            allowedURIs.add("/javax.faces.resource/jquery/jquery.js.xhtml");
+            allowedURIs.add("/javax.faces.resource/estilo.css.xhtml");
+            allowedURIs.add("/javax.faces.resource/jquery/jquery-plugins.js.xhtml");
+            allowedURIs.add("/favicon.ico");
+
         }
     }
 
@@ -98,7 +143,6 @@ public class LoginCheckFilter extends AbstractFilter implements Filter {
 
         if (user != null) {
             String database = user.getUserFactory().getUSU_BANCO();
-
 
             req.getSession().setAttribute("database", database);
         }

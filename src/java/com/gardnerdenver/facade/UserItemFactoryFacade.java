@@ -58,7 +58,7 @@ public class UserItemFactoryFacade {
 
     public FactoryUserItem isValidLogin(String email, String password) {
         userDAO.beginTransaction();
-        FactoryUserItem user = userDAO.findUserByEmail(email);
+        FactoryUserItem user = (FactoryUserItem) userDAO.findUserByEmail(email);
         userDAO.closeTransaction();
 
         if (user == null || !user.getUSI_SENHA().equals(password)) {

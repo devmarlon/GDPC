@@ -46,7 +46,8 @@ public class AbstractMB {
     public void redirect(String pagina) {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/gdpc" + pagina);
+//            FacesContext.getCurrentInstance().getExternalContext().redirect("/gdpc" + pagina);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(pagina);
         } catch (IOException ex) {
             Logger.getLogger(AbstractMB.class.getName()).log(Level.SEVERE, null, ex);
         }

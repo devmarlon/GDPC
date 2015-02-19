@@ -16,7 +16,6 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.servlet.http.HttpSession;
 
-
 public abstract class GenericDAO<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +43,9 @@ public abstract class GenericDAO<T> implements Serializable {
     }
 
     public void beginTransaction() {
+        if (em != null) {
+            closeTransaction();
+        }
         createEntityManager();
         em.getTransaction().begin();
     }
@@ -137,6 +139,11 @@ public abstract class GenericDAO<T> implements Serializable {
             create = !database.equalsIgnoreCase(urlDbtemp);
         }
 
+//        if (emf != null) {
+//            if (emf.isOpen()) {
+//                emf.close();
+//            }
+//        }
         //        if (emf == null || create || !emf.isOpen()) {
         emf = Persistence.createEntityManagerFactory("PU", properties);
         //        }

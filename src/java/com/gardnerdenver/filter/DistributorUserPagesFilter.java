@@ -27,6 +27,9 @@ public class DistributorUserPagesFilter extends AbstractFilter implements Filter
         HttpServletRequest req = (HttpServletRequest) request;
         FactoryUserItem user = (FactoryUserItem) req.getSession(true).getAttribute("user");
 
+        if (user == null) {
+            return;
+        }
         if (!user.getUserFactory().isDis()) {
             accessDenied(request, response, req);
             return;

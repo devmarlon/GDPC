@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="PU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
         <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>com.gardnerdenver.model.Equipamento</class>
         <class>com.gardnerdenver.model.EquipamentoMedicao</class>
         <class>com.gardnerdenver.model.Funcionario</class>
@@ -23,27 +23,28 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/p_28?zeroDateTimeBehavior=convertToNull"/>
             <property name="javax.persistence.jdbc.user" value="varkon"/>
             <property name="javax.persistence.jdbc.password" value="qwert1234"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
       
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.connection.shutdown" value="false"/>
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
-            <!--            <property name="hibernate.c3p0.idle_test_period"  value="50"/>-->
+                        <property name="hibernate.c3p0.idle_test_period"  value="50"/>
             <property name="hibernate.c3p0.min_size" value="10"/>
             <property name="hibernate.c3p0.max_size" value="20"/>
             <property name="hibernate.c3p0.acquire_increment" value="1"/>
             <property name="hibernate.c3p0.idle_test_period" value="3000"/>
             <property name="hibernate.c3p0.max_statements" value="50"/>
-            <property name="hibernate.c3p0.timeout" value="1800"/>
+            <property name="hibernate.c3p0.timeout" value="1800"/>-->
             <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
             
         </properties>
     </persistence-unit>
     <persistence-unit name="gdpcPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
         <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>com.gardnerdenver.model.FactoryUser</class>
         <class>com.gardnerdenver.model.FactoryUserItem</class>
         <class>com.gardnerdenver.model.Municipio</class>
@@ -63,20 +64,21 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gdpc?zeroDateTimeBehavior=convertToNull"/>
             <property name="javax.persistence.jdbc.user" value="varkon"/>
             <property name="javax.persistence.jdbc.password" value="qwert1234"/>
-      
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+<!--            
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.connection.shutdown" value="false"/>
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <!--<property name="hibernate.c3p0.idle_test_period"  value="50"/>-->
+            <property name="hibernate.c3p0.idle_test_period"  value="50"/>
             <property name="hibernate.c3p0.min_size" value="10"/>
             <property name="hibernate.c3p0.max_size" value="20"/>
             <property name="hibernate.c3p0.acquire_increment" value="1"/>
-            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+            <property name="hibernate.c3p0.idle_test_period" value="300"/>
             <property name="hibernate.c3p0.max_statements" value="50"/>
-            <property name="hibernate.c3p0.timeout" value="1800"/>
+            <property name="hibernate.c3p0.timeout" value="180"/>-->
         </properties>
     </persistence-unit>
 </persistence>

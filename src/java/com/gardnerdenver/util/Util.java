@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Util {
 
-//    public static String local = "localhost";
-    public static String local = "server.gestorweb.com.br";
-//    public static String local = "192.168.25.10";
+    public static String local = "localhost";
+//    public static String local = "server.gestorweb.com.br";
+//    public static String local = "54.149.31.247";
 
     public static void gravarCookie(String nome, String valor) {
 
@@ -176,8 +176,10 @@ public class Util {
         String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("");
         if (!caminho.startsWith("/")) {
             return caminho + "../../../GDPC/";
+//            return caminho + "../../../";
         }
         return caminho + "/../../../../../../web/GDPC/";
+//        return caminho + "/../../../../../../web/";
 
 //        return realPath;
     }
