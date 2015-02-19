@@ -5,7 +5,6 @@
  */
 package com.gardnerdenver.model;
 
-import com.gardnerdenver.bean.UserItemFactoryBean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -19,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Marlon
  */
 @Entity
+@Table(name = "Historico")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Historico.findAll", query = "SELECT h FROM Historico h"),

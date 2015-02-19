@@ -6,7 +6,6 @@
 package com.gardnerdenver.model;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -18,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.Fetch;
@@ -28,6 +28,7 @@ import org.hibernate.annotations.FetchMode;
  * @author Marlon
  */
 @Entity
+@Table(name = "Peca")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Peca.findAll", query = "SELECT f FROM Peca f where f.ativo IS NULL or f.ativo = true"),

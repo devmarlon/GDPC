@@ -13,12 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author Marlon
  */
 @Entity
+@Table(name = "Municipio")
 @NamedQueries({
     @NamedQuery(name = "Municipio.findMunicipio", query = "select m from Municipio m WHERE m.MUN_ID = :munId"),
     @NamedQuery(name = "Municipio.findListMunicipioByUF", query = "select m from Municipio m WHERE m.MUN_UF = :ufId")

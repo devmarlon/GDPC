@@ -13,11 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name = "EquipamentoMedicao")
 @NamedQueries({
     @NamedQuery(name = "EquipamentoMedicao.findListByEqp", query = "select m from EquipamentoMedicao m where m.equipamento.EQP_ID = :eqpId ORDER BY m.EQM_DATAATUALIZACAO desc, m.EQM_HORASTOTAIS asc"),
     @NamedQuery(name = "EquipamentoMedicao.findLastUpdate", query = "SELECT m FROM EquipamentoMedicao m where m.equipamento.EQP_ID = :eqpId and m.EQM_DATAATUALIZACAO >= (SELECT MAX(n.EQM_DATAATUALIZACAO) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId) and m.EQM_HORASTOTAIS >= (SELECT MAX(n.EQM_HORASTOTAIS) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId) GROUP BY m.EQM_DATAATUALIZACAO order by m.EQM_DATAATUALIZACAO DESC")

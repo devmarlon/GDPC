@@ -9,11 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
+@Table(name = "FactoryEquipamento")
 //@NamedQueries({
 //    @NamedQuery(name = "Equipamento.busca", query = "select e from Equipamento e where e.EQP_DESCRICAO like '%:DESC%' AND (CASE ':PAR_ID' WHEN '0' THEN e.parceiro.PAR_ID <> 0 ELSE e.parceiro.PAR_ID = :PAR_ID END)")
 //})

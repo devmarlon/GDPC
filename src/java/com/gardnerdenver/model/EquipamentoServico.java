@@ -18,12 +18,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.joda.time.DateTime;
 
 @Entity
+@Table(name = "EquipamentoServico")
 @NamedQueries({
 //    @NamedQuery(name = "EquipamentoServico.findListCarta", query = "SELECT p FROM EquipamentoServico p WHERE (p.MANUTATUAL , p.MANUTATUALRHORAS) = (select max(x.MANUTATUAL), max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) ORDER BY p.servico.SRV_ID"),
     @NamedQuery(name = "EquipamentoServico.findListCarta", query = "SELECT p FROM EquipamentoServico p WHERE (p.MANUTATUAL) = (select max(x.MANUTATUAL) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) AND p.MANUTATUALRHORAS =  (select max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) ORDER BY p.servico.SRV_ID"),

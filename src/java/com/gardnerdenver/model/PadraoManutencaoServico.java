@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
@@ -24,6 +25,7 @@ import javax.persistence.Transient;
  * @author Marlon
  */
 @Entity
+@Table(name = "PadraoManutencaoServico")
 public class PadraoManutencaoServico implements Serializable {
 
     private static final long serialVersionUID = 1L;

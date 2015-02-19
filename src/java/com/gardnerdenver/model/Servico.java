@@ -13,11 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-//@NamedQuery(name = "Servico.findServicoById", query = "select s from Servico s where s.SRV_ID = :servId")
+@Table(name = "Servico")
 @NamedQueries({
     @NamedQuery(name = "Servico.findServico", query = "select s from Servico s where s.ativo IS NULL or s.ativo = true"),
     @NamedQuery(name = "Servico.findServicoById", query = "select s from Servico s where s.SRV_ID = :servId and (s.ativo IS NULL or s.ativo = true)"),

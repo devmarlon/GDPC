@@ -12,9 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity
+@Table(name = "MovimentoItem")
 @NamedQueries({
     @NamedQuery(name = "MovimentoItem.findByMov", query = "Select m from MovimentoItem m WHERE m.movimento.MOV_ID = :movId")
 })

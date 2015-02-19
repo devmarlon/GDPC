@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@Table(name = "FactoryUserItem")
 @NamedQueries({
     @NamedQuery(name = "FactoryUserItem.findListFabrica", query = "select u from FactoryUserItem u WHERE u.UserFactory.rol = :rol"),
     @NamedQuery(name = "FactoryUserItem.findUserByEmail", query = "select u from FactoryUserItem u where u.USI_LOGIN = :USI_LOGIN")

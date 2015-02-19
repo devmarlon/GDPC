@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Configuracao")
 @NamedQuery(name = "Configuracao.findConfig", query = "select c from Configuracao c WHERE c.CFG_ID = :cfg_id")
 public class Configuracao implements Serializable {
 

@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -25,6 +26,7 @@ import javax.validation.constraints.NotNull;
  * @author Marlon
  */
 @Entity
+@Table(name = "PadraoManutencao")
 @NamedQueries({
     @NamedQuery(name = "PadraoManutencao.findPadraoByModelo", query = "select p from PadraoManutencao p WHERE p.factoryModelo.MOD_ID = :modeloId ")
 })

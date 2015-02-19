@@ -28,7 +28,7 @@ import org.hibernate.annotations.FetchMode;
  * @author Marlon
  */
 @Entity
-//@Table(name = "factorymodelo")
+@Table(name = "Modelo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Modelo.findAll", query = "SELECT m FROM Modelo m"),

@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.Fetch;
@@ -28,6 +29,7 @@ import org.hibernate.annotations.FetchMode;
  * @author Marlon
  */
 @Entity
+@Table(name = "FactoryPeca")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FactoryPeca.findAll", query = "SELECT f FROM FactoryPeca f order by f.ativo, f.descricao"),

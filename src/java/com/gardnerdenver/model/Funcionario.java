@@ -22,6 +22,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
+@Table(name = "Funcionario")
 @NamedQueries({
     @NamedQuery(name = "Funcionario.funcByEmail", query = "select u from Funcionario u where u.FUN_LOGIN = :FUN_LOGIN"),
     @NamedQuery(name = "Funcionario.listTec", query = "select u from Funcionario u where u.FUN_TEC = 'S'"),
