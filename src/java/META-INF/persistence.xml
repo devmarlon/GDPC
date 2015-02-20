@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="PU" transaction-type="RESOURCE_LOCAL">
-        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
-        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>com.gardnerdenver.model.Equipamento</class>
-        <class>com.gardnerdenver.model.EquipamentoMedicao</class>
-        <class>com.gardnerdenver.model.Funcionario</class>
-        <class>com.gardnerdenver.model.EquipamentoServico</class>
-        <class>com.gardnerdenver.model.Servico</class>
-        <class>com.gardnerdenver.model.Parceiro</class>
-        <class>com.gardnerdenver.model.Configuracao</class>
-        <class>com.gardnerdenver.model.Peca</class>
-        <class>com.gardnerdenver.model.PecaEqs</class>
-        <class>com.gardnerdenver.model.Movimento</class>
-        <class>com.gardnerdenver.model.MovimentoItem</class>
-        <class>com.gardnerdenver.model.Modelo</class>
-        <class>com.gardnerdenver.model.Historico</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/p_28?zeroDateTimeBehavior=convertToNull"/>
-            <property name="javax.persistence.jdbc.user" value="varkon"/>
-            <property name="javax.persistence.jdbc.password" value="qwert1234"/>
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
-      
-            <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+  <persistence-unit name="PU" transaction-type="RESOURCE_LOCAL">
+    <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+    <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.gardnerdenver.model.Equipamento</class>
+    <class>com.gardnerdenver.model.EquipamentoMedicao</class>
+    <class>com.gardnerdenver.model.Funcionario</class>
+    <class>com.gardnerdenver.model.EquipamentoServico</class>
+    <class>com.gardnerdenver.model.Servico</class>
+    <class>com.gardnerdenver.model.Parceiro</class>
+    <class>com.gardnerdenver.model.Configuracao</class>
+    <class>com.gardnerdenver.model.Peca</class>
+    <class>com.gardnerdenver.model.PecaEqs</class>
+    <class>com.gardnerdenver.model.Movimento</class>
+    <class>com.gardnerdenver.model.MovimentoItem</class>
+    <class>com.gardnerdenver.model.Modelo</class>
+    <class>com.gardnerdenver.model.Historico</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/p_28?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="varkon"/>
+      <property name="javax.persistence.jdbc.password" value="qwert1234"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.connection.shutdown" value="false"/>
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
@@ -37,35 +36,35 @@
             <property name="hibernate.c3p0.idle_test_period" value="3000"/>
             <property name="hibernate.c3p0.max_statements" value="50"/>
             <property name="hibernate.c3p0.timeout" value="1800"/>-->
-            <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
-            
-        </properties>
-    </persistence-unit>
-    <persistence-unit name="gdpcPU" transaction-type="RESOURCE_LOCAL">
-        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
-        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>com.gardnerdenver.model.FactoryUser</class>
-        <class>com.gardnerdenver.model.FactoryUserItem</class>
-        <class>com.gardnerdenver.model.Municipio</class>
-        <class>com.gardnerdenver.model.FactoryContrato</class>
-        <class>com.gardnerdenver.model.FactoryEquipamento</class>
-        <class>com.gardnerdenver.model.FactoryPeca</class>
-        <class>com.gardnerdenver.model.FactoryServico</class>
-        <class>com.gardnerdenver.model.FactoryCategoria</class>
-        <class>com.gardnerdenver.model.Configuracao</class>
-        <class>com.gardnerdenver.model.FactoryModelo</class>
-        <class>com.gardnerdenver.model.PadraoManutencao</class>
-        <class>com.gardnerdenver.model.PadraoManutencaoServico</class>
-        <class>com.gardnerdenver.model.PadraoManutencaoPeca</class>
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gdpc?zeroDateTimeBehavior=convertToNull"/>
-            <property name="javax.persistence.jdbc.user" value="varkon"/>
-            <property name="javax.persistence.jdbc.password" value="qwert1234"/>
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
-<!--            
+      <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="gdpcPU" transaction-type="RESOURCE_LOCAL">
+    <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+    <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.gardnerdenver.model.FactoryUser</class>
+    <class>com.gardnerdenver.model.FactoryUserItem</class>
+    <class>com.gardnerdenver.model.Municipio</class>
+    <class>com.gardnerdenver.model.FactoryContrato</class>
+    <class>com.gardnerdenver.model.FactoryEquipamento</class>
+    <class>com.gardnerdenver.model.FactoryPeca</class>
+    <class>com.gardnerdenver.model.FactoryServico</class>
+    <class>com.gardnerdenver.model.FactoryCategoria</class>
+    <class>com.gardnerdenver.model.Configuracao</class>
+    <class>com.gardnerdenver.model.FactoryModelo</class>
+    <class>com.gardnerdenver.model.PadraoManutencao</class>
+    <class>com.gardnerdenver.model.PadraoManutencaoServico</class>
+    <class>com.gardnerdenver.model.PadraoManutencaoPeca</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gdpc?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="varkon"/>
+      <property name="javax.persistence.jdbc.password" value="qwert1234"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <!--            
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.connection.shutdown" value="false"/>
             <property name="hibernate.show_sql" value="false"/>
@@ -79,6 +78,7 @@
             <property name="hibernate.c3p0.idle_test_period" value="300"/>
             <property name="hibernate.c3p0.max_statements" value="50"/>
             <property name="hibernate.c3p0.timeout" value="180"/>-->
-        </properties>
-    </persistence-unit>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
 </persistence>
