@@ -25,7 +25,7 @@ public class FactoryEquipamento implements Serializable {
 
 //    public static final String FIND_BY_BUSCA = "Equipamento.busca";
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int EQP_ID;
     @Column//(unique = true)
     private String EQP_SERIE;

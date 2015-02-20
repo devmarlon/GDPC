@@ -22,7 +22,7 @@ public class FactoryUser implements Serializable {
     public static final String FIND_LIST = "FactoryUser.findListDist";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int USU_ID;
     @Column(length = 100)
     private String USU_EMPRESA;

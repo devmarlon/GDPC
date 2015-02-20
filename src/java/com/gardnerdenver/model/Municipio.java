@@ -32,7 +32,7 @@ public class Municipio implements Serializable {
     public static final String FIND_LIST_MUNICIPIO_BY_UF = "Municipio.findListMunicipioByUF";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int MUN_ID;
     @Column
     private String MUN_NOME;

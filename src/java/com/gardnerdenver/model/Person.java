@@ -18,7 +18,7 @@ public class Person implements Serializable {
     public static final String FIND_USER_BY_ID_WITH_DOGS = "Person.findUserByIdWithDogs";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int age;
     private String name;

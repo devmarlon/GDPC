@@ -34,7 +34,7 @@ public class Servico implements Serializable {
     public static final String FIND_SERVICO_BY_DESC = "Servico.findServicoByDesc";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int SRV_ID;
     @Column
     private String SRV_DESCRICAO;

@@ -3,6 +3,7 @@ package com.gardnerdenver.model;
 import com.gardnerdenver.facade.EquipamentoMedicaoFacade;
 import com.gardnerdenver.facade.FactoryCategoriaFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +40,7 @@ public class Equipamento implements Serializable {
 
     public static final String FIND_BY_SN = "Equipamento.eqpBySN";
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int EQP_ID;
     @Column(unique = true)
     private String EQP_SERIE;
@@ -254,6 +255,9 @@ public class Equipamento implements Serializable {
     }
 
     public List<EquipamentoServico> getServicos() {
+        if (servicos == null) {
+            servicos = new ArrayList<>();
+        }
         return servicos;
     }
 
@@ -413,19 +417,19 @@ public class Equipamento implements Serializable {
         if (!this.getAtivo().equals(other.getAtivo())) {
             return false;
         }
-        if (!Objects.equals(this.servicos, other.servicos)) {
-            return false;
-        } else {
-            for (EquipamentoServico esThis : this.servicos) {
-                for (EquipamentoServico esOther : other.servicos) {
-                    if (esThis.getID_EQS() == esOther.getID_EQS() && !esThis.equals(esOther)) {
-                        return false;
-                    }
-
-                }
-
-            }
-        }
+//        if (!Objects.equals(this.getServicos(), other.getServicos())) {
+//            return false;
+//        } else {
+//            for (EquipamentoServico esThis : this.getServicos()) {
+//                for (EquipamentoServico esOther : other.getServicos()) {
+//                    if (esThis.getID_EQS() == esOther.getID_EQS() && !esThis.equals(esOther)) {
+//                        return false;
+//                    }
+//
+//                }
+//
+//            }
+//        }
 
         return true;
     }

@@ -21,7 +21,7 @@ public class User implements Serializable {
     public static final String FIND_BY_EMAIL = "User.findUserByEmail";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(unique = true)

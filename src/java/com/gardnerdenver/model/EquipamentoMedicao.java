@@ -31,7 +31,7 @@ public class EquipamentoMedicao implements Serializable {
     public static final String FIND_LIST_BY_EQP = "EquipamentoMedicao.findListByEqp";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int EQM_ID;
 
     @Temporal(TemporalType.DATE)

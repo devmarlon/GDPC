@@ -37,7 +37,7 @@ public class PadraoManutencao implements Serializable {
     public static final String FIND_PADRAO_BY_MODELO = "PadraoManutencao.findPadraoByModelo";
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int PDM_ID;
 
     @NotNull

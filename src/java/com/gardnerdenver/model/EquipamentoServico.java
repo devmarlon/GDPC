@@ -27,7 +27,7 @@ import org.joda.time.DateTime;
 @Entity
 @Table(name = "EquipamentoServico")
 @NamedQueries({
-//    @NamedQuery(name = "EquipamentoServico.findListCarta", query = "SELECT p FROM EquipamentoServico p WHERE (p.MANUTATUAL , p.MANUTATUALRHORAS) = (select max(x.MANUTATUAL), max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) ORDER BY p.servico.SRV_ID"),
+    //    @NamedQuery(name = "EquipamentoServico.findListCarta", query = "SELECT p FROM EquipamentoServico p WHERE (p.MANUTATUAL , p.MANUTATUALRHORAS) = (select max(x.MANUTATUAL), max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) ORDER BY p.servico.SRV_ID"),
     @NamedQuery(name = "EquipamentoServico.findListCarta", query = "SELECT p FROM EquipamentoServico p WHERE (p.MANUTATUAL) = (select max(x.MANUTATUAL) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) AND p.MANUTATUALRHORAS =  (select max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID) ORDER BY p.servico.SRV_ID"),
 //    @NamedQuery(name = "EquipamentoServico.findListByEqp", query = "SELECT p FROM EquipamentoServico p WHERE p.OS = FALSE AND p.REALIZADO = TRUE AND p.equipamento.EQP_ID = :eqpId  AND (p.MANUTATUAL , p.MANUTATUALRHORAS) = (select max(x.MANUTATUAL), max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID AND x.REALIZADO = p.REALIZADO) ORDER BY p.servico.SRV_ID"),
     @NamedQuery(name = "EquipamentoServico.findListByEqp", query = "SELECT p FROM EquipamentoServico p WHERE p.OS = FALSE AND p.REALIZADO = TRUE AND p.equipamento.EQP_ID = :eqpId  AND (p.MANUTATUAL) = (select max(x.MANUTATUAL) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID AND x.REALIZADO = p.REALIZADO) AND (p.MANUTATUALRHORAS) = (select max(x.MANUTATUALRHORAS) FROM EquipamentoServico x WHERE x.servico.SRV_ID = p.servico.SRV_ID AND x.equipamento.EQP_ID = p.equipamento.EQP_ID AND x.REALIZADO = p.REALIZADO) ORDER BY p.servico.SRV_ID"),
@@ -115,6 +115,9 @@ public class EquipamentoServico implements Serializable {
     }
 
     public Equipamento getEquipamento() {
+        if (equipamento == null) {
+            equipamento = new Equipamento();
+        }
         return equipamento;
     }
 
@@ -327,13 +330,13 @@ public class EquipamentoServico implements Serializable {
         if (this.ID_EQS != other.ID_EQS) {
             return false;
         }
-        if (!Objects.equals(this.equipamento, other.equipamento)) {
+//        if (!Objects.equals(this.getEquipamento(), other.getEquipamento())) {
+//            return false;
+//        }
+        if (!Objects.equals(this.getServico(), other.getServico())) {
             return false;
         }
-        if (!Objects.equals(this.servico, other.servico)) {
-            return false;
-        }
-        if (!Objects.equals(this.equipamentosPecas, other.equipamentosPecas)) {
+        if (!Objects.equals(this.getEquipamentosPecas(), other.getEquipamentosPecas())) {
             return false;
         }
         return true;
