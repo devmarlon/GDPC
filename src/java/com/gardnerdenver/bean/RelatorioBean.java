@@ -734,6 +734,11 @@ public class RelatorioBean extends AbstractMB implements Serializable {
                         + "                </tr>\n"
                         + "            </tbody>\n"
                         + "        </table> "
+                        + ""
+                        + ""
+                        + "<div style=\"page-break-after: always\"></div>"
+                        + ""
+                        + ""
                 );
             }
         }

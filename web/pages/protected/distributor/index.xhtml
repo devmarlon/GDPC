@@ -19,7 +19,6 @@
                                     <p:autoComplete id="cli" minQueryLength="0" value="#{indexBean.parceiro}" label="#{bundle.cli}" var="cli" converter="parceiroConverter"
                                                     itemLabel="#{cli.PAR_RAZAO}" itemValue="#{cli}"  completeMethod="#{indexBean.completeParceiros}" dropdown="true" size="50" style="width: 80%">
                                         <p:ajax event="itemSelect" listener="#{indexBean.setaParceiro}" update="pgCli, eqp, pgMain2 tabServ :messageGrowl"/>
-                                        <!--<p:ajax event="blur" listener="# {parceiroBean.complete(name)}"/>-->
                                     </p:autoComplete>
                                 </p:outputPanel>
                             </h:panelGrid>
@@ -138,7 +137,7 @@
                                                  disabled="#{indexBean.equipamento.EQP_ID == 0}"
                                                  action="#{indexBean.atualizaEquipamento}"
                                                  style="float: right; top: 5px"/>
-                                                <!--update=":messageGrowl pneqp"-->
+                                <!--update=":messageGrowl pneqp"-->
                             </p:panel>
                         </h:panelGrid>
 
