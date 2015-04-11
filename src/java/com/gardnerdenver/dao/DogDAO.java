@@ -1,5 +1,6 @@
 package com.gardnerdenver.dao;
 
+
 import com.gardnerdenver.model.Dog;
 
 public class DogDAO extends GenericDAO<Dog> {
