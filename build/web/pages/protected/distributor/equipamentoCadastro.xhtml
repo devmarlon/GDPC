@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmequipamentoCadastro" class="container">
+                    <h1 style="font-weight:bold"> #{equipamentoBean.tipoAcao} </h1>
+                    <p:panel style="width:860px" >
+
+
+                        <h:panelGrid columns="2" cellpadding="1" >
+                            <h:outputLabel value="Categoria" />
+
+                            <h:outputLabel value="" />
+                            <p:selectOneMenu style="width:412px" id="categoria" value="#{equipamentoBean.equipamento.EQP_CATID}"> 
+                                <f:selectItems value="#{categoriaBean.listaCategoria}" var="cat" itemLabel="#{cat.CAT_NOME}" 
+                                               itemValue="#{cat.CAT_ID}" />
+                            </p:selectOneMenu>
+                            <p:selectBooleanCheckbox value="#{equipamentoBean.equipamento.ativo}" label="Ativo" itemLabel="Equipamento Ativo"  />
+
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" cellpadding="1" >
+                            <h:panelGrid columns="3" cellpadding="1" style="margin-left:-4px;" >
+                                <h:outputText value="Fabricante" />
+                                <h:outputText value="Modelo" />
+                                <h:outputText value="Série" />
+                                <p:inputText style="width:125px" value="#{equipamentoBean.equipamento.EQP_FABRICANTE}" onkeypress="setaFoco(this);" maxlength="200" required="true" label="Fabricante" />
+                                <p:selectOneMenu style="width:100px" id="modelo" value="#{equipamentoBean.equipamento.modelo}"> 
+                                    <f:selectItem itemLabel="Selecione um Modelo" noSelectionOption="true"/>
+                                    <f:selectItems value="#{equipamentoBean.modelos}" var="modelo" itemLabel="#{modelo.MOD_NOME}" 
+                                                   itemValue="#{modelo}" />
+                                    <p:ajax event="change" update="pdm" />
+                                </p:selectOneMenu>
+                                <p:inputText style="width:125px" value="#{equipamentoBean.equipamento.EQP_SERIE}" onkeypress="setaFoco(this);" maxlength="200" required="true" label="Série" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="1" style="margin-left:-4px;" >
+                                <h:outputText value="Cliente" />
+                                <!--<p:outputPanel style="width: 350px" >-->
+                                    <p:autoComplete id="cli" forceSelection="true"  minQueryLength="1" converter="parceiroConverter" size="50" value="#{equipamentoBean.equipamento.parceiro}" label="#{bundle.cli}" required="true" var="cli"
+                                                    itemLabel="#{cli.PAR_RAZAO}" itemValue="#{cli}" completeMethod="#{equipamentoBean.completeParceiros}" dropdown="true" >
+                                        <!--<p:ajax event="itemSelect" listener="# {indexBean.setaParceiro}" update="eqp pgMain tabServ"/>-->
+                                    </p:autoComplete>   
+                                <!--</p:outputPanel>-->
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="1" >
+                            <h:panelGrid columns="3" cellpadding="1" style="margin-left:-4px;">
+                                <h:outputLabel value="Horas/Dia" />
+                                <h:outputLabel value="Dias/Semana" />
+                                <h:outputLabel value="Pressão(Bar)" />                              
+                                <p:spinner  value="#{equipamentoBean.equipamento.EQP_REGIMEHORASDIA}" label="Horas/Dia" min="1" max="24" onkeypress="setaFoco(this);" size="10" />
+                                <p:spinner  value="#{equipamentoBean.equipamento.EQP_REGIMEDIASSEMANA}" label="Dias/Semana" min="1" max="7" onkeypress="setaFoco(this);" size="10"/>
+
+                                <p:inputText style="width:125px"  value="#{equipamentoBean.equipamento.EQP_PRESSAOOPERACAO}" />
+                            </h:panelGrid>
+                            <h:panelGrid columns="#{equipamentoBean.columnsPartida}" cellpadding="1" style="margin-left:-4px;" >
+                                <h:outputText value="Tensão(V/Hz/Fases)" />
+                                <h:outputLabel value="Data de Partida" />
+                                <h:outputLabel value="Horimetro de partida" rendered="#{equipamentoBean.equipamento.EQP_ID == 0}" />
+                                <p:inputText style="width:120px" value="#{equipamentoBean.equipamento.EQP_TENSAO}" onkeypress="setaFoco(this);" maxlength="200"/>
+                                <h:panelGrid style="width:80px;">
+                                    <p:calendar value="#{equipamentoBean.equipamento.EQP_DATAPARTIDA}" pattern="dd/MM/yyyy" locale="pt" size="20" required="true" label="Data de partida"/>
+                                </h:panelGrid>
+                                <p:inputText style="width:120px" value="#{equipamentoBean.equipamento.EQP_HORIMETROINICIAL}" onkeypress="setaFoco(this);" maxlength="200" rendered="#{equipamentoBean.equipamento.EQP_ID == 0}"/>
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+
+
+                        <p:separator />
+
+                        <p:commandButton id="parcBtSave" actionListener="#{equipamentoBean.salvar}" style="font-size:30px;font-weight:bold;float:right;" 
+                                         value="Salvar" icon="ui-icon-check" update=":messageGrowl" />
+
+                        <p:commandButton actionListener="#{equipamentoBean.validaFechar()}"  id="parcBtCanc" immediate="#{equipamentoBean.equipamento.EQP_ID == 0}"
+                                         style="font-size:30px;font-weight:bold;float: left" value="Fechar" icon="ui-icon-closethick" />
+                        <div class="clear"> </div>
+                    </p:panel>
+
+                    <p:spacer />
+                    <p:spacer />
+                    
+                    <p:panel>
+                        <p:panel header="Serviços" id="pnServicos" >
+                            <h:panelGrid columns="2" >
+                                <p:commandButton value="Adicionar serviços" icon="ui-icon-search" update=":eqpAddSrvDialogForm" actionListener="#{equipamentoBean.loadAllServicos()}" oncomplete="eqpAddSrvDialogWidget.show();"/>
+                                <p:outputPanel id="pdm">
+                                    <p:commandButton id="btPadraoManut" value="Carregar Padrão de manutenção" update=":pmDialogForm" actionListener="#{equipamentoBean.carregaPadrao()}" oncomplete="pmDialogWidget.show();"
+                                                     disabled="#{equipamentoBean.equipamento.modelo.fab == 0}" />
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <p:dataTable var="serv" value="#{equipamentoBean.equipamento.servicos}"
+                                         selection="#{equipamentoBean.equipamentoServico}" selectionMode="single"
+                                         id="dtServ" style="width: 100%"
+                                         rowKey="#{serv.servico.SRV_ID}"
+                                         emptyMessage="#{bundle.noRecords}"
+                                         rowStyleClass="#{serv.MANUTPROXIMA.before(serv.HOJE) || serv.MANUTPROXIMAHORAS.before(serv.HOJE) ? 'manut' : null}">
+                                <p:ajax event="rowSelect"
+                                        update=":fmequipamentoCadastro:dtPart"/>
+                                <p:column headerText="Cód" style="width: 3%; text-align: center"> 
+                                    <h:outputText value="#{serv.servico.SRV_ID}"/> 
+                                </p:column> 
+                                <p:column headerText="Serviço" style="width: 250px"> 
+                                    <h:outputText value="#{serv.servico.SRV_DESCRICAO}" />
+                                </p:column> 
+                                <p:column headerText="Freq. Dias" style="width: 50px; text-align: center"> 
+                                    <h:outputText value="#{serv.SRV_FREQUENCIADIAS}"/> 
+                                </p:column> 
+                                <p:column headerText="Freq. Horas" style="width: 60px; text-align: center"> 
+                                    <h:outputText value="#{serv.SRV_FREQUENCIAHORAS}"/> 
+                                </p:column> 
+                                <p:column headerText="Man. Atual " style="width: 60px; text-align: center"> 
+                                    <h:outputText value="#{serv.MANUTATUAL}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                    </h:outputText> 
+                                </p:column> 
+                                <p:column headerText="Man. Atual Horas" style="width: 70px; text-align: center"> 
+                                    <h:outputText value="#{serv.MANUTATUALRHORAS}"/> 
+                                </p:column> 
+                                <p:column headerText="Prox. (Dias)" style="width: 60px; text-align: center"> 
+                                    <h:outputText value="#{serv.MANUTPROXIMA}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                    </h:outputText> 
+                                </p:column> 
+                                <p:column headerText="Prox. (Horas)" style="width: 70px; text-align: center"> 
+                                    <h:outputText value="#{serv.MANUTPROXIMAHORAS}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                    </h:outputText> 
+                                </p:column> 
+                                <p:column headerText="Man. Anterior" style="width: 75px; text-align: center"> 
+                                    <h:outputText value="#{serv.MANUTANTERIOR}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                    </h:outputText> 
+                                </p:column> 
+                                <p:column headerText="Hora Anterior" style="width: 60px; text-align: center"> 
+                                    <h:outputText value="#{serv.MANUTANTERIORHORAS}"/> 
+                                </p:column> 
+
+                            </p:dataTable>
+                        </p:panel>
+                        <p:spacer/>
+                        <p:panel header="Peças" >
+                            <p:commandButton value="Adicionar peças" icon="ui-icon-search" update=":fmequipamentoCadastro :srvAddPecaDialogForm :messageGrowl" actionListener="#{equipamentoBean.loadAllPecas}"/>
+
+                            <p:dataTable var="pec" value="#{equipamentoBean.equipamentoServico.equipamentosPecas}"
+                                         id="dtPart"  style="width: 400px"
+                                         rowKey="#{pec.peca.PEC_ID}"
+                                         emptyMessage="#{bundle.noRecords}">
+
+                                <!--                                                <p:ajax event="rowSelect" listener="# {indexBean.onRowSelectParts}" 
+                                                                                        update=":formDist:tabServ:pgSelProd"/>-->
+
+                                <p:column headerText="Código" style="width: 50px"> 
+                                    <h:outputText value="#{pec.peca.codigo}"/> 
+                                </p:column> 
+                                <p:column headerText="Descrição" style="width: 50px"> 
+                                    <h:outputText value="#{pec.peca.descricao}"/> 
+                                </p:column> 
+                                <p:column headerText="Quantidade" style="width: 50px"> 
+                                    <p:inputText value="#{pec.quantidade}" />
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                        </p:panel>
+                        
+                        
+                        <p:separator />
+
+                        <p:commandButton id="parcBtSave2" actionListener="#{equipamentoBean.salvar}" style="font-size:30px;font-weight:bold;float:right;" 
+                                         value="Salvar" icon="ui-icon-check" update=":messageGrowl" />
+
+                        <p:commandButton actionListener="#{equipamentoBean.validaFechar()}"  id="parcBtCanc2" immediate="#{equipamentoBean.equipamento.EQP_ID == 0}"
+                                         style="font-size:30px;font-weight:bold;float: left" value="Fechar" icon="ui-icon-closethick" />
+                        <div class="clear"> </div>
+                    </p:panel>
+
+
+                </h:form>
+                <ui:include src="dialogs/eqpCloseDialog.xhtml" />
+                <ui:include src="dialogs/equipamentoAddServico.xhtml" />
+                <ui:include src="dialogs/ServicoAddPeca.xhtml" />
+                <ui:include src="dialogs/carregaPadraoManutencao.xhtml" />
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>

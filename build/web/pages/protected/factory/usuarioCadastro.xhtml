@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="form" class="container">
+                    <h1 style="font-weight:bold"> Cadastro de #{bundle.usuPlural} </h1>
+
+                    <p:panel style="width:360px" >
+                        <h:panelGrid columns="2" >
+                            <h:outputLabel value="Nome" />
+                            <p:inputText value="#{userItemFactoryBean.usuarioItem.USI_NOME}" required="false" />
+                            <h:outputLabel value="Login" />
+                            <p:inputText  value="#{userItemFactoryBean.usuarioItem.USI_LOGIN}" required="true" type="email" label="Login" />
+                            <h:outputLabel value="Senha"
+                                           rendered="#{userItemFactoryBean.user.ADM or userItemFactoryBean.usuarioItem.USI_ID == 0}" />
+                            <p:password match="senha2" value="#{userItemFactoryBean.usuarioItem.USI_SENHA}" required="true" label="Nova Senha"
+                                        rendered="#{userItemFactoryBean.user.ADM or userItemFactoryBean.usuarioItem.USI_ID == 0}" />
+                            <h:outputLabel value="Repita a senha*" 
+                                           rendered="#{userItemFactoryBean.user.ADM or userItemFactoryBean.usuarioItem.USI_ID == 0}" />
+                            <p:password id="senha2" required="true" label="Confirmação de senha"
+                                        rendered="#{userItemFactoryBean.user.ADM or userItemFactoryBean.usuarioItem.USI_ID == 0}" />
+
+
+                        </h:panelGrid>
+                        <p:separator />
+
+                        <p:commandButton id="BtSave" actionListener="#{userItemFactoryBean.salvar}" style="font-size:30px;font-weight:bold;float:right;" 
+                                         value="Salvar" icon="ui-icon-check" update=":messageGrowl" />
+
+                        <!--                        <p:commandButton actionListener="# {parceiroBean.salvar}" value="save" type="button" />-->
+
+                        <p:commandButton actionListener="#{userItemFactoryBean.validaFechar}" id="BtCanc" immediate="#{userItemFactoryBean.usuarioItem.USI_ID == 0}"
+                                         style="font-size:30px;font-weight:bold;float:left" value="Fechar" icon="ui-icon-closethick" />
+                        <div class="clear"> </div>
+                    </p:panel>
+
+
+                </h:form>
+                <ui:include src="dialogs/usCloseDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

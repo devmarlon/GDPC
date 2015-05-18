@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:poue="http://primefaces.org/ui/extensions">
+    <h:body>
+
+        <p:dialog widgetVar="parCloseDialogWidget" id="parCloseDialogId" width="500" modal="true" appendTo="@(body)"
+
+                  closable="false" draggable="true" resizable="false">
+            <h:form id="parCloseDialogForm" prependId="false">
+                <p:outputLabel style="font-weight: bolder" value="Os dados alterados serão perdidos. Deseja fechar sem salvar?" />
+                <p:separator/>
+
+                <p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{parceiroBean.salvar()}" style="font-size:30px;font-weight:bold; float: left" />
+
+                <p:commandButton value="Não Salvar" icon="ui-icon-closethick" actionListener="#{parceiroBean.showParceiro()}" style="font-size:30px;font-weight:bold; margin: 2px 15% 0 15%"/>
+
+                <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" style="font-size:30px;font-weight:bold; float: right"
+                                 onclick="parCloseDialogWidget.hide();" type="button" />
+            </h:form>
+        </p:dialog>
+
+    </h:body>
+</html>

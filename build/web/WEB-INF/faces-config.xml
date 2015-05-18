@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+    
+    <navigation-case>
+        <from-outcome>parceiro</from-outcome>
+        <to-view-id>/pages/protected/distributor/parceiro.xhtml</to-view-id>
+    </navigation-case>
+    
+    <navigation-case>
+        <from-outcome>cartamanutencao</from-outcome>
+        <to-view-id>/cartamanutencao.xhtml</to-view-id>
+    </navigation-case>
+
+   
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+            <renderer-class>com.gardnerdenver.fileupload.FileUploadRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+    <application>
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <message-bundle>messages</message-bundle>
+    </application>
+</faces-config>

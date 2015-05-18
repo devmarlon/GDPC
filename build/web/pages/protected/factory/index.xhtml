@@ -1,0 +1,551 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body >
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form class="container" id="formDist" rendered="#{userItemFactoryBean.disUser}">
+
+                    <p:focus for="#{indexBean.focus}"/>
+                    <p:panel style="width: 100%" >
+                        <h:panelGrid columns="2" id="pgMain" style="margin: auto; width: 90%" >
+                            <h:panelGrid columns="4" id="pgCli" >
+                                <h:outputLabel value="#{bundle.cli}"/>
+                                <p:inputText rendered="true" id="pCodCliente" value="#{indexBean.searchCodeCli}" onkeypress="setaFoco(this);
+                                        return SomenteNumero();"  style="width:30px; text-align: right;" >
+                                    <p:ajax event="blur" listener="#{indexBean.setaParceiro(event)}" update="pgCli, eqp, pgMain2, tabServ, :messageGrowl"/>
+                                </p:inputText>
+                                <p:commandButton icon="ui-icon-search"  type="button" update=":fmpar"  onclick="manutParcDialog.show();" />
+                                <p:outputPanel style="width: 480px" >
+                                    <p:autoComplete id="cli" minQueryLength="0" value="#{indexBean.parceiro}" label="#{bundle.cli}" var="cli" converter="parceiroConverter"
+                                                    itemLabel="#{cli.PAR_RAZAO}" itemValue="#{cli}"  completeMethod="#{indexBean.completeParceiros}" dropdown="true" size="50" style="width: 80%">
+                                        <p:ajax event="itemSelect" listener="#{indexBean.setaParceiro}" update="pgCli, eqp, pgMain2 tabServ :messageGrowl"/>
+                                        <!--<p:ajax event="blur" listener="# {parceiroBean.complete(name)}"/>-->
+                                    </p:autoComplete>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" >
+                                <h:outputLabel value="#{bundle.equip}"/>
+                                <p:selectOneMenu id="eqp" value="#{indexBean.equipamento}" immediate="true" converter="equipamentoConverter" required="false" effect="fade"  style="width: 480px" > 
+                                    <!--<f:selectItem itemLabel="Selecione" />--> 
+                                    <f:selectItems value="#{indexBean.parceiro.equipamentos}" var="equip" itemLabel="#{equip.EQP_SERIE} - #{equip.categoria.CAT_NOME}" itemValue="#{equip}"/>
+                                    <p:ajax event="change"  immediate="false" update=":formDist:tabServ pgMain2 :messageGrowl"  listener="#{indexBean.loadEquip}"/>
+                                </p:selectOneMenu> 
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" id="pgMain2" style="margin: auto; width: 90%" >
+                            <p:panel style="width: auto; height: 220px; margin: auto; overflow: auto; " header="Detalhes do Cliente">
+                                <h:panelGrid columns="4" style="margin-left: 50px;text-align: right" >
+                                    <h:outputLabel value="#{bundle.cliEnd}" />
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_ENDERECO}" style="width: 270px"/>
+                                    <h:outputLabel value="#{bundle.cliNum}" style="margin-left: 17px" />
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_NUMERO}" style="width: 110px"  />
+                                    <h:outputLabel value="#{bundle.cliCid}"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.municipio.MUN_NOME}" style="width: 270px"/>
+                                    <h:outputLabel value="#{bundle.cliEstado}"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.estado.JEST_UF}" style="width: 110px" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="6" style="text-align: right; margin-left: 55px" >
+                                    <h:outputLabel value="#{bundle.cliTel1}"/> 
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_TELEFONE1}" style="width: 121px"/> 
+                                    <h:outputLabel  value="#{bundle.cliRamal}" style="margin-left: 16px"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_RAMAL1}" style="width: 78px"/>
+                                    <h:outputLabel value="#{bundle.cliFax}" style="margin-left: 43px"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_FAX}" style="width: 110px" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" style="text-align: right; margin-left: 30px" >
+                                    <h:outputLabel value="#{bundle.cliRes}"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_CONTATO}" style="width: 460px"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" style="text-align: right; margin-left: 74px" >
+                                    <h:outputLabel value="#{bundle.cliSetor}"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_SETOR}" style="width: 270px"/>
+                                    <h:outputLabel value="#{bundle.cliCel}" style="margin-left: 22px"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_TELEFONE2}" style="width: 110px" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="2" style="text-align: right; margin-left: 71px" >
+                                    <h:outputLabel value="Email"/>
+                                    <p:inputText readonly="true" value="#{indexBean.parceiro.PAR_EMAIL}" style="width: 460px"/>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel id="pneqp"  style="width: auto; height: 220px; margin: auto; overflow: auto" header="Detalhes do Equipamento">
+
+                                <h:panelGrid columns="2" id="pgEqp" style="text-align: right;  margin-left: 30px " >
+                                    <h:outputLabel value="#{bundle.cat}"/>
+                                    <p:inputText readonly="true" value="#{indexBean.equipamento.categoria.CAT_NOME}" style="width: 460px"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4" style="text-align: right;  margin-left: 46px" >
+                                    <h:outputLabel value="#{bundle.eqpModelo}"/>
+                                    <p:inputText readonly="true" value="#{indexBean.equipamento.modelo.MOD_NOME}" style="width: 295px"/>
+                                    <h:outputLabel value="#{bundle.eqpTensao}" style="margin-left: 2px"/>
+                                    <p:inputText readonly="false" value="#{indexBean.equipamento.EQP_TENSAO}" style="width: 102px;"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="6" style="text-align: right; margin-left: 44px" >
+                                    <h:outputLabel value="#{bundle.eqpHrDia}" />
+                                    <p:inputText readonly="false" styleClass="fr3c" value="#{indexBean.equipamento.EQP_REGIMEHORASDIA}" onkeypress="return SomenteNumero(event);" >
+                                        <p:ajax event="blur" update="eqpmedia, eqpEstim" />
+                                    </p:inputText>
+                                    <h:outputLabel value="#{bundle.eqpHrSemana}" style="margin-left: 18px;" />
+                                    <p:inputText readonly="false" styleClass="fr3c" value="#{indexBean.equipamento.EQP_REGIMEDIASSEMANA}" onkeypress="return SomenteNumero(event);">
+                                        <p:ajax event="blur" update="eqpmedia, eqpEstim" />
+                                    </p:inputText>
+                                    <h:outputLabel id="med" value="#{bundle.eqpHrMedia}" style="margin-left: 11px;"/>
+                                    <p:inputText readonly="true" styleClass="fr3c" id="eqpmedia" value="#{indexBean.equipamento.EQP_REGIMEMEDIA}" />
+                                </h:panelGrid>
+                                <h:panelGrid columns="6" style="text-align: right; width: 523px; margin-left: 38px" >
+                                    <h:outputLabel value="#{bundle.eqpPressaoOper}"/>
+                                    <p:inputText value="#{indexBean.equipamento.EQP_PRESSAOOPERACAO}" styleClass="fr3c" />
+                                    <h:outputLabel value="#{bundle.eqpDtPartida}" style="margin-left: 22px"/>
+                                    <h:panelGrid style="margin:-3px 8px auto -4px;width: 106px;" >
+                                        <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{indexBean.equipamento.EQP_DATAPARTIDA}" /></h:panelGrid>
+                                    <h:outputLabel value="#{bundle.eqpDtUpdate}" />
+                                    <h:panelGrid style="margin:-3px 8px auto -4px;width: 106px;" >
+                                        <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{indexBean.equipamento.eqpMedicao.EQM_DATAATUALIZACAO}"/></h:panelGrid>
+                                </h:panelGrid>
+                                <h:panelGrid columns="6" style="text-align: right; width: 539px; margin-left: 27px">
+                                    <h:outputLabel value="#{bundle.eqpHrTotais}" />
+                                    <p:inputText readonly="false" value="#{indexBean.equipamento.eqpMedicao.EQM_HORASTOTAIS}" styleClass="fr3c"/>
+                                    <h:outputLabel value="#{bundle.eqpHrCarga}" />
+                                    <p:inputText readonly="false" value="#{indexBean.equipamento.eqpMedicao.EQM_HORASEMCARGA}" styleClass="fr3c"/>
+                                    <h:outputLabel value="#{bundle.eqpHrEstim}" />
+                                    <p:inputText readonly="false" id="eqpEstim" value="#{indexBean.equipamento.eqpMedicao.EQM_HORASESTIMADAS}" styleClass="fr3c"/>
+                                </h:panelGrid>
+
+
+                                <!--<p:commandButton value="Observações" update="pneqp" actionListener="# {indexBean.showDlgObs}"  />-->
+                                <p:commandButton id="imageBtn" disabled="#{indexBean.equipamento.EQP_ID == 0}" value="Observações" type="button" style="float: right; top: 5px"/>
+                                <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade">
+                                    <p:inputTextarea value="#{indexBean.equipamento.EQP_OBS}" style="width: 450px; height: 250px;" />
+
+                                    <p:commandButton value="Ok"
+                                                     icon="ui-icon-refresh"
+                                                     update=":messageGrowl :formDist"
+                                                     immediate="true"
+                                                     actionListener="#{indexBean.atualizaEquipamento()}"
+                                                     style="float: right; top: 5px"/>
+
+                                </p:overlayPanel>
+                                <p:commandButton value="Atualizar"
+                                                 icon="ui-icon-refresh"
+                                                 update=":messageGrowl :formDist"
+                                                 immediate="true"
+                                                 disabled="#{indexBean.equipamento.EQP_ID == 0}"
+                                                 actionListener="#{indexBean.atualizaEquipamento()}"
+                                                 style="float: right; top: 5px"/>
+
+                                <!--                                <p:dialog widgetVar="obsEqpDialogWidget" id="obsEqpDialogId" width="500" height="300px" modal="true" closable="true" appendTo="@(body)"
+                                                                          visible="# {indexBean.rdrDlgObs}"
+                                                                          draggable="false" resizable="true">
+                                                                    <h:form prependId="false">
+                                                                    <p:inputTextarea value="# {indexBean.equipamento.EQP_OBS}" style="width: 450px; height: 250px;" />
+                                
+                                                                    <p:commandButton type="button" value="# {bundle.ok}" icon="ui-icon-arrow-1-w" 
+                                                                                     actionListener="# {indexBean.atualizaEquipamento}" />
+                                                                    </h:form>
+                                                                </p:dialog>-->
+                            </p:panel>
+                        </h:panelGrid>
+                        <h:panelGrid id="pgServ">
+                            <p:tabView id="tabServ" style="width: auto" dynamic="false">
+
+                                <p:tab title="Serviços" id="tbServ" >
+
+                                    <h:panelGrid id="pgServico" cellpadding="0" cellspacing="0" columns="6" style="margin-top: -5px; text-align: center" >
+                                        <h:panelGrid columns="3" style="width: 300px">
+                                            <h:outputText value=""/>
+                                            <h:outputText value="Serviço"/>
+                                            <h:outputText value=""/>
+                                            <p:inputText id="pCodigo" value="#{indexBean.searchCode}" onkeypress="setaFoco('s');" onblur="return nullIntDouble(this);" style="margin-left: 5px;width:30px; text-align: right;" >
+                                                <p:ajax event="blur" listener="#{indexBean.setaEquipamentoServico(itemSelect)}" update=":formDist:tabServ :messageGrowl"/>
+                                            </p:inputText>
+                                            <p:commandButton icon="ui-icon-search" type="button" update=":fmservice" onclick="manutServicesDialog.show();"/>
+                                            <h:panelGrid columns="1" style="margin:-1px 8px auto -3px;width:290px">
+                                                <p:autoComplete id="s" forceSelection="true" minQueryLength="3" value="#{indexBean.equipamentoServicoAux.servico}" onkeydown="setaFoco(this);"
+                                                                label="#{bundle.cli}" var="srv" itemLabel="#{srv.SRV_DESCRICAO}" itemValue="#{srv}" completeMethod="#{servicoBean.complete}"
+                                                                style="margin-left: 12px" size="70">
+                                                    <p:ajax event="itemSelect" listener="#{indexBean.setaEquipamentoServico}"
+                                                            update="tabServ" 
+                                                            immediate="true"/>
+                                                </p:autoComplete>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid  >
+                                            <h:outputText value="Freq. Dias" />
+                                            <p:inputText value="#{indexBean.equipamentoServicoAux.SRV_FREQUENCIADIAS}" onkeydown="setaFoco(this);"
+                                                         required="true"
+                                                         style="width: 90px"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid >
+                                            <h:outputText value="Freq. Horas"/>
+                                            <p:inputText value="#{indexBean.equipamentoServicoAux.SRV_FREQUENCIAHORAS}" onkeydown="setaFoco(this);"
+                                                         required="true" style="width: 90px"/>
+                                        </h:panelGrid>
+                                        <h:panelGrid>
+                                            <h:outputText value="Manut. Atual"/>
+                                            <h:panelGrid style="margin:-2px 8px auto -3px;width: 90px;" >
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy" required="#{indexBean.equipamentoServico.ID_EQS != 0}" id="dtAtual"
+                                                            label="Data da Manutenção Atual" onkeydown="setaFoco(this);"  mindate="#{indexBean.equipamento.EQP_DATAPARTIDA}"
+                                                            value="#{indexBean.equipamentoServicoAux.MANUTATUAL}"/>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid>
+                                            <h:outputText value="Horimetro Atual"/>
+                                            <p:inputText value="#{indexBean.equipamentoServicoAux.MANUTATUALRHORAS}"
+                                                         required="true" label="Horimetro atual" onkeydown="setaFoco(this);" 
+                                                         style="width: 90px"/>
+                                        </h:panelGrid>
+                                        <p:commandButton id="btSrv" icon="#{indexBean.icoBotaoServico}"
+                                                         value="#{indexBean.lblBotaoServico}"
+                                                         actionListener="#{indexBean.createManutencao()}"
+                                                         process="@(.ui-panel :input:not(select))" 
+                                                         update=":messageGrowl :formDist:pgMain tabServ :formDist:pgEqp"
+                                                         disabled="#{indexBean.searchCode == 0}"
+                                                         style="margin-left: 190px; float: right; font-weight: bold"/>
+                                    </h:panelGrid>
+
+
+                                    <p:dataTable var="serv" value="#{indexBean.listServicos}"
+                                                 selection="#{indexBean.equipamentoServico}" selectionMode="single"
+                                                 id="dtServ" style="width: 100%" 
+                                                 rowKey="#{serv.ID_EQS}"
+                                                 emptyMessage="#{bundle.noRecords}"
+                                                 rowStyleClass="#{serv.MANUTPROXIMA.before(serv.HOJE) || serv.MANUTPROXIMAHORAS.before(serv.HOJE) ? 'manut' : null}">
+
+                                        <p:ajax event="rowSelect" listener="#{indexBean.onRowSelect}" 
+                                                update=":formDist:pgServ :formDist:tabServ:dtPart :formDist:tabServ:btSrv"/>
+                                        <p:column headerText="Cód" style="width: 3%; text-align: center"> 
+                                            <h:outputText value="#{serv.servico.SRV_ID}"/> 
+                                        </p:column> 
+                                        <p:column headerText="Serviço" style="width: 250px"> 
+                                            <h:outputText value="#{serv.servico.SRV_DESCRICAO}" />
+                                        </p:column> 
+                                        <p:column headerText="Freq. Dias" style="width: 50px; text-align: center"> 
+                                            <h:outputText value="#{serv.SRV_FREQUENCIADIAS}"/> 
+                                        </p:column> 
+                                        <p:column headerText="Freq. Horas" style="width: 60px; text-align: center"> 
+                                            <h:outputText value="#{serv.SRV_FREQUENCIAHORAS}"/> 
+                                        </p:column> 
+                                        <p:column headerText="Man. Atual " style="width: 60px; text-align: center"> 
+                                            <h:outputText value="#{serv.MANUTATUAL}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                            </h:outputText> 
+                                        </p:column> 
+                                        <p:column headerText="Man. Atual Horas" style="width: 70px; text-align: center"> 
+                                            <h:outputText value="#{serv.MANUTATUALRHORAS}"/> 
+                                        </p:column> 
+                                        <p:column headerText="Prox. (Dias)" style="width: 60px; text-align: center"> 
+                                            <h:outputText value="#{serv.MANUTPROXIMA}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                            </h:outputText> 
+                                        </p:column> 
+                                        <p:column headerText="Prox. (Horas)" style="width: 70px; text-align: center"> 
+                                            <h:outputText value="#{serv.MANUTPROXIMAHORAS}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                            </h:outputText> 
+                                        </p:column> 
+                                        <p:column headerText="Man. Anterior" style="width: 75px; text-align: center"> 
+                                            <h:outputText value="#{serv.MANUTANTERIOR}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                            </h:outputText> 
+                                        </p:column> 
+                                        <p:column headerText="Hora Anterior" style="width: 60px; text-align: center"> 
+                                            <h:outputText value="#{serv.MANUTANTERIORHORAS}"/> 
+                                        </p:column> 
+                                        <p:column style="width:12px;text-align: center">
+                                            <p:commandLink update=":eqpDeleteDialogForm" oncomplete="PF('eqsDeleteDialogWidget').show()" title="View">
+                                                <f:setPropertyActionListener value="#{serv}" target="#{indexBean.equipamentoServicoDelete}" />
+                                                <p:graphicImage library="images" name="icor.png" width="10" />
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:spacer />
+                                    <p:panel style="width: auto; margin: auto; overflow: auto " header="Peças">
+                                        <h:panelGrid columns="2" >
+                                            <h:panelGrid id="pgSelProd" columns="3" width="450px" >
+                                                <h:outputText value="Código" />
+                                                <h:panelGrid columns="2" >
+                                                    <p:inputText id="pCod" value="#{indexBean.searchCodePart}" onkeypress="setaFoco(this);" style="width:100px; text-align: right; margin-right: 10px" >
+                                                        <p:ajax event="blur" listener="#{indexBean.setaPart(itemSelect)}" update="tabServ pgSelProd :messageGrowl"/>
+                                                    </p:inputText>
+                                                    <p:commandButton icon="ui-icon-search"  type="button" update=":fmpecas"  onclick="manutPecasDialog.show();" />
+                                                </h:panelGrid>
+                                                <h:panelGrid style="margin:-1px 8px auto -3px;width:300px">
+                                                    <p:autoComplete minQueryLength="0" value="#{indexBean.pecaEqsAux.peca}" label="#{bundle.cli}" var="pt" 
+                                                                    itemLabel="#{pt.descricao}" itemValue="#{pt}" completeMethod="#{pecaBean.complete}" >
+                                                        <p:ajax event="itemSelect" listener="#{indexBean.setaPart}"
+                                                                update="tabServ" 
+                                                                immediate="true"/>
+                                                    </p:autoComplete>
+                                                </h:panelGrid>
+                                                <h:outputText value="Quantidade"/>
+                                                <p:inputText id="pQtd" value="#{indexBean.pecaEqsAux.quantidade}" onkeypress="return SomenteNumero(event);" style="width:100px; text-align: right; margin-left: 4px"/>
+
+                                                <p:commandButton value="Adicionar" actionListener="#{indexBean.createPeca}" style="float: right;"
+                                                                 icon="ui-icon-plus" 
+                                                                 disabled="#{indexBean.pecaEqsAux.eqs == null or indexBean.equipamentoServicoAux.ID_EQS == 0}"
+                                                                 update=":messageGrowl tabServ dtPart"/>
+                                            </h:panelGrid>
+
+                                            <p:dataTable var="pec" value="#{indexBean.equipamentoServicoAux.equipamentosPecas}"
+                                                         selection="#{indexBean.pecaEqs}" selectionMode="single"
+                                                         id="dtPart"
+                                                         rowKey="#{pec.peca.PEC_ID}"
+                                                         style="margin-left: 20%; width: 100%"
+                                                         emptyMessage="#{bundle.noRecords}">
+
+                                                <p:ajax event="rowSelect" listener="#{indexBean.onRowSelectParts}" 
+                                                        update=":formDist:tabServ:pgSelProd"/>
+
+                                                <p:column headerText="Código" style="width: 15%"> 
+                                                    <h:outputText value="#{pec.peca.codigo}"/> 
+                                                </p:column> 
+                                                <p:column headerText="Descrição"> 
+                                                    <h:outputText value="#{pec.peca.descricao}"/> 
+                                                </p:column> 
+                                                <p:column headerText="Quantidade" style="width: 15%"> 
+                                                    <h:outputText value="#{pec.quantidade}">
+                                                        <f:convertNumber  maxFractionDigits="0" minFractionDigits="0" locale="pt_BR" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column style="width:12px;text-align: center">
+                                                    <p:commandLink update=":pecaDeleteDialogForm" oncomplete="PF('pecaDeleteDialogWidget').show()" title="View">
+                                                        <f:setPropertyActionListener value="#{pec}" target="#{indexBean.pecaDelete}" />
+                                                        <p:graphicImage library="images" name="icor.png" width="10" />
+                                                    </p:commandLink>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel>
+
+                                </p:tab>
+
+
+                                <p:tab title="Histórico" id="tabHistorico" disabled="#{indexBean.equipamento.EQP_ID == 0}" >
+
+                                    <h3>Histórico de Manutenções</h3>
+                                    <p:dataTable var="hist" value="#{indexBean.dataServicosHistorico}"
+                                                 id="dtHist" style="width: 100%" 
+                                                 rowKey="#{hist.ID_EQS}"
+                                                 emptyMessage="#{bundle.noRecords}">
+
+
+                                        <p:column>
+                                            <h:outputLabel value="#{hist.servico.SRV_ID}" />
+                                        </p:column> 
+                                        <p:column headerText="Serviço">
+                                            <h:outputLabel value="#{hist.servico.SRV_DESCRICAO}" />
+                                        </p:column> 
+                                        <p:column headerText="Data Manutenção" style="width: 60px; text-align: center"> 
+                                            <h:outputText value="#{hist.MANUTATUAL}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                            </h:outputText> 
+                                        </p:column> 
+
+                                        <p:column headerText="Horimetro Manutenção" style="width: 70px; text-align: center"> 
+                                            <h:outputText value="#{hist.MANUTATUALRHORAS}"/> 
+                                        </p:column> 
+
+                                    </p:dataTable>
+
+
+                                </p:tab>
+                            </p:tabView>
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:outputPanel id="pnServicos">
+                        <p:dialog widgetVar="manutServicesDialog" visible="#{indexBean.rdrDlgObs}"
+                                  id="servicesDlgId" width="600" height="400px" modal="true" 
+                                  closable="true" appendTo="@(body)" 
+                                  draggable="true" resizable="true"  >
+                            <p:dataTable var="s" value="#{servicoBean.dtmServicos}"
+                                         selection="#{indexBean.servicoSelected}" selectionMode="single"
+                                         id="dtSer"
+                                         rowKey="#{s.SRV_ID}"
+                                         emptyMessage="#{bundle.noRecords}">
+
+                                <p:column headerText="Código" >
+                                    <h:outputText value="#{s.SRV_ID}"/>
+                                </p:column>
+                                <p:column headerText="Descrição" filterBy="#{s.SRV_DESCRICAO}" filterMatchMode="contains">
+                                    <h:outputText value="#{s.SRV_DESCRICAO}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton value="Adicionar" icon="ui-icon-plus"  actionListener="#{indexBean.selectServico()}"
+                                             update=":messageGrowl :formDist:tabServ"
+                                             oncomplete="closeDialogIfSucess(xhr, status, args, manutServicesDialog, 'servicesDlgId')" style="font-size:30px;font-weight:bold;float:left"   />
+                        </p:dialog>
+                    </p:outputPanel>
+                </h:form>
+
+
+
+
+
+                <p:dialog widgetVar="manutParcDialog" id="parcDlgId" width="600" height="400px" modal="true" rendered="#{userItemFactoryBean.disUser}"
+                          closable="true" appendTo="@(body)" 
+                          draggable="true" resizable="true"  >
+                    <h:form id="fmpar" prependId="false" >
+                        <p:dataTable var="prc" value="#{indexBean.dtmParceiros}"
+                                     selection="#{indexBean.parceiro}" selectionMode="single"
+                                     id="dtParc"
+                                     rowKey="#{prc.PAR_ID}"
+                                     emptyMessage="#{bundle.noRecords}">
+
+                            <p:ajax event="rowSelect" listener="#{indexBean.selectParceiro(e)}"
+                                    oncomplete="closeDialogIfSucess(xhr, status, args, manutParcDialog, 'parcDlgId')"
+                                    update=":formDist:pgCli :formDist:eqp :formDist:pgMain2 :formDist:tabServ :messageGrowl"/>
+
+                            <p:column headerText="Código" >
+                                <h:outputText value="#{prc.PAR_ID}"/>
+                            </p:column>
+                            <p:column headerText="Cliente" filterBy="#{prc.PAR_RAZAO}" filterMatchMode="contains">
+                                <h:outputText value="#{prc.PAR_RAZAO}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog widgetVar="manutServicesDialog" rendered="#{userItemFactoryBean.disUser}"
+                          id="servicesDlgId" width="600" height="400px" modal="true" 
+                          closable="true" appendTo="@(body)" 
+                          draggable="true" resizable="true"  >
+                    <h:form id="fmservice" prependId="false" >
+                        <p:dataTable var="s" value="#{servicoBean.dtmServicos}"
+                                     selection="#{indexBean.equipamentoServicoSelected.servico}" selectionMode="single"
+                                     id="dtSer"
+                                     rowKey="#{s.SRV_ID}"
+                                     emptyMessage="#{bundle.noRecords}">
+
+                            <p:column headerText="Código" >
+                                <h:outputText value="#{s.SRV_ID}"/>
+                            </p:column>
+                            <p:column headerText="Descrição" filterBy="#{s.SRV_DESCRICAO}" filterMatchMode="contains">
+                                <h:outputText value="#{s.SRV_DESCRICAO}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton value="Selecionar" icon="ui-icon-plus"  actionListener="#{indexBean.selectServico()}"
+                                         update=":messageGrowl :formDist:tabServ"
+                                         oncomplete="closeDialogIfSucess(xhr, status, args, manutServicesDialog, 'servicesDlgId')" style="font-size:30px;font-weight:bold;float:left"   />
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog widgetVar="manutPecasDialog" rendered="#{userItemFactoryBean.disUser}"
+                          id="pecasDlgId" width="600" height="400px" modal="true" 
+                          closable="true" appendTo="@(body)" 
+                          draggable="true" resizable="true"  >
+                    <h:form id="fmpecas" prependId="false" >
+                        <p:dataTable var="p" value="#{pecaBean.dtmPecas}"
+                                     selection="#{indexBean.pecaEqsSelected.peca}" selectionMode="single"
+                                     id="dtPed"
+                                     rowKey="#{p.codigo}"
+                                     emptyMessage="#{bundle.noRecords}">
+
+                            <p:column headerText="Código" >
+                                <h:outputText value="#{p.codigo}"/>
+                            </p:column>
+                            <p:column headerText="Descrição" filterBy="#{p.descricao}" filterMatchMode="contains">
+                                <h:outputText value="#{p.descricao}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton value="Selecionar" icon="ui-icon-plus"  actionListener="#{indexBean.selectPeca()}"
+                                         update=":messageGrowl :formDist:tabServ"
+                                         oncomplete="closeDialogIfSucess(xhr, status, args, manutPecasDialog, 'pecasDlgId')" style="font-size:30px;font-weight:bold;float:left"   />
+                    </h:form>
+                </p:dialog>
+
+                <p:dialog widgetVar="eqsDeleteDialogWidget" id="eqsDeleteDialogId" rendered="#{userItemFactoryBean.disUser}"
+                          height="150" width="500" modal="true" appendTo="@(body)"
+                          closable="true" draggable="false" resizable="false">
+                    <h:form id="eqpDeleteDialogForm" prependId="false">
+                        <h3>A exclusão do serviço fará com que todo seu histórico seja perdido. Deseja realmente excluir?</h3>
+                        <h:outputLabel value="#{indexBean.equipamentoServicoDelete.servico.SRV_DESCRICAO}" />
+                        <br/>
+                        <p:separator />
+                        <p:commandButton value="#{bundle.delete}" icon="ui-icon-plus" actionListener="#{indexBean.removerEqs()}"
+                                         update=":messageGrowl :formDist:pgServ"
+                                         oncomplete="closeDialogIfSucess(xhr, status, args, eqsDeleteDialogWidget, 'eqsDeleteDialogId')" />
+                        <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 
+                                         onclick="eqsDeleteDialogWidget.hide();" type="button" />
+                        <!--actionListener="# {dogMB.resetDog()}"-->
+                    </h:form>
+                </p:dialog>
+                <p:dialog widgetVar="pecaDeleteDialogWidget" id="pecaDeleteDialogId" rendered="#{userItemFactoryBean.disUser}"
+                          height="150" width="500" modal="true" appendTo="@(body)"
+                          closable="true" draggable="false" resizable="false">
+                    <h:form id="pecaDeleteDialogForm" prependId="false">
+                        <h3> Deseja realmente remover a peça deste serviço?</h3>
+                        <h:outputLabel value="#{indexBean.equipamentoServicoDelete.servico.SRV_DESCRICAO}" />
+                        <br/>
+                        <p:separator />
+                        <p:commandButton value="#{bundle.delete}" icon="ui-icon-plus" actionListener="#{indexBean.removerPeca()}"
+                                         update=":messageGrowl :formDist:tabServ:dtPart"
+                                         oncomplete="closeDialogIfSucess(xhr, status, args, pecaDeleteDialogWidget, 'pecaDeleteDialogId')" />
+                        <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 
+                                         onclick="pecaDeleteDialogWidget.hide();" type="button" />
+                        <!--actionListener="# {dogMB.resetDog()}"-->
+                    </h:form>
+                </p:dialog>
+
+
+
+                <!--dist-->
+
+
+                <h:form class="container" id="formFactory" rendered="#{userItemFactoryBean.fabUser}">
+
+                    <ui:include src="/pages/protected/factory/dtDistribuidores.xhtml" />
+
+                    <ui:remove>
+                        <p:dataTable id="dogsTable" value="#{distribuidorBean.allDistribContratos}" var="dist" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.distribName}" />
+                                </f:facet>
+
+                                <h:outputText value="#{dist.usuId.USU_EMPRESA}" />
+                            </p:column>
+
+                            <p:column headerText="#{bundle.distribCad}">
+                                <h:outputText value="#{dist.usuId.USU_CADASTRO}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                </h:outputText> 
+                            </p:column>
+                            <p:column headerText="#{bundle.distribValid}">
+                                <h:outputText value="#{dist.ctoValidade}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                </h:outputText> 
+                            </p:column>
+                            <p:column headerText="#{bundle.distribUltAcess}">
+                                <h:outputText value="#{dist.usuId.USU_ULTACESSOSTR}" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                </h:outputText> 
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="#{bundle.detail}" icon="ui-icon-bullet" onclick="dogDetailDialogWidget.show();"  >
+                                    <f:setPropertyActionListener target="#{distribuidorBean.dog}" value="#{dist}" />
+                                </p:commandButton> 
+                                <p:spacer width="10px" />
+                                <p:commandButton value="#{bundle.update}" icon="ui-icon-pencil" update=":dogUpdateDialogForm" onclick="dogUpdateDialogWidget.show();" >
+                                    <f:setPropertyActionListener target="#{distribuidorBean.dog}" value="#{dist}" />
+                                </p:commandButton>
+                                <p:spacer width="10px" />
+                                <p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" update=":dogDeleteDialogForm" onclick="dogDeleteDialogWidget.show();" >
+                                    <f:setPropertyActionListener target="#{distribuidorBean.dog}" value="#{dist}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:commandButton value="#{bundle.create} #{bundle.distrib}" icon="ui-icon-plus" update=":dogCreateDialogForm"
+                                         actionListener="#{distribuidorBean.reset()}" onclick="dogCreateDialogWidget.show();" />
+
+                    </ui:remove>
+                </h:form>
+
+
+            </ui:define>	
+        </ui:composition>
+    </h:body>
+</html>

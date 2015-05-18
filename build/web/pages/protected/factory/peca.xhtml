@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="formpeca" class="container">
+
+                    <h1 style="font-weight:bold">Cadastro de #{bundle.pecaPlural} </h1>
+                    <table width="100%" >
+                        <tr>
+                            <td valign="top">
+
+                                <h:panelGrid columns="3" >
+                                    <p:commandButton id="parcBtNew" actionListener="#{factoryPecaBean.novo}" icon="ui-icon-plusthick"
+                                                     style="font-size:30px;font-weight:bold;" value="#{bundle.create}" />
+
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" value="Desativar"
+                                                     icon="ui-icon-trash" update=":pecDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{factoryPecaBean.validaDelete()}" />
+
+
+
+                                </h:panelGrid>
+                            </td><td align="right">
+                                <h:panelGrid columns="3">
+                                    <h:outputLabel value="Descrição" style="text-align:right" />
+
+                                    <p:inputText onkeypress="return pecBuscaEnter(event);" id="nomeBusca" value="#{factoryPecaBean.nomeBusca}" style="width:373px" />
+                                    <p:commandButton id="btBuscaPeca" actionListener="#{factoryPecaBean.buscar}" icon="ui-icon-search"
+                                                     update=":formpeca:srvTable" 
+                                                     style="font-size:30px;font-weight:bold;" value="Buscar">
+                                    </p:commandButton>
+                                </h:panelGrid>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p:dataTable var="pec" value="#{factoryPecaBean.dtmFactoryPecas}" rowKey="#{pec.PEC_ID}" paginator="true" 
+                                 rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}" id="srvTable" 
+                                 selection="#{factoryPecaBean.factoryPecasSelected}" emptyMessage="#{bundle.noRecords}"
+                                 rowStyleClass="#{!pec.ativo ? 'pecasFactory' : null}">
+
+                        <p:column selectionMode="multiple" style="width:4%;text-align:center" />
+
+                        <p:column headerText="Código" style="text-align: center;width: 8%" >
+                            <h:outputText value="#{pec.codigo}" />
+                        </p:column>
+                        <p:column headerText="Descrição"  >
+                            <p:commandLink actionListener="#{factoryPecaBean.alterar}" styleClass="#{!pec.ativo ? 'pecasFactory' : null}" update=":messageGrowl" value="#{pec.descricao}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <ui:include src="/pages/protected/factory/dialogs/pecaDelDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

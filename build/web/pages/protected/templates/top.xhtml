@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:body>   
+        <ui:composition>
+            <div id="topMessage">
+                <!--<h1>-->
+                <p:hotkey bind="ctrl+shift+m"  actionListener="#{indexBean.showIndex}" />
+                <!--Inserir aqui o logo-->
+                <!--<a href="/pages/protected/distributor/parceiro.xhtml"></a>-->
+                <!--<ui:remove>-->
+                <h:panelGrid style="top: 2px; 
+                             font-size:12px;
+                             left: 450px;
+                             position:absolute;
+                             height: 30px;
+                             z-index: 1" columns="2"
+                             >
+                    <p:graphicImage value="#{configuracaoBean.logoImagem}" id="logo"
+                                    style="height: 30px;"/>
+                    <h:outputText value="#{configuracaoBean.configuracao.EMP_RAZAO}" style="margin-left: 30px;"
+                                  rendered="#{userItemFactoryBean.disUser}"/>
+                </h:panelGrid>
+
+                <p:menubar id="menuBar" autoDisplay="false" >  
+                    <p:menuitem url="/pages/protected/factory/index.xhtml" rendered="#{userItemFactoryBean.fabUser}" update=":fmcabecalho" value="#{bundle.home}" icon="ui-icon-home" title="ctrl+shift+m" />
+                    <p:menuitem rendered="#{userItemFactoryBean.disUser}"
+                                update=":fmcabecalho" value="#{bundle.home}"
+                                icon="ui-icon-home" title="ctrl+shift+m"
+                                ajax="false" actionListener="#{indexBean.showIndex()}"/>
+                    <p:menuitem url="#" value="  "  />
+                    <p:submenu label="Cadastro" rendered="#{userItemFactoryBean.disUser or userItemFactoryBean.fabUser}" >  
+                        <p:menuitem value="#{bundle.cliPlural}" url="/pages/protected/distributor/parceiro.xhtml" 
+                                    rendered="#{userItemFactoryBean.disUser}"/>
+                        <p:menuitem value="#{bundle.equipamentoPlural}" url="/pages/protected/distributor/equipamento.xhtml" 
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem value="#{bundle.servicoPlural}" url="/pages/protected/distributor/servico.xhtml" 
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem value="#{bundle.pecaPlural}" url="/pages/protected/distributor/peca.xhtml" 
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem value="#{bundle.mods}" actionListener="#{modeloBean.show}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}"/>
+                        <p:menuitem value="#{bundle.usuPlural}" url="/pages/protected/distributor/funcionario.xhtml" 
+                                    rendered="#{userItemFactoryBean.disUser}" />  
+
+
+                        <p:menuitem value="#{bundle.distribPlural}" url="/pages/protected/factory/distribuidor.xhtml" 
+                                    rendered="#{userItemFactoryBean.fabUser}"/>
+
+                        <p:menuitem value="#{bundle.servicoPlural}" actionListener="#{factoryServicoBean.showServico}" ajax="false"
+                                    rendered="#{userItemFactoryBean.fabUser}"/> 
+
+                        <p:menuitem value="#{bundle.pecaPlural}" url="/pages/protected/factory/peca.xhtml" 
+                                    rendered="#{userItemFactoryBean.fabUser}"/> 
+
+                        <p:menuitem value="#{bundle.mods}" actionListener="#{factoryModeloBean.show}" ajax="false"
+                                    rendered="#{userItemFactoryBean.fabUser}"/> 
+
+                        <p:menuitem value="#{bundle.catPlural}" actionListener="#{factoryCategoriaBean.showFactoryCategoria}" ajax="false"
+                                    rendered="#{userItemFactoryBean.fabUser}"/> 
+
+                        <p:menuitem value="#{bundle.padraoManuts}" url="/pages/protected/factory/padraoManutencao.xhtml"
+                                    rendered="#{userItemFactoryBean.fabUser}"/> 
+
+                        <p:menuitem value="#{bundle.usuPlural}" actionListener="#{userItemFactoryBean.show}" ajax="false"
+                                    rendered="#{userItemFactoryBean.fabUser}"/> 
+                    </p:submenu>  
+
+                    <p:submenu label="Movimentos" rendered="#{userItemFactoryBean.disUser}" >  
+                        <p:menuitem value="#{bundle.movManutPlural}" url="/pages/protected/distributor/index.xhtml"
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem value="#{bundle.movOrdemServico}" actionListener="#{ordemServicoBean.showOS()}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}" disabled="false"/>  
+                    </p:submenu>  
+
+                    <p:submenu label="Relatórios" rendered="#{userItemFactoryBean.disUser}" >  
+                        <p:menuitem id="rcm" value="Carta de Manutenção" actionListener="#{relBean.showRelatorio}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem id="rcli" value="Relatório de Clientes" actionListener="#{relBean.showRelatorio}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem id="reqp" value="Relatório de Equipamentos" actionListener="#{relBean.showRelatorio}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                        <p:menuitem id="rhist" value="Relatório de Históricos" actionListener="#{relBean.showRelatorio}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}"/>  
+                    </p:submenu>  
+
+                    <p:submenu label="Configuração" rendered="#{userItemFactoryBean.disUser}" >  
+                        <p:menuitem value="Configurações Gerais" actionListener="#{configuracaoBean.showConf}" ajax="false"
+                                    rendered="#{userItemFactoryBean.disUser}"/>
+                    </p:submenu> 
+
+                    <p:submenu label="#{bundle.loginWelcomeMessage}: #{userItemFactoryBean.user.USI_LOGIN}" style="float: right" >  
+                        <p:menuitem value="Senha" update=":fmAltSenha" oncomplete="altSenhaDlgWidget.show();"
+                                    rendered="#{userItemFactoryBean.disUser or userItemFactoryBean.fabUser}"/>
+                        <p:menuitem value="#{bundle.logOut}"  actionListener="#{userItemFactoryBean.logOut()}" ajax="false"  />
+                    </p:submenu>
+                </p:menubar> 
+                <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>
+
+
+                <p:dialog modal="false" widgetVar="statusDialog" resizable="false" appendTo="@(body)" header="Aguarde..." draggable="false" closable="false"> <p:graphicImage library="images" name="ajaxloadingbar.gif" /> </p:dialog>
+            </div>
+        </ui:composition>   
+    </h:body>
+</html>

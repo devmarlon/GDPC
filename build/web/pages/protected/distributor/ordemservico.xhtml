@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <f:event listener="#{ordemServicoBean.showOS}" type="preRenderView" />
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmordemservico" class="container">
+
+                    <table width="100%" >
+                        <tr>
+                            <td colspan="2" >
+                                <h1 style="font-weight:bold" >Cadastro de Ordem de Serviço </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="top" valign="top" >
+                                <h:panelGrid columns="4" >
+                                    <p:commandButton id="osBtNew" actionListener="#{ordemServicoBean.novo}" icon="ui-icon-plusthick"
+                                                     style="font-size:30px;font-weight:bold;" value="Nova OS" />
+
+
+                                    <p:commandButton style="font-size:30px;font-weight:bold;" value="#{bundle.delete}"
+                                                     icon="ui-icon-trash" update=":osDeleteDialogForm :messageGrowl"
+                                                     actionListener="#{ordemServicoBean.validaDelete()}" />
+
+                                    <ui:remove>
+                                        <p:menuButton value="Opções" style="font-weight: bold;">
+                                            <p:menuitem id="osExc" actionListener="#{ordemServicoBean.exclusaoOS}" icon="ui-icon-trash" update="delDialog"
+                                                        style="font-weight:bold;" value="Excluir OS"/>
+                                            <p:menuitem id="osDup" actionListener="#{ordemServicoBean.duplicar}" icon="ui-icon-copy" 
+                                                        style="font-weight: bold;" value="Duplicar OS"/>
+                                        </p:menuButton>
+                                    </ui:remove>
+
+
+                                    <p:commandButton rendered="false" id="osBtImp" style="font-size:30px;font-weight:bold;" value="Imprimir" icon="ui-icon-print" >
+                                        <p:printer target="osTable" />
+                                    </p:commandButton>
+                                </h:panelGrid>
+
+                                <p:panel id="pnTotal" style="width:220px;margin:2px 0px;" >
+                                    <table id="tabTotal" style="width:100%; text-align: right; font-weight: bolder; font-size: 14px">
+                                        <tr >
+                                            <td style="color: #1471B9">Quantidade</td>
+                                            <td align="right"><h:outputLabel value="#{ordemServicoBean.qtdeList}" /></td>
+                                        </tr>
+                                        <tr >
+                                            <td style="color: #1471B9">Valor(R$)</td>
+                                            <td align="right">
+                                                <h:outputLabel value="#{ordemServicoBean.totalList}" >
+                                                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="pt_BR" />
+                                                </h:outputLabel>
+                                            </td>
+                                        </tr>
+
+                                        <!--
+                                        <tr align="right" >
+                                        <th align="left" >Selecionado</th>
+                                        <td>
+                                        <h:outputLabel value="# {ordemServicoBean.totalSelect}" >
+                                        <f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="pt_BR" />
+                                        </h:outputLabel>
+                                        </td>
+                                        <td># {ordemServicoBean.qtdeSelect}</td>
+                                        </tr>
+                                        -->
+                                    </table>
+                                </p:panel>
+
+                            </td>
+                            <td align="right" valign="top" >
+
+                                <h:panelGrid columns="3" >
+                                    <h:outputLabel value="Código/Cliente" style="text-align:right" />
+
+                                    <p:inputText id="nomeBusca" value="#{ordemServicoBean.cliCodBusca}" style="width:300px" />
+                                    <p:commandButton id="serBtBusc" action="#{ordemServicoBean.buscar}" icon="ui-icon-search"
+                                                     style="font-size:30px;font-weight:bold;" value="Buscar" update=":fmordemservico:osTable" />
+
+                                </h:panelGrid>
+                                <p:panel header="Busca Avançada" id="panelAvanc" visible="false" widgetVar="panelAvanc" toggleable="true" 
+                                         collapsed="true" style="width:487px;text-align:left" >
+                                    <h:panelGrid columns="2" cellpadding="1" >
+                                        <h:outputLabel value="Status" />
+                                        <h:outputLabel value="Tipo de Data" />
+
+                                        <p:selectOneMenu style="width:225px" id="StOrdServ" value="#{ordemServicoBean.statusSelected}" 
+                                                         >
+                                            <f:selectItem itemLabel="Todos" />
+                                            <f:selectItems value="#{statusOSBean.lista}" var="st" itemLabel="#{st.SOS_NOME}" 
+                                                           itemValue="#{st}" />
+                                        </p:selectOneMenu>
+                                        <p:selectOneMenu style="width:225px" id="tDataOS" value="#{ordemServicoBean.tipoDataSelected}" 
+                                                         >
+                                            <f:selectItem itemLabel="Sem filtro de data" />
+                                            <f:selectItems value="#{ordemServicoBean.listGen}" var="tpdata" itemLabel="#{tpdata.GEN_NOME}" 
+                                                           itemValue="#{tpdata}" />
+                                        </p:selectOneMenu>
+
+                                        <h:outputLabel value="Data Inicial" />
+                                        <h:outputLabel value="Data Final" />
+
+                                        <h:panelGrid style="margin:auto 8px auto -4px;width:224px;">
+                                            <p:calendar pattern="dd/MM/yyyy" value="#{ordemServicoBean.dataini}" id="dataini" />
+                                        </h:panelGrid>
+                                        <h:panelGrid style="margin-left:-3px;width:224px;">
+                                            <p:calendar pattern="dd/MM/yyyy" value="#{ordemServicoBean.datafim}" id="dataFim" />
+                                        </h:panelGrid>
+
+
+                                    </h:panelGrid>
+                                </p:panel>
+
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <p:dataTable var="os" value="#{ordemServicoBean.dmMov}" rowKey="#{os.MOV_ID}" paginator="true" 
+                                 rows="#{configuracaoBean.configuracao.CFG_NUMREGPAG}"
+                                 selection="#{ordemServicoBean.movimentoSelected}" id="osTable" style="alignment-adjust:central"
+                                 emptyMessage="#{bundle.noRecords}">
+
+                        <p:ajax update=":fmordemservico:pnTotal" event="rowSelect" async="true" immediate="true" listener="#{ordemServicoBean.submit}" />
+                        <p:ajax update=":fmordemservico:pnTotal" event="rowUnselect" async="true" immediate="true" listener="#{ordemServicoBean.submit}" />
+                        <p:column selectionMode="multiple" style="width:5px;text-align:center" />
+
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:10px;text-align:center" >
+                            <f:facet name="header" >
+                                Código
+                                <p:commandLink value="▲" action="#{ordemServicoBean.descCod}" style="color:black" update="osTable" />
+                                <p:commandLink value="▼" action="#{ordemServicoBean.ascCod}" style="color:black" update="osTable" />
+                            </f:facet>
+                            <h:outputLabel value="#{os.MOV_ID}.#{os.MOV_STATUS}" />
+                            <!--<h:commandLink style="# {os.MOV_STYLE}" action="# {ordemServicoBean.resumoOS}" value="# {os.MOV_ID}" />-->
+                            <!--<h:outputLabel style="# {os.MOV_STYLE}" value="# {os.MOV_ID}" />-->
+                        </p:column>
+                        <p:column headerText="Status" style="width:10px;text-align:center">
+                            <p:outputLabel value="#{os.status.SOS_NOME}"/>
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:10px;text-align:center" >
+                            <f:facet name="header" >
+                                Emissão
+                                <p:commandLink value="▲" action="#{ordemServicoBean.descEmi}" style="color:black" update="osTable" />
+                                <p:commandLink value="▼" action="#{ordemServicoBean.ascEmi}" style="color:black" update="osTable" />
+                            </f:facet>
+                            <h:outputLabel value="#{os.MOV_EMISSAO}" >
+                                <f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
+                            </h:outputLabel>
+                        </p:column>
+                        <!--                        <p:column filterOptions="none" filterMatchMode="contains" style="width:10px;text-align:center" >
+                                                    <f:facet name="header" >
+                                                        Previsão
+                                                        <p:commandLink value="▲" action="# {ordemServicoBean.descPrev}" style="color:black" update="osTable" />
+                                                        <p:commandLink value="▼" action="# {ordemServicoBean.ascPrev}" style="color:black" update="osTable" />
+                                                    </f:facet>
+                                                    <h:outputLabel value="# {os.MOV_PREVISAO}" >
+                                                        <f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
+                                                    </h:outputLabel>
+                                                </p:column>-->
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:250px;" >
+                            <f:facet name="header" >
+                                Cliente
+                                <p:commandLink value="▲" action="#{ordemServicoBean.descParc}" style="color:black" update="osTable" />
+                                <p:commandLink value="▼" action="#{ordemServicoBean.ascParc}" style="color:black" update="osTable" />
+                            </f:facet>
+                            <p:commandLink id="osBtRes" actionListener="#{ordemServicoBean.resumoOS}" value="#{os.parceiro.PAR_RAZAO}" />
+
+                        </p:column>
+                        <ui:remove>
+                            <p:column filterOptions="none" filterMatchMode="contains" style="width:250px;" >
+                                <f:facet name="header" >
+                                    Técnico
+                                    <p:commandLink value="▲" action="#{ordemServicoBean.descFunc}" style="color:black" update="osTable" />
+                                    <p:commandLink value="▼" action="#{ordemServicoBean.ascFunc}" style="color:black" update="osTable" />
+                                </f:facet>
+                                <h:outputLabel value="#{os.funcionarioTec.FUN_NOME}" />
+                            </p:column>
+                        </ui:remove>
+                        <ui:remove>
+
+
+                            <p:column filterOptions="none" filterMatchMode="contains" style="width:150px;" >
+                                <f:facet name="header" >
+                                    Status
+                                    <p:commandLink value="▲" action="#{ordemServicoBean.descSt}" style="color:black" update="osTable" />
+                                    <p:commandLink value="▼" action="#{ordemServicoBean.ascSt}" style="color:black" update="osTable" />
+                                </f:facet>
+                                <h:outputLabel value="#{os.MOV_STATUSSTR}" />
+                            </p:column>
+                        </ui:remove>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:10px;text-align:center" >
+                            <f:facet name="header" >
+                                Finalização
+                                <p:commandLink value="▲" action="#{ordemServicoBean.descFin}" style="color:black" update="osTable" />
+                                <p:commandLink value="▼" action="#{ordemServicoBean.ascFin}" style="color:black" update="osTable" />
+                            </f:facet>
+                            <h:outputLabel value="#{os.MOV_FINALIZACAO}" >
+                                <f:convertDateTime dateStyle="default" pattern="dd/MM/yyyy" />
+                            </h:outputLabel>
+                        </p:column>
+                        <p:column filterOptions="none" filterMatchMode="contains" style="width:10px;text-align:center" >
+                            <f:facet name="header" >
+                                Valor Total
+                                <p:commandLink value="▲" action="#{ordemServicoBean.descVal}" style="color:black" update="osTable" />
+                                <p:commandLink value="▼" action="#{ordemServicoBean.ascVal}" style="color:black" update="osTable" />
+                            </f:facet>
+                            <h:outputLabel value="#{os.MOV_TOTAL}" >
+                                <f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="pt_BR" />
+                            </h:outputLabel>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <h:outputLabel value="Filtro: #{ordemServicoBean.filtroBusca}" />
+
+
+                    <!--                <p:dialog id="delDialogFat"  header="Exclusão de OS"
+                                              visible="# {ordemServicoBean.faturasDelBool}" 
+                                              closable="false" modal="true" resizable="false">
+                                        <h:outputText value="A OS possui faturas pagas, deseja continuar?" />
+                                        <br/><br/>
+                                        <p:separator/>
+                                        <p:commandButton id="confirmExcluirFat" value="Sim" action="#  {ordemServicoBean.excluirOS}" icon="ui-icon-check" style="font-weight:bold;" />
+                                        <p:commandButton id="naoConfirmExcluirFat" value="Não" action="# {ordemServicoBean.showOS}" icon="ui-icon-close" style="float:right;font-weight:bold;" />
+                                    </p:dialog>-->
+                    <!--                    <p:dialog id="delDialog"  header="Exclusão de OS"
+                                                  visible="# {ordemServicoBean.delBool}" appendTo="@(body)"
+                                                  closable="false" modal="true" resizable="false">
+                                            <h:outputText value="# {ordemServicoBean.msgExclusao}" />
+                                            <br/>
+                                            <h:outputText value="Deseja continuar?" />
+                                            <br/>
+                                            <p:separator/>
+                                            <p:commandButton id="confirmExcluir" value="Sim" actionListener="# {ordemServicoBean.excluirOS}" icon="ui-icon-check" style="font-weight:bold;" />
+                                            <p:commandButton id="naoConfirmExcluir" value="Não" actionListener="# {ordemServicoBean.showOS}" icon="ui-icon-close" style="float:right;font-weight:bold;" />
+                                        </p:dialog>-->
+
+
+
+                </h:form>
+                <ui:include src="dialogs/osDelDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

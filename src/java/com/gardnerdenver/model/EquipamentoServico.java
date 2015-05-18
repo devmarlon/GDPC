@@ -22,6 +22,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
 
 @Entity
@@ -61,7 +63,7 @@ public class EquipamentoServico implements Serializable {
     private Servico servico;
 
     @OneToMany(mappedBy = "eqs", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @Fetch(FetchMode.SUBSELECT)
+    @Fetch(FetchMode.SUBSELECT)
     private List<PecaEqs> equipamentosPecas;
 
     @Column

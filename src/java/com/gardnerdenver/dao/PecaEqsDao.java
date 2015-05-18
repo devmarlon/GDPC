@@ -39,9 +39,7 @@ public class PecaEqsDao extends GenericDAO<PecaEqs> {
             result = false;
             System.out.println("Erro:\n" + e.getMessage() + "\n" + e.getCause() + "\n" + e.getClass());
             em.getTransaction().rollback();
-        } finally {
-            em.close();
-        }
+        } 
         return result;
     }
 }

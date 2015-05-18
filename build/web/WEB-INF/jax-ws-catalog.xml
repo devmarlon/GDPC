@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?wsdl" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.wsdl"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd0" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd0.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd1" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd1.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd2" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd2.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd3" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd3.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd4" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd4.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd5" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd5.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd6" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd6.xsd"/>
+    <system systemId="http://services03.ezcommerce.com.br/PedidoWS.svc?xsd=xsd7" uri="wsdl/services03.ezcommerce.com.br/PedidoWS.svc.xsd_xsd7.xsd"/>
+</catalog>

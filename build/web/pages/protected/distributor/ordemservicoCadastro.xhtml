@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:poue="http://primefaces.org/ui/extensions">
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmordemservico" class="container">
+
+                    <h1 style="font-weight: bold" > #{ordemServicoBean.tipoAcao} Ordem de Serviço #{ordemServicoBean.ID}</h1>
+                    <p:focus for="#{ordemServicoBean.cmpFocus}" id="pFocus" />
+                    <p:panel id="pnOS" style="width: 840px;" >
+
+                        <h:panelGrid columns="2" >
+                            <p:outputLabel value="Cliente" for="osCliente"/>
+                            <p:outputLabel value="Emissao" for="movEmissao"/>
+
+                            <p:autoComplete id="osCliente" forceSelection="true" size="65" minQueryLength="1" converter="parceiroConverter" style="width: 100%" value="#{ordemServicoBean.movimento.parceiro}" label="#{bundle.cli}" required="true" var="cli"
+                                            itemLabel="#{cli.PAR_RAZAO}" itemValue="#{cli}" completeMethod="#{parceiroBean.complete}" dropdown="true" >
+                                <p:ajax event="itemSelect"  update="eqp"/>
+                            </p:autoComplete>
+
+                            <h:panelGrid style="margin:-3px 8px auto -3px;width:184px">
+                                <p:calendar size="30" pattern="dd/MM/yyyy" value="#{ordemServicoBean.movimento.MOV_EMISSAO}" required="true" id="movEmissao" >
+                                    <p:ajax update=":fmordemservico" event="dateSelect" listener="#{ordemServicoBean.loadEquip()}" />
+                                </p:calendar>
+                            </h:panelGrid>
+
+                            <p:outputLabel value="Equipamento" for="eqp"/>
+                            <p:outputLabel value="Status" for="StOrdServ"/>
+
+                            <p:selectOneMenu id="eqp" value="#{ordemServicoBean.movimento.equipamento}" converter="equipamentoConverter" effect="fade" style="width: 480px" > 
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true"/> 
+                                <f:selectItems value="#{ordemServicoBean.movimento.parceiro.equipamentos}" var="equip" itemLabel="#{equip.EQP_SERIE}" itemValue="#{equip}"/>
+                                <p:ajax event="change" update="pnIt :messageGrowl" listener="#{ordemServicoBean.listenerEquipamento}"/>
+                            </p:selectOneMenu> 
+
+                            <p:selectOneMenu style="width: 180px" id="StOrdServ" value="#{ordemServicoBean.movimento.MOV_STATUS}" 
+                                             onkeydown="setaFoco(this);" >
+                                <f:selectItems value="#{statusOSBean.lista}" var="st" itemLabel="#{st.SOS_NOME}" 
+                                               itemValue="#{st.SOS_ID}" />
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="Resumo"/>
+                            <p:inputTextarea value="#{ordemServicoBean.movimento.MOV_RESUMO}" style="width: 775px; height: 75px;"/>
+                        </h:panelGrid>
+
+                        <p:spacer/>
+                        <p:separator />
+                        <p:spacer/>
+
+                        <p:outputPanel id="pnIt">
+                            <p:panel id="pnmit" header="Itens" rendered="#{ordemServicoBean.movimento.equipamento.EQP_CATID != 1}">
+                                <p:commandButton value="Novo item" actionListener="#{ordemServicoBean.addItem()}" update=":fmordemservico:pnmit :messageGrowl"/>
+                                <h:panelGrid columns="6" >
+                                    <h:outputLabel value="Cód" />
+                                    <h:outputLabel  />
+                                    <h:outputLabel value="Data" />
+                                    <h:outputLabel value="Hora Inicial" />
+                                    <h:outputLabel value="Hora Final" />
+                                    <h:outputLabel value="Resumo"/>
+
+                                    <c:forEach var="mit" id="mits" items="#{ordemServicoBean.movimento.listMovimentoItem}" >
+                                        <p:outputLabel value="#{mit.MIT_ID}" />
+                                        <h:outputLabel  />
+                                        <p:calendar locale="pt_BR" pattern="dd/MM/yyyy" value="#{mit.MIT_DATA}" timeZone="GMT-03:00"/>
+                                        <p:calendar locale="pt_BR" pattern="HH:mm a" timeOnly="true" value="#{mit.MIT_TIMEINI}" timeZone="GMT-03:00"/>
+                                        <p:calendar locale="pt_BR" pattern="HH:mm a" timeOnly="true" value="#{mit.MIT_TIMEFIN}" timeZone="GMT-03:00"/>
+                                        <p:inputTextarea value="#{mit.MIT_RESUMO}" cols="60" />
+                                    </c:forEach>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel id="pnItens" header="Itens" rendered="#{ordemServicoBean.movimento.equipamento.EQP_CATID == 1}">
+                                <h:panelGrid columns="2" >
+                                    <h:panelGrid columns="1" >
+                                        <p:outputLabel value="Verificações" />
+                                        <c:forEach var="it" items="#{ordemServicoBean.listMovimentoItemServico}" >
+                                            <p:selectBooleanCheckbox value="#{it.CHECK_OS}" itemLabel="#{it.servico.SRV_DESCRICAO}" />
+                                        </c:forEach>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1" >
+                                        <p:outputLabel value="Troca de Peças" />
+                                        <c:forEach var="it" items="#{ordemServicoBean.listMovimentoItemPeca}" >
+                                            <p:selectBooleanCheckbox value="#{it.CHECK_OS}" itemLabel="#{it.peca.codigo} - #{it.peca.descricao}" />
+                                        </c:forEach>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+
+                        </p:outputPanel>
+                        <p:spacer/>
+                        <p:separator />
+                        <p:spacer/>
+
+                        <p:panel header="">
+                            <h:panelGrid columns="8" >
+                                <h:panelGrid columns="1" >
+                                    <h:outputLabel value="Hora Saída da Empresa"/>
+                                    <p:calendar locale="pt" pattern="HH:mm a" timeOnly="true" 
+                                                value="#{ordemServicoBean.movimento.MOV_TIMESAIDAEMP}"/>
+                                </h:panelGrid>
+                                <p:spacer />
+                                <h:panelGrid columns="1" >
+                                    <h:outputLabel value="Hora Chegada no Cliente"/>
+                                    <p:calendar locale="pt" pattern="HH:mm a" timeOnly="true"
+                                                value="#{ordemServicoBean.movimento.MOV_TIMECHEGADACLI}"/>
+                                </h:panelGrid>
+                                <p:spacer />
+                                <h:panelGrid columns="1" >
+                                    <h:outputLabel value="Hora Saída do Cliente"/>
+                                    <p:calendar locale="pt" pattern="HH:mm a" timeOnly="true" 
+                                                value="#{ordemServicoBean.movimento.MOV_TIMESAIDACLI}"/>
+                                </h:panelGrid>
+                                <p:spacer />
+                                <h:panelGrid columns="1" >
+                                    <h:outputLabel value="Hora Chegada na Empresa"/>
+                                    <p:calendar locale="pt" pattern="HH:mm a" timeOnly="true" 
+                                                value="#{ordemServicoBean.movimento.MOV_TIMECHEGADAEMP}"/>
+                                </h:panelGrid>
+                                <p:spacer />
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <p:spacer/>
+                        <p:separator />
+                        <p:spacer/>
+
+                        <p:panel header="" >
+                            <h:panelGrid columns="6" style="text-align:right; margin:-3px 30px auto 62.5%;" >
+                                <h:outputLabel value="Total R$" />
+                                <poue:inputNumber id="Input2" value="#{ordemServicoBean.movimento.MOV_TOTAL}" style="width:100px;text-align:right"
+                                                  decimalSeparator="," thousandSeparator=".">  
+                                </poue:inputNumber> 
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <p:spacer />
+
+                        <p:separator />
+                        <p:commandButton id="btSaveMOV" actionListener="#{ordemServicoBean.salvarOds}" update=":messageGrowl"
+                                         style="font-size: 30px; font-weight: bold;float: right" value="Salvar" icon="ui-icon-check " /> 
+
+                        <p:commandButton id="btCancMOV" action="#{ordemServicoBean.showOS}"
+                                         immediate="true" style="font-size: 30px; font-weight: bold; float: left;" value="Fechar" icon="ui-icon-closethick " />
+                        <div class="clear"> </div>
+
+
+                    </p:panel>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

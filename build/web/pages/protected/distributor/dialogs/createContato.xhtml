@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <p:dialog widgetVar="contatoCreateDialogWidget"
+                  id="contatoCreateDialogId" height="300" width="650" modal="true" appendTo="@(body)"
+                  closable="true" draggable="false" resizable="false">
+            <h:form id="contatoCreateDialogForm" prependId="false">
+                <p:focus for="textoContato" />
+                <p:panel>
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="Data" />
+                        <h:panelGrid style="margin:-3px 8px auto -4px;width: 106px;" >
+                            <p:calendar locale="pt" pattern="dd/MM/yyyy HH:mm" value="#{indexBean.historico.HIS_EMISSAO}" />
+                        </h:panelGrid>
+                        <p:outputLabel for="textoContato" value="Contato" />
+                        <p:inputTextarea id="textoContato" value="#{indexBean.historico.HIS_COMENTARIO}" style="width: 575px; height: 100px" />
+                    </h:panelGrid>
+                    <p:separator />
+
+                    <p:commandButton value="Salvar" icon="ui-icon-plus" 
+                                     action="#{indexBean.createHistorico()}"
+                                     update=":messageGrowl :formDist:tabServ:dtContato"
+                                     oncomplete="closeDialogIfSucess(xhr, status, args, contatoCreateDialogWidget, 'contatoCreateDialogId')" />
+                    <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{indexBean.resetHistorico()}"
+                                     onclick="contatoCreateDialogWidget.hide();" type="button" />
+                </p:panel>
+            </h:form>
+        </p:dialog>
+    </h:body>
+</html>

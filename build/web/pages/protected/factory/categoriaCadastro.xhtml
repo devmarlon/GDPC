@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" >
+    <h:body>
+        <ui:composition template="/pages/protected/templates/master.xhtml">
+            <ui:define name="divMain">
+                <h:form id="fmservcad" class="container">
+                    <h1 style="font-weight:bold"> Cadastro de #{bundle.catPlural} </h1>
+
+                    <p:panel style="width:360px" >
+                        <p:focus context="nome"/>
+                        <h:panelGrid columns="1" >
+                            <h:outputLabel for="nome" value="Nome" />
+                            <p:inputText id="nome" value="#{factoryCategoriaBean.factoryCategoria.CAT_NOME}" style="width: 322px"
+                                         required="true" label="Nome" />
+
+
+                        </h:panelGrid>
+
+                        <p:separator />
+
+                        <p:commandButton id="BtSave" actionListener="#{factoryCategoriaBean.salvar}" style="font-size:30px;font-weight:bold;float:left;" 
+                                         value="Salvar" icon="ui-icon-check" update=":messageGrowl" />
+
+                        <!--                        <p:commandButton actionListener="# {parceiroBean.salvar}" value="save" type="button" />-->
+
+                        <p:commandButton actionListener="#{factoryCategoriaBean.validaFechar}" id="BtCanc" immediate="#{factoryCategoriaBean.factoryCategoria.CAT_ID == 0}"
+                                         style="font-size:30px;font-weight:bold;float:right" value="Fechar" icon="ui-icon-closethick" />
+                        <div class="clear"> </div>
+
+                    </p:panel>
+
+
+                </h:form>
+                <ui:include src="dialogs/catCloseDialog.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

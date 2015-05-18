@@ -1,6 +1,5 @@
 package com.gardnerdenver.dao;
 
-
 import com.gardnerdenver.bean.UserItemFactoryBean;
 import com.gardnerdenver.model.Peca;
 import java.util.HashMap;
@@ -25,14 +24,14 @@ public class PecaDAO extends GenericDAO<Peca> {
     }
 
     public Peca findPecaByCode(String pecaCod) {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("codigo", pecaCod);
 
         return super.findOneResult(Peca.FIND_PECA_BY_CODIGO, parameters);
     }
 
     public Peca findPecaByFab(int fab) {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("fab", fab);
 
         return super.findOneResult(Peca.FIND_PECA_BY_FAB, parameters);
@@ -41,7 +40,7 @@ public class PecaDAO extends GenericDAO<Peca> {
     public void delete(Peca peca) {
         super.delete(peca.getPEC_ID());
     }
-    
+
     public List<Peca> findLista() {
         return super.findListResult(Peca.FIND_ALL, null);
     }

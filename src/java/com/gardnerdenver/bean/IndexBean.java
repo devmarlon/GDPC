@@ -43,7 +43,6 @@ public class IndexBean extends AbstractMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     private Equipamento equipamento;
     private EquipamentoMedicao equipamentoMedicao;
     private EquipamentoServico equipamentoServico;
@@ -161,11 +160,13 @@ public class IndexBean extends AbstractMB implements Serializable {
             return;
         }
 
-        if (!validaManutencaoB(equipamentoServicoAux.getMANUTATUAL(), equipamentoServicoAux.getMANUTATUALRHORAS(), equipamento.getEQP_ID())) {
-            displayInfoMessageToUser(getMessageValidaManut());
-            return;
-        }
-
+        /* 
+        //validação horimetro
+         if (!validaManutencaoB(equipamentoServicoAux.getMANUTATUAL(), equipamentoServicoAux.getMANUTATUALRHORAS(), equipamento.getEQP_ID())) {
+         displayInfoMessageToUser(getMessageValidaManut());
+         return;
+         }
+         */
         if (getEquipamentoServicoAux().getMANUTATUAL().before(equipamento.getEQP_DATAPARTIDA())) {
             displayInfoMessageToUser("A data atual da manutenção não deve ser menor que a data da partida do equipamento. Selecione uma data posterior");
             return;
@@ -269,7 +270,7 @@ public class IndexBean extends AbstractMB implements Serializable {
 //            if (parceiroFacade == null) {
 //                parceiroFacade = new ParceiroFacade();
 //            }
-            listaParceiros = getParceiroFacade().listParceiros();
+        listaParceiros = getParceiroFacade().listParceiros();
 //        }
 
 //        parceiros.removeAll(personWithDogs.getDogs());
@@ -718,6 +719,7 @@ public class IndexBean extends AbstractMB implements Serializable {
         equipamentoServicoAux = equipamentoServico;
         equipamentoServicoAux.setMANUTANTERIORHORAS_TEMP(equipamentoServicoAux.getMANUTATUALRHORAS());
         equipamentoServicoAux.setMANUTANTERIOR_TEMP(equipamentoServicoAux.getMANUTATUAL());
+        equipamentoServicoAux.setEquipamentosPecas(getPecaEqsFacade().findPecaEqsByEqs(equipamentoServicoAux.getID_EQS()));
         peca = new Peca();
         pecaAux = new Peca();
         pecaEqs = new PecaEqs();
@@ -916,6 +918,7 @@ public class IndexBean extends AbstractMB implements Serializable {
                     }
                 }
                 if (!naListaPart) {
+                    System.out.println("searchCodePart = " + searchCodePart);
                     Peca fPartT = getPecaFacade().findPecaByCod(searchCodePart);
                     if (fPartT == null) {
                         displayInfoMessageToUser("Não há nenhum peça cadastrada com o código informado");

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="estilo.css" />
+        <style type="text/css">
+            #div {
+
+                /*width:500px;  Tamanho da Largura da Div */
+                /*height:200px;  Tamanho da Altura da Div */
+                position:absolute; 
+                margin:  auto 0;
+                top:50%; 
+                margin-top:-100px;  
+                left:50%;
+                margin-left:-250px;
+                /*background-color:#F00;*/
+
+            }
+        </style>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <p:focus for="email" />
+
+            <div id="div">
+                <p>#{bundle.loginHello}</p>
+                <p:growl showDetail="false" life="3000" />
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.loginUserName}" />
+                    <h:inputText value="#{loginMB.email}" label="Email" id="email" required="true">
+                        <f:validateLength minimum="3" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.loginPassword}" />
+
+                    <h:inputSecret value="#{loginMB.password}" label="Senha" id="senha" required="true" autocomplete="off" >
+                        <f:validateLength minimum="3" />
+                    </h:inputSecret>
+
+
+                </h:panelGrid>
+                <p:commandButton actionListener="#{loginMB.login}" value="Login" ajax="false" />
+            </div>
+        </h:form>
+    </h:body>
+</html>

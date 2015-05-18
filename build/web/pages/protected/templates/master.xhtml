@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>GD Preventive Control</title>
+        <h:outputStylesheet library="css" name="estilo.css" />
+        <h:outputStylesheet library="css" name="main.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </h:head>
+
+    <h:body>
+        <!--        <f:view contentType="text/html; charset=UTF-8" encoding="UTF-8" id="view" >-->
+        <f:view encoding="UTF-8" id="view" >
+            <!--<div id="divMain">-->
+            <p:growl id="messageGrowl" life="4000" />
+            <h:form id="fmcabecalho" style="vertical-align: middle;">
+                <ui:insert name="divTop">
+                    <ui:include src="top.xhtml" />
+                </ui:insert>
+            </h:form>
+            <p:dialog id="altSenhaDlgId" widgetVar="altSenhaDlgWidget" modal="true" appendTo="@(body)" header="Alteração de senha" >
+                <h:form id="fmAltSenha" prependId="false">
+                    <h:panelGrid columns="2" >
+                        <h:outputLabel value="Senha Atual*" />
+                        <p:password value="#{userItemFactoryBean.senhaAtual}" required="true" />
+                        <h:outputLabel value="Nova Senha*" />
+                        <p:password match="senha2" value="#{userItemFactoryBean.senhaNova}" required="true" label="Nova Senha" />
+                        <h:outputLabel value="Repita a senha*" />
+                        <p:password id="senha2" required="true" label="Confirmação de senha" />
+
+
+                    </h:panelGrid>
+                    <p:spacer/>
+                    <h:panelGrid columns="2" >
+                        <p:commandButton value="Confirmar" icon="ui-icon-plus"
+                                         actionListener="#{userItemFactoryBean.alteraSenha}"
+                                         update=":messageGrowl :fmcabecalho"
+                                         oncomplete="closeDialogIfSucess(xhr, status, args, altSenhaDlgWidget, 'altSenhaDlgId')" />
+                        <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 
+                                         onclick="altSenhaDlgWidget.hide();" type="button" />
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <!--<div style="padding-top: 10px">--> 
+            <ui:insert name="divMain" />
+            <!--</div>-->            
+            <div id="divBottom">
+                <ui:insert name="divBottom">
+                    <ui:include src="bottom.xhtml" />
+                </ui:insert>
+            </div>
+
+            <!--</div>-->
+            <h:outputScript library="javascript" name="jscodes.js" />
+            <h:outputScript library="javascript" name="utils.js" />
+            <h:outputScript library="javascript" name="javascript.js" />
+        </f:view>
+    </h:body>
+</html>

@@ -33,7 +33,7 @@ import org.hibernate.annotations.FetchMode;
 @NamedQueries({
     @NamedQuery(name = "Peca.findAll", query = "SELECT f FROM Peca f where f.ativo IS NULL or f.ativo = true"),
     @NamedQuery(name = "Peca.findById", query = "SELECT f FROM Peca f WHERE f.PEC_ID = :pedId and  f.ativo IS NULL or f.ativo = true"),
-    @NamedQuery(name = "Peca.findByCodigo", query = "SELECT f FROM Peca f WHERE f.codigo = :codigo and  f.ativo IS NULL or f.ativo = true"),
+    @NamedQuery(name = "Peca.findByCodigo", query = "SELECT f FROM Peca f WHERE f.codigo = :codigo"),
     @NamedQuery(name = "Peca.findByFab", query = "SELECT f FROM Peca f WHERE f.fab = :fab and f.ativo IS NULL or f.ativo = true"),
     @NamedQuery(name = "Peca.findByDescricao", query = "SELECT f FROM Peca f WHERE f.descricao = :descricao and  f.ativo IS NULL or f.ativo = true")})
 public class Peca implements Serializable {

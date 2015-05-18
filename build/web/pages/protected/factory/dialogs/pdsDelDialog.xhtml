@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:body>
+
+        <p:dialog widgetVar="pdsDeleteDialogWidget" id="pdsDeleteDialogId" height="150" width="500" modal="true" appendTo="@(body)"
+                  header="Deseja realmente apagar os itens abaixo?"
+                  closable="true" draggable="false" resizable="false">
+            <h:form id="pdsDeleteDialogForm" prependId="false">
+                <!--<c:forEach var="pdsDel" items="#{padraoManutencaoBean.listaPdmSelected}" id="feArrayConta" >-->
+                <!--                    # {bundle.deleteRecord}: -->
+                <h:outputText value="#{padraoManutencaoBean.padraoManutencaoServicoDelete.factoryServico.SRV_DESCRICAO}" /><br/><br/>
+                <!--</c:forEach>-->
+
+                <p:commandButton value="#{bundle.delete}" icon="ui-icon-trash" action="#{padraoManutencaoBean.removePDS()}"
+                                 update=":messageGrowl :formPdm"
+                                 oncomplete="closeDialogIfSucess(xhr, status, args, pdsDeleteDialogWidget, 'pdsDeleteDialogId')" />
+                <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" 
+                                 onclick="pdsDeleteDialogWidget.hide();" type="button" />
+                <!--actionListener="# {dogMB.resetDog()}"-->
+            </h:form>
+        </p:dialog>
+
+    </h:body>
+</html>

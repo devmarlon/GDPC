@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="movimentoResDetail" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="0" rightMargin="20" topMargin="0" bottomMargin="0" uuid="9213210f-b0d7-4536-8be4-561c0b148de7">
+	<property name="ireport.zoom" value="1.4641000000000108"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gdpc"/>
+	<parameter name="MOV_ID" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA["2"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="MOV_TIPO" class="java.lang.String">
+		<defaultValueExpression><![CDATA["PED"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+   *
+FROM
+	MOVIMENTOITEM
+WHERE
+	AND  movimento_MOV_TIPO = $P{MOV_TIPO}
+	AND movimento_MOV_ID = $P{MOV_ID}]]>
+	</queryString>
+	<field name="PRO_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRO_NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MIT_OBSNFE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QTDE" class="java.lang.String"/>
+	<field name="DESCONTO" class="java.lang.String"/>
+	<field name="VALORUNITARIO" class="java.lang.String"/>
+	<field name="IPI" class="java.lang.String"/>
+	<field name="TOTAL" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement x="481" y="0" width="1" height="20" uuid="1131e554-1835-4649-8a94-7bd47d7cc38e"/>
+			</line>
+			<line>
+				<reportElement x="332" y="0" width="1" height="20" uuid="64d5aae1-d87a-4669-a6be-80f03cd4e013"/>
+			</line>
+			<line>
+				<reportElement x="407" y="0" width="1" height="20" uuid="f2f22d4f-fdbd-43fd-914f-7bc2dc9c62fb"/>
+			</line>
+			<line>
+				<reportElement x="40" y="0" width="1" height="20" uuid="5ed94305-f468-4704-88b9-f88a489dac70"/>
+			</line>
+			<line>
+				<reportElement x="257" y="0" width="1" height="20" uuid="d30fc121-797e-4cd3-8f97-c3a9bce07287"/>
+			</line>
+			<textField>
+				<reportElement x="4" y="0" width="35" height="20" uuid="afca254b-81da-4864-8a7b-83ed420c57c2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PRO_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="0" width="206" height="20" uuid="1f8cca54-73fd-47c8-b37d-ea3ce2da4d79"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PRO_NOME} +
+(
+    ($F{MIT_OBSNFE} != null)
+    ?
+    (
+        " - " + $F{MIT_OBSNFE}
+    )
+    :
+    (
+        ""
+    )
+)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="263" y="0" width="65" height="20" uuid="2b04c784-0bdb-425d-8b12-a11628515972"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{QTDE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="0" width="65" height="20" uuid="0bad43a0-5f14-4696-8273-14c50e5c9d65"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{VALORUNITARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="0" width="65" height="20" uuid="d66ddca1-f4b6-4dda-911b-9fbc36119efa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{IPI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="0" width="65" height="20" uuid="517cc2ab-baa7-4a3d-8762-7e725f0bf785"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" uuid="c7748747-93cd-489a-82c9-7e20112de5f0"/>
+			</line>
+			<line>
+				<reportElement x="556" y="0" width="1" height="20" uuid="2576fc4b-1564-4f34-a29d-4cbe07dd2342"/>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="557" height="1" uuid="f6d0cd98-c9a6-46cc-8f20-9fa38b8b0bdd"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
