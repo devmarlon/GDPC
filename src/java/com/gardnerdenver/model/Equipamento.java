@@ -293,14 +293,6 @@ public class Equipamento implements Serializable {
             setEqpMedicao(new EquipamentoMedicao());
         }
 
-//        if (eqpMedicao == null && EQP_ID != 0) {
-//            EquipamentoMedicaoFacade eqpMedFacade = new EquipamentoMedicaoFacade();
-//            eqpMedicao = eqpMedFacade.findLastUpdate(EQP_ID);
-//        }
-//
-//        if (eqpMedicao == null) {
-//            eqpMedicao = new EquipamentoMedicao();
-//        }
         return eqpMedicao;
     }
 

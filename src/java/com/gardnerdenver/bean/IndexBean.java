@@ -1,6 +1,5 @@
 package com.gardnerdenver.bean;
 
-import com.gardnerdenver.dao.EquipamentoServicoDAO;
 import com.gardnerdenver.facade.EquipamentoFacade;
 import com.gardnerdenver.facade.EquipamentoMedicaoFacade;
 import com.gardnerdenver.facade.EquipamentoServicoFacade;
@@ -659,6 +658,9 @@ public class IndexBean extends AbstractMB implements Serializable {
         this.historico = historico;
     }
 
+    public void resetMedicao() {
+        equipamento.getEqpMedicao().setEQM_DATAATUALIZACAO(new Date());
+    }
     public void resetHistorico() {
         historico = new Historico();
         Funcionario f = (Funcionario) getRequest().getSession().getAttribute("func");
@@ -1108,7 +1110,6 @@ public class IndexBean extends AbstractMB implements Serializable {
     public void loadListServicosHistorico() {
         if (getEquipamento().getEQP_ID() != 0) {
             listServicosHistorico = getEquipamentoServicoFacade().listHistByEqpId(equipamento.getEQP_ID());
-            System.out.println("Tamanho Lista Historico = " + getListServicosHistorico().size());
         }
     }
 

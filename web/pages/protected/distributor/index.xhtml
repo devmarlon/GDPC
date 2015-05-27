@@ -114,7 +114,7 @@
 
 
 
-                                <p:commandButton value="Nova Medição" icon="ui-icon-plus"
+                                <p:commandButton value="Nova Medição" icon="ui-icon-plus" actionListener="#{indexBean.resetMedicao}"
                                                  disabled="#{indexBean.equipamento.EQP_ID == 0}" update=":medicaoCreateDialogForm" process="@this" 
                                                  oncomplete="medicaoCreateDialogWidget.show();" />
                                 <p:commandButton id="imageBtn" disabled="#{indexBean.equipamento.EQP_ID == 0}" value="Observações" type="button" style="float: right; top: 5px"/>

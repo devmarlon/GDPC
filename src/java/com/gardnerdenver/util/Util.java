@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Util {
 
     public static String local = "localhost";
-//    public static String local = "server.gestorweb.com.br";
+//    public static String local = "app.gestorweb.com.br";
 //    public static String local = "54.149.31.247";
 
     public static void gravarCookie(String nome, String valor) {
@@ -35,7 +35,7 @@ public class Util {
             //Adiciona
             ((HttpServletResponse) context.getExternalContext().getResponse()).addCookie(ck);
 
-            System.out.println("Cookie salvo...");
+//            System.out.println("Cookie salvo...");
 
         } catch (Exception x) {
             x.printStackTrace();

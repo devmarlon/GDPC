@@ -216,9 +216,10 @@ public class EquipamentoServico implements Serializable {
 //            System.out.println("dias = " + dias);
             dateTime = dateTime.plusDays(dias);
             MANUTPROXIMAHORAS = dateTime.toDate();
-            if (dias <= 0) {
-                MANUTPROXIMAHORAS = null;
-            }
+//            System.out.println("dias = " + dias);
+//            if (dias <= 0) {
+//                MANUTPROXIMAHORAS = null;
+//            }
         }
 
         return MANUTPROXIMAHORAS;

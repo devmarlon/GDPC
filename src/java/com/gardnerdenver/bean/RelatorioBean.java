@@ -376,8 +376,8 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //            es.setMANUTPROXIMAHORAS(calculaProximaManutHoras(es));
             while (es.getMANUTPROXIMA().compareTo(endDate) < 0 || es.getMANUTPROXIMAHORAS().compareTo(endDate) < 0) {
                 if (es.getMANUTPROXIMAHORAS() == null) {
-                    System.out.println("continue null");
-                    continue;
+                    System.out.println("break null");
+                    break;
                 }
 
                 if (es.getMANUTPROXIMA().compareTo(endDate) < 0) {
@@ -397,7 +397,7 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //                    System.out.println("Continuou");
 //                    continue;
 //                }
-                if (es.getMANUTPROXIMA().compareTo(endDate) < 0 || es.getMANUTPROXIMAHORAS().compareTo(endDate) < 0) {
+                if (es.getMANUTPROXIMA().compareTo(endDate) < 0 && es.getMANUTPROXIMAHORAS().compareTo(endDate) < 0) {
 
                     System.out.println("");
 
@@ -412,6 +412,8 @@ public class RelatorioBean extends AbstractMB implements Serializable {
                         System.out.println(e.getMessage());
                         break;
                     }
+                } else {
+                    break;
                 }
             }
         }

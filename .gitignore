@@ -1,2 +1,9 @@
+/build/
+build/
 /dist/
-nbproject/private/private.xml
+/documentos/
+/documentos/*
+**/vssver2.scc
+**/*.snap
+/nbproject/private/private.xml
+**/Thumbs.db
