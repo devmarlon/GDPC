@@ -3,20 +3,16 @@ package com.gardnerdenver.dao;
 import com.gardnerdenver.bean.UserItemFactoryBean;
 import com.gardnerdenver.util.Util;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
-import org.hibernate.Session;
 
 public abstract class GenericGdpcDAO<T> implements Serializable {
 
