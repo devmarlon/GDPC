@@ -225,31 +225,29 @@ public abstract class GenericGdpcDAO<T> implements Serializable {
         }
     }
 
-//    public static void main(String args[]) throws Exception {
-//
-////        System.out.println("DataBase  = " + getAccountCredentials().getDataBase());
-////        System.out.println("User_Name = " + getAccountCredentials().getUser_Name());
-////        System.out.println("Password  = " + getAccountCredentials().getPassword());
-//        try {
-//            properties = new HashMap();
-//            try {
-//                properties.put("javax.persistence.jdbc.url", "jdbc:oracle:thin:@" + GestorErpConfig.getAccountCredentials().getHost() + ":1521:" + GestorErpConfig.getAccountCredentials().getDataBase());
-//                properties.put("javax.persistence.jdbc.user", GestorErpConfig.getAccountCredentials().getUser_Name());
-//                properties.put("javax.persistence.jdbc.password", GestorErpConfig.getAccountCredentials().getPassword());
-//            } catch (Exception ex) {
-//                Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            emf = Persistence.createEntityManagerFactory("PU", properties);
-//            System.out.println("emf criado");
-//
-//            EntityManager em = emf.createEntityManager();
-//            System.out.println("em criado");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//    }
+    public static void main(String args[]) throws Exception {
+
+//        System.out.println("DataBase  = " + getAccountCredentials().getDataBase());
+//        System.out.println("User_Name = " + getAccountCredentials().getUser_Name());
+//        System.out.println("Password  = " + getAccountCredentials().getPassword());
+        try {
+            properties = new HashMap();
+            properties.put("exclude-unlisted-classes", "true");
+            properties.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
+            properties.put("javax.persistence.jdbc.url", "jdbc:mysql://localhost:3306/gdpc");// + "?zeroDateTimeBehavior=convertToNull");
+            properties.put("javax.persistence.jdbc.user", "root");
+            properties.put("javax.persistence.jdbc.password", "qwert1234");
+
+            emf = Persistence.createEntityManagerFactory("PU", properties);
+            System.out.println("emf criado");
+
+            EntityManager em = emf.createEntityManager();
+            System.out.println("em criado");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }
 
 //abstract class GenericGdpcDAO<T> implements Serializable {

@@ -38,7 +38,6 @@ public class EquipamentoServicoFacade implements Serializable {
         equipamentoServicoDAO.beginTransaction();
         equipamentoServicoDAO.save(eqp);
         equipamentoServicoDAO.commitAndCloseTransaction();
-//        equipamentoServicoDAO.insert(eqp);
     }
 
     public void updateEquipamentoServico(EquipamentoServico eqp) {
@@ -95,6 +94,18 @@ public class EquipamentoServicoFacade implements Serializable {
     public EquipamentoServico findEquipamento(int eqpId) {
         equipamentoServicoDAO.createEntityManager();
         EquipamentoServico eqp = equipamentoServicoDAO.find(eqpId);
+        equipamentoServicoDAO.closeEntityManager();
+        return eqp;
+    }
+
+    public EquipamentoServico findUltimoRealizadoByEqs(EquipamentoServico eqpId) {
+        EquipamentoServico eqp = new EquipamentoServico();
+
+        equipamentoServicoDAO.createEntityManager();
+        List<EquipamentoServico> lst = equipamentoServicoDAO.findListRealizadoByServEqp(eqpId);
+        if (lst != null && !lst.isEmpty()) {
+            eqp = lst.get(0);
+        }
         equipamentoServicoDAO.closeEntityManager();
         return eqp;
     }

@@ -1,6 +1,5 @@
 package com.gardnerdenver.dao;
 
-
 import com.gardnerdenver.bean.UserItemFactoryBean;
 import com.gardnerdenver.model.EquipamentoServico;
 import java.util.HashMap;
@@ -70,6 +69,14 @@ public class EquipamentoServicoDAO extends GenericDAO<EquipamentoServico> {
         parameters.put("eqpId", eqpId);
 
         return super.findListResult(EquipamentoServico.FIND_EQS_BY_SERV_EQP, parameters);
+    }
+
+    public List<EquipamentoServico> findListRealizadoByServEqp(EquipamentoServico es) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("srvId", es.getServico().getSRV_ID());
+        parameters.put("eqpId", es.getEquipamento().getEQP_ID());
+
+        return super.findListResult(EquipamentoServico.FIND_EQS_ULT_BY_SERV_EQP, parameters);
     }
 
     public void delete(EquipamentoServico es) {

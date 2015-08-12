@@ -49,7 +49,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import org.joda.time.DateTime;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -345,29 +344,32 @@ public class RelatorioBean extends AbstractMB implements Serializable {
         boolean parTemEqs = false;
         boolean temEqs = false;
 
-        List<EquipamentoServico> servicos = null;
-//        loadEqs();
-//        loadParceiros();
+        List<EquipamentoServico> servicos = new ArrayList<>();
+        loadEqs();
+        loadParceiros();
 
         List<EquipamentoServico> esAux = new ArrayList<>();
         esList = new ArrayList<>();
-//        for (Parceiro p : getParFacade().listAll()) {
-//            for (Equipamento eqp : p.getEquipamentos()) {
-//                servicos = new EquipamentoServicoFacade().listByEqpIdCarta(eqp.getEQP_ID());
-        try {
-            servicos = getEqsFacade().listCarta();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        for (Parceiro p : getParFacade().listAll()) {
+            for (Equipamento eqp : p.getEquipamentos()) {
 
+                for (EquipamentoServico esAux1 : new EquipamentoServicoFacade().listByEqpIdCarta(eqp.getEQP_ID())) {
+                    servicos.add(esAux1);
+                }
+//        try {
+//            servicos = getEqsFacade().listCarta();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+
+            }
+        }
         if (servicos != null) {
             for (EquipamentoServico es : servicos) {
 //                esList.add(es);
                 esAux.add(es);
             }
         }
-//            }
-//        }
 
         for (EquipamentoServico es : esAux) {
 
@@ -683,11 +685,17 @@ public class RelatorioBean extends AbstractMB implements Serializable {
                         + "                    <td>Última</td>\n"
                         + "                    <td>Próxima</td>\n"
                         + "                </tr>");
+                String dtManAnterior = "";
                 for (EquipamentoServico es : ePar.getServicos()) {
-                    String dtManAnterior = "";
+
                     String dtManProx = "";
-                    if (es.getMANUTANTERIOR() != null) {
-                        dtManAnterior = sdf.format(es.getMANUTANTERIOR());
+                    EquipamentoServico estemp = getEqsFacade().findUltimoRealizadoByEqs(es);
+
+                    if (es.getMANUTATUAL() != null && es.isREALIZADO()) {
+                        dtManAnterior = sdf.format(es.getMANUTATUAL());
+                    }
+                    if (estemp != null && estemp.getMANUTATUAL() != null) {
+                        dtManAnterior = sdf.format(estemp.getMANUTATUAL());
                     }
                     if (es.getMANUTPROXIMA() != null && es.getMANUTPROXIMAHORAS() != null) {
 //                        if (es.getMANUTPROXIMA().compareTo(es.getMANUTPROXIMAHORAS()) > 0) {
@@ -771,7 +779,8 @@ public class RelatorioBean extends AbstractMB implements Serializable {
             }
         }
         listPecasEqs = new ArrayList<>();
-        for (String key : map.keySet()) {
+        for (String key
+                : map.keySet()) {
             PecaEqs c = map.get(key);
             listPecasEqs.add(c);
 //            System.out.println("Id: " + c.getPES_ID());
@@ -814,6 +823,7 @@ public class RelatorioBean extends AbstractMB implements Serializable {
         }
 
         dmParcs = new ListDataModel<>(parceiros);
+
         return null;
     }
 
