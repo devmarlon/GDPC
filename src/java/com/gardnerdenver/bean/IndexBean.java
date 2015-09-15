@@ -160,7 +160,7 @@ public class IndexBean extends AbstractMB implements Serializable {
         }
 
         /* 
-        //validação horimetro
+         //validação horimetro
          if (!validaManutencaoB(equipamentoServicoAux.getMANUTATUAL(), equipamentoServicoAux.getMANUTATUALRHORAS(), equipamento.getEQP_ID())) {
          displayInfoMessageToUser(getMessageValidaManut());
          return;
@@ -392,9 +392,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public EquipamentoServicoFacade getEquipamentoServicoFacade() {
-        if (equipamentoServicoFacade == null) {
-            equipamentoServicoFacade = new EquipamentoServicoFacade();
-        }
+//        if (equipamentoServicoFacade == null) {
+        equipamentoServicoFacade = new EquipamentoServicoFacade();
+//        }
 
         return equipamentoServicoFacade;
     }
@@ -404,9 +404,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public EquipamentoMedicaoFacade getEqmFacade() {
-        if (eqmFacade == null) {
-            eqmFacade = new EquipamentoMedicaoFacade();
-        }
+//        if (eqmFacade == null) {
+        eqmFacade = new EquipamentoMedicaoFacade();
+//        }
         return eqmFacade;
     }
 
@@ -415,9 +415,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public PecaFacade getPecaFacade() {
-        if (pecaFacade == null) {
-            pecaFacade = new PecaFacade();
-        }
+//        if (pecaFacade == null) {
+        pecaFacade = new PecaFacade();
+//        }
 
         return pecaFacade;
     }
@@ -475,9 +475,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public PecaEqsFacade getPecaEqsFacade() {
-        if (pecaEqsFacade == null) {
-            pecaEqsFacade = new PecaEqsFacade();
-        }
+//        if (pecaEqsFacade == null) {
+        pecaEqsFacade = new PecaEqsFacade();
+//        }
 
         return pecaEqsFacade;
     }
@@ -487,9 +487,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public FactoryCategoriaFacade getCatFacade() {
-        if (catFacade == null) {
-            catFacade = new FactoryCategoriaFacade();
-        }
+//        if (catFacade == null) {
+        catFacade = new FactoryCategoriaFacade();
+//        }
         return catFacade;
     }
 
@@ -498,9 +498,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public HistoricoFacade getHistoricoFacade() {
-        if (historicoFacade == null) {
-            historicoFacade = new HistoricoFacade();
-        }
+//        if (historicoFacade == null) {
+        historicoFacade = new HistoricoFacade();
+//        }
         return historicoFacade;
     }
 
@@ -661,6 +661,7 @@ public class IndexBean extends AbstractMB implements Serializable {
     public void resetMedicao() {
         equipamento.getEqpMedicao().setEQM_DATAATUALIZACAO(new Date());
     }
+
     public void resetHistorico() {
         historico = new Historico();
         Funcionario f = (Funcionario) getRequest().getSession().getAttribute("func");
@@ -684,9 +685,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public ServicoFacade getServicoFacade() {
-        if (servicoFacade == null) {
-            servicoFacade = new ServicoFacade();
-        }
+//        if (servicoFacade == null) {
+        servicoFacade = new ServicoFacade();
+//        }
 
         return servicoFacade;
     }
@@ -696,9 +697,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public EquipamentoFacade getEquipamentoFacade() {
-        if (equipamentoFacade == null) {
-            equipamentoFacade = new EquipamentoFacade();
-        }
+//        if (equipamentoFacade == null) {
+        equipamentoFacade = new EquipamentoFacade();
+//        }
 
         return equipamentoFacade;
     }
