@@ -149,7 +149,7 @@ public class Parceiro implements Serializable {
     private String PAR_CIDADESTR;
     @Transient
     private String PAR_UFSTR;
-    @OneToMany(mappedBy = "parceiro", fetch = FetchType.EAGER)//    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "parceiro", fetch = FetchType.LAZY)//    @Fetch(FetchMode.SUBSELECT)
     private List<Equipamento> equipamentos;
     @Transient
     private StringBuilder textoMail;

@@ -137,8 +137,8 @@ public class RelatorioBean extends AbstractMB implements Serializable {
             ven = "&ven=0";
         }
 
-//        String link = "/gdpc";
-        String link = "";
+        String link = "/gdpc";
+//        String link = "";
 //        if (Util.localhost) {
 //            link = "/gdpc";
 //        }
@@ -166,8 +166,8 @@ public class RelatorioBean extends AbstractMB implements Serializable {
         String mod = "&mod=" + getModelo().getMOD_ID();
         String cat = "&cat=" + getCatId();
 
-//        String link = "/gdpc";
-        String link = "";
+        String link = "/gdpc";
+//        String link = "";
 //        if (Util.localhost) {
 //            link = "/gdpc";
 //        }
@@ -233,16 +233,17 @@ public class RelatorioBean extends AbstractMB implements Serializable {
             maxhr = "&maxhr=0";
         }
 
-        String link = "";
+        String link = "/gdpc";
+//        String link = "";
 
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (mostraPecas) {
 //            link = "/gdpc/RelatorioServlet?nome=equipamentosPecas";
-            link = "/RelatorioServlet?nome=equipamentosPecas";
+            link += "/RelatorioServlet?nome=equipamentosPecas";
         } else {
 //            link = "/gdpc/RelatorioServlet?nome=equipamentos";
-            link = "/RelatorioServlet?nome=equipamentos";
+            link += "/RelatorioServlet?nome=equipamentos";
         }
 
         link += mod + cli + uf + mun + ven + minhr + maxhr + cat;

@@ -88,7 +88,7 @@ public class RelatorioServlet extends HttpServlet {
                 try {
 //                    relDao = new RelatorioDao(request.getParameter("id"), "varkon", "qwert1234");
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     String mov_id = request.getParameter("movId");
                     parametros.put("MOV_ID", mov_id);
@@ -114,7 +114,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ParcDetail")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     parametros.put("CLIENTE", request.getParameter("cli"));
                     parametros.put("FORNECEDOR", request.getParameter("frn"));
                     parametros.put("TRANSPORTADOR", request.getParameter("tra"));
@@ -146,7 +146,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ParcInativ")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     parametros.put("DATAINI", request.getParameter("dataIni"));
                     parametros.put("DATAFIM", request.getParameter("dataFim"));
 
@@ -171,7 +171,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ParcNiver")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     parametros.put("CLIENTE", request.getParameter("cli"));
                     parametros.put("FORNECEDOR", request.getParameter("frn"));
                     parametros.put("TRANSPORTADOR", request.getParameter("tra"));
@@ -201,7 +201,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ProdPosEst")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     if (request.getParameter("grp") != null) {
                         parametros.put("GRUPO", request.getParameter("grp"));
                     } else {
@@ -241,7 +241,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ProdMovEst")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     if (request.getParameter("pro") != null) {
                         parametros.put("PRO_ID", request.getParameter("pro"));
                     } else {
@@ -271,7 +271,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ProdContEst")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     if (request.getParameter("pro") != null) {
                         parametros.put("PRO_ID", request.getParameter("pro"));
                     } else {
@@ -309,7 +309,7 @@ public class RelatorioServlet extends HttpServlet {
 
             } else if (request.getParameter("nome").equalsIgnoreCase("ProdEstMin")) {
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     if (request.getParameter("grp") != null) {
                         parametros.put("GRUPO", request.getParameter("grp"));
@@ -349,7 +349,7 @@ public class RelatorioServlet extends HttpServlet {
             } else if (request.getParameter("nome").equalsIgnoreCase("ProdSugComp")) {
 
                 try {
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     if (request.getParameter("grp") != null) {
                         parametros.put("GRUPO", request.getParameter("grp"));
@@ -450,7 +450,7 @@ public class RelatorioServlet extends HttpServlet {
                     //parametros.put("dataFim", request.getParameter("dataFim"));
                     //parametros.put("usuario", usuLogado);
                     //parametros.put("dataStr", dataStr);
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -490,7 +490,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("GRP", request.getParameter("grp"));
                     parametros.put("GRI", request.getParameter("gri"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));;
+                    conn = Util.getConexao((String) session.getAttribute("database"));;
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -526,7 +526,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("PED", request.getParameter("ped"));
                     parametros.put("VEND", request.getParameter("vend"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -564,7 +564,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("ORDER", request.getParameter("order"));
                     parametros.put("CIDADE", request.getParameter("cidade"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -607,7 +607,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("ORDER", request.getParameter("order"));
                     parametros.put("CIDADE", request.getParameter("cidade"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -647,7 +647,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("OS", request.getParameter("os"));
                     parametros.put("PED", request.getParameter("ped"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -683,7 +683,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("DATAFIM", request.getParameter("dataFim"));
                     parametros.put("OS", request.getParameter("os"));
                     parametros.put("PED", request.getParameter("ped"));
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
                     //JasperViewer jv = new JasperViewer(jp, false);
                     byte[] buffer = JasperExportManager.exportReportToPdf(jp);
@@ -717,7 +717,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("OS", request.getParameter("os"));
                     parametros.put("PED", request.getParameter("ped"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
                     //JasperViewer jv = new JasperViewer(jp, false);
                     byte[] buffer = JasperExportManager.exportReportToPdf(jp);
@@ -751,7 +751,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("TRANSF", request.getParameter("transf"));
                     parametros.put("CONTABANC", request.getParameter("cb"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
                     //JasperViewer jv = new JasperViewer(jp, false);
                     byte[] buffer = JasperExportManager.exportReportToPdf(jp);
@@ -787,7 +787,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("PAR", request.getParameter("par"));
                     parametros.put("DOC", request.getParameter("doc"));
                     parametros.put("STAT", request.getParameter("stat"));
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
                     //JasperViewer jv = new JasperViewer(jp, false);
                     byte[] buffer = JasperExportManager.exportReportToPdf(jp);
@@ -823,7 +823,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("CB", request.getParameter("cb"));
                     parametros.put("REC", request.getParameter("rec"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
                     //JasperViewer jv = new JasperViewer(jp, false);
                     byte[] buffer = JasperExportManager.exportReportToPdf(jp);
@@ -863,7 +863,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("VAL2", request.getParameter("val2"));
                     parametros.put("VAL3", request.getParameter("val3"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
                     //JasperViewer jv = new JasperViewer(jp, false);
                     byte[] buffer = JasperExportManager.exportReportToPdf(jp);
@@ -895,7 +895,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("FUN_ID", request.getParameter("vend"));
                     parametros.put("ORDER", request.getParameter("order"));
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -933,7 +933,7 @@ public class RelatorioServlet extends HttpServlet {
 
                     System.out.println(parametros.toString());
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -1010,7 +1010,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("MAXHR", request.getParameter("maxhr"));
                     System.out.println(parametros.toString());
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -1050,7 +1050,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("MAXHR", request.getParameter("maxhr"));
                     System.out.println(parametros.toString());
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -1083,7 +1083,7 @@ public class RelatorioServlet extends HttpServlet {
                     parametros.put("MOV_ID", request.getParameter("movId"));
                     System.out.println(parametros.toString());
 
-                    conn = Util.getConexao((String) session.getAttribute("db"));
+                    conn = Util.getConexao((String) session.getAttribute("database"));
 
                     jp = JasperFillManager.fillReport(jasperPath, parametros, conn);
 
@@ -1114,7 +1114,7 @@ public class RelatorioServlet extends HttpServlet {
 
                 /////   HELLO - WORLD
                 //System.out.println("Dados Conexão: " + request.getParameter("database") + ", " + request.getParameter("usuarioBanco") + ", " + request.getParameter("senhaBanco"));
-                conn = Util.getConexao((String) session.getAttribute("db"));
+                conn = Util.getConexao((String) session.getAttribute("database"));
                 JasperReport jasperReport = JasperCompileManager.compileReport("HelloWorld.jrxml");
                 jp = JasperFillManager.fillReport(jasperReport, null, conn);
 

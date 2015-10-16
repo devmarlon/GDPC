@@ -72,7 +72,7 @@ public class Util {
 
         String database = db;
 
-        String usuario = "varkon";
+        String usuario = "root";
         String senha = "qwert1234";
         try {
             Class.forName("com.mysql.jdbc.Driver");

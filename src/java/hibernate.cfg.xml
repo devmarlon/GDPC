@@ -5,7 +5,7 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/gdpc?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">varkon</property>
+    <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">qwert1234</property>
   </session-factory>
 </hibernate-configuration>

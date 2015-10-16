@@ -21,7 +21,7 @@
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/p_28?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="varkon"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value="qwert1234"/>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
       <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
@@ -61,7 +61,7 @@
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gdpc?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="varkon"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value="qwert1234"/>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
       <!--            

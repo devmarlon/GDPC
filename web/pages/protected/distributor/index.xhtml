@@ -26,7 +26,7 @@
                                 <h:outputLabel value="#{bundle.equip}"/>
                                 <p:selectOneMenu id="eqp" value="#{indexBean.equipamento}" immediate="true" converter="equipamentoConverter" required="false" effect="fade"  style="width: 480px" > 
                                     <!--<f:selectItem itemLabel="Selecione" />--> 
-                                    <f:selectItems value="#{indexBean.parceiro.equipamentos}" var="equip" itemLabel="#{equip.EQP_SERIE} - #{equip.categoria.CAT_NOME}" itemValue="#{equip}"/>
+                                    <f:selectItems value="#{indexBean.parceiro.equipamentos}" var="equip" itemLabel="#{equip.modelo.MOD_NOME} - #{equip.EQP_SERIE} - #{equip.categoria.CAT_NOME}" itemValue="#{equip}"/>
                                     <p:ajax event="change"  immediate="false" update=":formDist:tabServ :formDist:tabServ:dtHist pgMain2 :messageGrowl"  listener="#{indexBean.loadEquip}"/>
                                 </p:selectOneMenu> 
                             </h:panelGrid>

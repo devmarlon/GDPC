@@ -348,7 +348,7 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
         } catch (Exception e) {
             Connection conn2;
             try {
-                conn2 = Conexao.getConexao("", "localhost", "varkon", "qwert1234");
+                conn2 = Conexao.getConexao("", "localhost", "root", "qwert1234");
                 Statement st2 = conn2.createStatement();
                 st2.execute("DROP DATABASE " + dist.getUSU_BANCO());
                 conn2.close();
@@ -366,10 +366,10 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
         System.out.println("Criando Banco de dados");
         Connection conn2;
         try {
-            conn2 = Conexao.getConexao("", "localhost", "varkon", "qwert1234");
+            conn2 = Conexao.getConexao("", "localhost", "root", "qwert1234");
             Statement st2 = conn2.createStatement();
             st2.execute("CREATE DATABASE " + banco);
-            st2.execute("GRANT ALL PRIVILEGES ON " + banco + ".* TO 'varkon'@'%' IDENTIFIED BY 'qwert1234';");
+            st2.execute("GRANT ALL PRIVILEGES ON " + banco + ".* TO 'root'@'%' IDENTIFIED BY 'qwert1234';");
             conn2.close();
 
         } catch (SQLException ex) {

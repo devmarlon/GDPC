@@ -74,7 +74,7 @@ public class PadraoManutencaoBean extends AbstractMB implements Serializable {
             try {
                 getPdmFacade().create(padraoManutencao);
                 closeDialog();
-                displayInfoMessageToUser("Created With Sucess");
+                displayInfoMessageToUser("Cadastrado com Sucesso");
                 redirect(show());
             } catch (Exception e) {
                 displayErrorMessageToUser("Ops, we could not create. Try again later");
@@ -84,7 +84,7 @@ public class PadraoManutencaoBean extends AbstractMB implements Serializable {
             try {
                 getPdmFacade().update(padraoManutencao);
                 closeDialog();
-                displayInfoMessageToUser("Updated With Sucess");
+                displayInfoMessageToUser("Atualizado com Sucesso");
                 redirect(show());
             } catch (Exception e) {
                 displayErrorMessageToUser("Ops, we could not create. Try again later");

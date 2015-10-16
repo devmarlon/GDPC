@@ -79,7 +79,7 @@ public abstract class GenericGdpcDAO<T> implements Serializable {
         Map properties = new HashMap();
 
         String auxDatabase = "gdpc";
-        String auxUsuario = "varkon";
+        String auxUsuario = "root";
         String auxSenha = "qwert1234";
 
         if (bancoExe != null) {

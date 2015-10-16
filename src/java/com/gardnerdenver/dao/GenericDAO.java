@@ -96,7 +96,7 @@ public abstract class GenericDAO<T> implements Serializable {
         } else {
             auxDatabase = (String) session.getAttribute("database");
         }
-        String auxUsuario = "varkon";
+        String auxUsuario = "root";
         String auxSenha = "qwert1234";
 
         //teste

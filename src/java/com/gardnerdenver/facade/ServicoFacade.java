@@ -29,9 +29,13 @@ public class ServicoFacade implements Serializable {
 
     public Servico findServicoByFab(int fab) {
         servicoDAO.createEntityManager();
-        Servico peca = servicoDAO.findServicoByFab(fab);
+        Servico b = servicoDAO.findServicoByFab(fab);
         servicoDAO.closeEntityManager();
-        return peca;
+
+        if (b == null) {
+            b = new Servico();
+        }
+        return b;
     }
 
     public void createServico(Servico servico) {
