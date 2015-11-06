@@ -10,7 +10,7 @@
 <coolItem id="group.file" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="195" y="30"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
-<coolItem id="com.jaspersoft.studio.editor.JrxmlEditor" itemType="typeToolBarContribution" x="61" y="30"/>
+<coolItem id="com.jaspersoft.studio.editor.JrxmlEditor" itemType="typePlaceholder" x="61" y="30"/>
 <coolItem id="com.jaspersoft.studio.editor.JrxmlEditor.jasper" itemType="typePlaceholder" x="61" y="30"/>
 <coolItem id="org.eclipse.debug.ui.launch.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="53" y="30"/>
@@ -33,15 +33,10 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="com.jaspersoft.studio.editor.JrxmlEditor" name="equipamentos.jrxml" partName="equipamentos.jrxml" path="D:/Varkon/gdpc/web/jaspers/equipamentos.jrxml" title="equipamentos.jrxml" tooltip="jaspers/equipamentos.jrxml" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/jaspers/equipamentos.jrxml"/>
-</editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
@@ -86,12 +81,12 @@
 <alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
 <hide_menu_item_id id="org.eclipse.ui.run"/>
 <hide_menu_item_id id="org.eclipse.search.menu"/>
-<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.RunToLine"/>
 <hide_toolbar_item_id id="org.eclipse.ui.workbench.navigate"/>
-<hide_toolbar_item_id id="org.eclipse.egit.ui.team.OpenCommit"/>
+<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.RunToLine"/>
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
-<hide_toolbar_item_id id="org.eclipse.jdt.ui.navigate.open.type"/>
+<hide_toolbar_item_id id="org.eclipse.egit.ui.team.OpenCommit"/>
 <hide_toolbar_item_id id="org.eclipse.search.searchActionSet"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.navigate.open.type"/>
 <hide_toolbar_item_id id="org.eclipse.search.OpenSearchDialogPage"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <hide_toolbar_item_id id="com.jaspersoft.studio.community.command.issueSubmit"/>
@@ -162,14 +157,7 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory>
-<editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/cab.jrxml"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.jaspersoft.studio.editor.JrxmlEditor" path="/jaspers/equipamentos.jrxml"/>
-</editors>
-<item historyLabel="cab.jrxml" index="0"/>
-<item active="true" historyLabel="equipamentos.jrxml" index="1"/>
-</navigationHistory>
+<navigationHistory/>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
