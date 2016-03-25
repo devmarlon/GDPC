@@ -312,13 +312,13 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 
         System.out.println();
 
-        Calendar calendario
-                = new Calendar.Builder()
-                .setDate(2014, Calendar.APRIL, 8).build();
+//        Calendar calendario
+//                = new Calendar.Builder()
+//                .setDate(2014, Calendar.APRIL, 8).build();
 
-        System.out.println("calendario.getTime() = " + calendario.getTime());
-        System.out.println("new Date() = " + new Date());
-        System.out.println(calendario.getTime().compareTo(new Date()) > 0);
+//        System.out.println("calendario.getTime() = " + calendario.getTime());
+//        System.out.println("new Date() = " + new Date());
+//        System.out.println(calendario.getTime().compareTo(new Date()) > 0);
 
 //        System.out.println(calendario.getTime().before(new Date()));
     }
@@ -935,7 +935,7 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 
         for (Parceiro p : parceirosAux) {
             System.out.println(p.getPAR_RAZAO());
-            p.setEquipamentos(new ArrayList<>());
+            p.setEquipamentos(new ArrayList<Equipamento>());
             for (EquipamentoServico esAux1 : esList) {
                 if (!p.getEquipamentos().contains(esAux1.getEquipamento())) {
                     p.getEquipamentos().add(esAux1.getEquipamento());
@@ -945,7 +945,7 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 
         for (Parceiro p : parceirosAux) {
             for (Equipamento eqp : p.getEquipamentos()) {
-                eqp.setServicos(new ArrayList<>());
+                eqp.setServicos(new ArrayList<EquipamentoServico>());
                 for (EquipamentoServico esAux1 : esList) {
                     if (!eqp.getServicos().contains(esAux1)) {
                         eqp.getServicos().add(esAux1);

@@ -225,7 +225,7 @@ public class OrdemServicoBean extends AbstractMB implements Serializable {
     }
 
     public void listenerEquipamento() {
-        movimento.setListMovimentoItem(new ArrayList<>());
+        movimento.setListMovimentoItem(new ArrayList<MovimentoItem>());
         Equipamento eqpTemp = new EquipamentoFacade().findEquipamento(movimento.getEquipamento().getEQP_ID());
 
         if (movimento.getMOV_ID() != 0) {
@@ -243,14 +243,14 @@ public class OrdemServicoBean extends AbstractMB implements Serializable {
 
         if (movimento.getEquipamento().getEQP_CATID() == 1) {
             listServicos = getEquipamentoServicoFacade().listByEqpId(movimento.getEquipamento().getEQP_ID());
-            setListMovimentoItemServico(new ArrayList<>());
+            setListMovimentoItemServico(new ArrayList<MovimentoItem>());
             for (EquipamentoServico eqs : getListServicos()) {
                 movimentoItem = new MovimentoItem();
                 movimentoItem.setMovimento(movimento);
                 movimentoItem.setPeca(null);
                 movimentoItem.setServico(eqs.getServico());
                 getListMovimentoItemServico().add(movimentoItem);
-                setListMovimentoItemPeca(new ArrayList<>());
+                setListMovimentoItemPeca(new ArrayList<MovimentoItem>());
                 for (PecaEqs pqs : eqs.getEquipamentosPecas()) {
                     movimentoItem = new MovimentoItem();
                     movimentoItem.setMovimento(movimento);
@@ -1888,7 +1888,7 @@ public class OrdemServicoBean extends AbstractMB implements Serializable {
         }
 
         if (movimento.getEquipamento().getEQP_CATID() == 1) {
-            movimento.setListMovimentoItem(new ArrayList<>());
+            movimento.setListMovimentoItem(new ArrayList<MovimentoItem>());
             for (MovimentoItem mi : getListMovimentoItemServico()) {
                 movimento.getListMovimentoItem().add(mi);
             }
@@ -2075,7 +2075,7 @@ public class OrdemServicoBean extends AbstractMB implements Serializable {
     public void salvar() {
 
         if (movimento.getEquipamento().getEQP_CATID() == 1) {
-            movimento.setListMovimentoItem(new ArrayList<>());
+            movimento.setListMovimentoItem(new ArrayList<MovimentoItem>());
             for (MovimentoItem mi : getListMovimentoItemServico()) {
                 movimento.getListMovimentoItem().add(mi);
             }
