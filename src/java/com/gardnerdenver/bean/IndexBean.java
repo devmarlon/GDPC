@@ -870,7 +870,10 @@ public class IndexBean extends AbstractMB implements Serializable {
         equipamentoServicoAux = null;
         setSearchCode(0);
         setSearchCodeCli(getParceiro().getPAR_ID());
-        parceiro.setEquipamentos(parceiro.getEquipamentos());
+        
+       
+        
+        parceiro.setEquipamentos(getEquipamentoFacade().listByParceiro(parceiro));
         if (!parceiro.getEquipamentos().isEmpty()) {
             equipamento = getEquipamentoFacade().findEquipamento(parceiro.getEquipamentos().get(0).getEQP_ID());
         }

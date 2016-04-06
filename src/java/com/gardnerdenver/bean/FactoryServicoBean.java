@@ -76,6 +76,7 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
     
     public void salvar() {
         boolean result = false;
+        servico.setAtivo(true);
         if (servico.getSRV_ID() == 0) { //save
             try {
                 result = true;

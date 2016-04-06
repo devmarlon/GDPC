@@ -30,15 +30,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FactoryServico.findAll", query = "SELECT f FROM FactoryServico f ORDER BY f.ativo, f.SRV_DESCRICAO"),
+    @NamedQuery(name = "FactoryServico.findAllAtivos", query = "SELECT f FROM FactoryServico f WHERE (f.ativo IS NULL or f.ativo = true) ORDER BY f.ativo, f.SRV_DESCRICAO "),
     @NamedQuery(name = "FactoryServico.findBySrvId", query = "SELECT f FROM FactoryServico f WHERE f.SRV_ID = :srvId"),
     @NamedQuery(name = "FactoryServico.findBySrvDescricao", query = "SELECT f FROM FactoryServico f WHERE f.SRV_DESCRICAO = :srvDescricao"),
     @NamedQuery(name = "FactoryServico.findBySrvFreqdias", query = "SELECT f FROM FactoryServico f WHERE f.SRV_FREQDIAS = :srvFreqdias"),
-    @NamedQuery(name = "FactoryServico.findBySrvFreqhoras", query = "SELECT f FROM FactoryServico f WHERE f.SRV_FREQHORAS = :srvFreqhoras")})
+    @NamedQuery(name = "FactoryServico.findBySrvFreqhoras", query = "SELECT f FROM FactoryServico f WHERE f.SRV_FREQHORAS = :srvFreqhoras")
+})
 public class FactoryServico implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String FIND_LISTA = "FactoryServico.findAll";
-    
+    public static final String FIND_LISTA_ATIVOS = "FactoryServico.findAllAtivos";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -66,6 +69,7 @@ public class FactoryServico implements Serializable {
         this.SRV_DESCRICAO = s.getSRV_DESCRICAO();
         this.SRV_FREQDIAS = s.getSRV_FREQDIAS();
         this.SRV_FREQHORAS = s.getSRV_FREQHORAS();
+        this.ativo = s.getAtivo();
     }
 
     public int getSRV_ID() {
@@ -115,7 +119,7 @@ public class FactoryServico implements Serializable {
         if (ativo == null) {
             ativo = true;
         }
-        
+
         return ativo;
     }
 

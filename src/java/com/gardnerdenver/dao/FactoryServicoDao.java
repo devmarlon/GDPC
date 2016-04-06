@@ -32,6 +32,10 @@ public class FactoryServicoDao extends GenericGdpcDAO<FactoryServico> {
         return super.findListResult(FactoryServico.FIND_LISTA, null);
     }
 
+    public List<FactoryServico> findListaAtivos() {
+        return super.findListResult(FactoryServico.FIND_LISTA_ATIVOS, null);
+    }
+
     public List<FactoryServico> findBusca(String descricao) {
         List<FactoryServico> eqps = null;
         try {

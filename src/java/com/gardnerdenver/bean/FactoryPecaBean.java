@@ -34,19 +34,19 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 @SessionScoped
 @ManagedBean(name = "factoryPecaBean")
 public class FactoryPecaBean extends AbstractMB implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
 
 //    private Servico servico;
     private Equipamento selectedEquipamento;
     private FactoryPeca factoryPeca;
     private FactoryPeca pecaCompare;
-
+    
     private List<FactoryPeca> pecas;
     private List<FactoryPeca> pecasSelected;
     private List<Equipamento> equipamentos;
     private static List<FactoryContrato> contratos;
-
+    
     private DataModel<FactoryPeca> dtmFactoryPecas;
 
 //    private ServicoFacade servicoFacade;
@@ -55,20 +55,20 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
     //busca
     private int tipoLista = 0;
     private String nomeBusca = "";
-
+    
     public void alterar() {
         factoryPeca = dtmFactoryPecas.getRowData();
         pecaCompare = new FactoryPeca(factoryPeca);
-
+        
         redirect("/pages/protected/factory/pecaCadastro.xhtml");
     }
-
+    
     public void novo() {
         factoryPeca = new FactoryPeca();
         pecaCompare = null;
         redirect("/pages/protected/factory/pecaCadastro.xhtml");
     }
-
+    
     public void showFactoryPeca() {
         tipoLista = 0;
         nomeBusca = "";
@@ -76,14 +76,19 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
         pecaCompare = null;
         redirect("/pages/protected/factory/peca.xhtml");
     }
-
+    
     public void buscar() {
-        tipoLista = 1;
+        if (nomeBusca.isEmpty()) {
+            tipoLista = 0;
+        } else {
+            tipoLista = 1;
+        }
         getDtmFactoryPecas();
     }
-
+    
     public void salvar() {
         boolean result = false;
+        factoryPeca.setAtivo(true);
         if (factoryPeca.getPEC_ID() == 0) { //save
             try {
                 result = true;
@@ -100,12 +105,31 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
                 if (getContratos().size() > 0) {
                     for (FactoryContrato c : getContratos()) {
                         loadPecaFacade(c.getUsuId().getUSU_BANCO());
+                        
+                        Peca peca = getPecaFacade().findPecaByFab(factoryPeca.getPEC_ID());
                         Peca p = new Peca(factoryPeca);
-                        try {
-                            getPecaFacade().createPeca(p);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
+                        
+                        if (peca != null) {
+                            p.setPEC_ID(peca.getPEC_ID());
+                            p.setAtivo(true);
+                            p.setCodigo(peca.getCodigo());
+                            p.setDescricao(peca.getDescricao());
                         }
+                        
+                        if (p.getPEC_ID() == 0) {
+                            try {
+                                getPecaFacade().createPeca(p);
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
+                        } else {
+                            try {
+                                getPecaFacade().updatePeca(p);
+                            } catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                        
                     }
                 }
                 showFactoryPeca();
@@ -143,7 +167,7 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
             }
         }
     }
-
+    
     public void validaDelete() {
         if (pecasSelected.isEmpty()) {
             displayInfoMessageToUser("Selecione ao menos uma peça.");
@@ -151,7 +175,7 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
             RequestContext.getCurrentInstance().execute("pecDeleteDialogWidget.show()");
         }
     }
-
+    
     public void validaFechar() {
         if (factoryPeca.equals(pecaCompare)) {
             showFactoryPeca();
@@ -159,10 +183,10 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
             RequestContext.getCurrentInstance().execute("pecCloseDialogWidget.show()");
         }
     }
-
+    
     public void desativaPeca() {
         for (FactoryPeca pec : pecasSelected) {
-
+            
             try {
                 pec.setAtivo(Boolean.FALSE);
                 factoryPeca = pec;
@@ -177,11 +201,11 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
             }
         }
     }
-
+    
     public static void loadPecaFacade(String banco) {
         pecaFacade = new PecaFacade(banco);
     }
-
+    
     public void deleteFactoryPeca() {
         for (FactoryPeca pec : pecasSelected) {
 //            if (pec.isFab()) {
@@ -202,18 +226,18 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
         }
 //        }
     }
-
+    
     public Equipamento getSelectedEquipamento() {
         return selectedEquipamento;
     }
-
+    
     public void setSelectedEquipamento(Equipamento selectedEquipamento) {
         this.selectedEquipamento = selectedEquipamento;
     }
-
+    
     public List<FactoryPeca> getFactoryPecas() {
         pecasSelected = null;
-
+        
         if (tipoLista == 0) {
             pecas = getFactoryPecaFacade().listAll();
         } else {
@@ -224,14 +248,14 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
         }
         return pecas;
     }
-
+    
     public void setFactoryPecas(List<FactoryPeca> pecas) {
         this.pecas = pecas;
     }
-
+    
     public List<FactoryPeca> complete(String name) {
         List<FactoryPeca> queryResult = new ArrayList<>();
-
+        
         if (pecas == null) {
             factoryPecaFacade = new FactoryPecaFacade();
             pecas = factoryPecaFacade.listAll();
@@ -243,126 +267,126 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
                 queryResult.add(fP);
             }
         }
-
+        
         return queryResult;
     }
-
+    
     public List<Equipamento> getEquipamentos() {
         return equipamentos;
     }
-
+    
     public void setEquipamentos(List<Equipamento> equipamentos) {
         this.equipamentos = equipamentos;
     }
-
+    
     public DataModel<FactoryPeca> getDtmFactoryPecas() {
         dtmFactoryPecas = new ListDataModel(getFactoryPecas());
         return dtmFactoryPecas;
     }
-
+    
     public void setDtmFactoryPecas(DataModel<FactoryPeca> dtmFactoryPecas) {
         this.dtmFactoryPecas = dtmFactoryPecas;
     }
-
+    
     public static FactoryPecaFacade getFactoryPecaFacade() {
         factoryPecaFacade = new FactoryPecaFacade();
         return factoryPecaFacade;
     }
-
+    
     public void setFactoryPecaFacade(FactoryPecaFacade pecaFacade) {
         this.factoryPecaFacade = pecaFacade;
     }
-
+    
     public FactoryPeca getFactoryPeca() {
         if (factoryPeca == null) {
             factoryPeca = new FactoryPeca();
         }
         return factoryPeca;
     }
-
+    
     public void setFactoryPeca(FactoryPeca peca) {
         this.factoryPeca = peca;
     }
-
+    
     public FactoryPeca getFactoryPecaCompare() {
         return pecaCompare;
     }
-
+    
     public void setFactoryPecaCompare(FactoryPeca pecaCompare) {
         this.pecaCompare = pecaCompare;
     }
-
+    
     public List<FactoryPeca> getFactoryPecasSelected() {
         return pecasSelected;
     }
-
+    
     public void setFactoryPecasSelected(List<FactoryPeca> pecasSelected) {
         this.pecasSelected = pecasSelected;
     }
-
+    
     public int getTipoLista() {
         return tipoLista;
     }
-
+    
     public void setTipoLista(int tipoLista) {
         this.tipoLista = tipoLista;
     }
-
+    
     public String getNomeBusca() {
         return nomeBusca;
     }
-
+    
     public void setNomeBusca(String nomeBusca) {
         this.nomeBusca = nomeBusca;
     }
-
+    
     public FactoryPeca getPecaCompare() {
         return pecaCompare;
     }
-
+    
     public void setPecaCompare(FactoryPeca pecaCompare) {
         this.pecaCompare = pecaCompare;
     }
-
+    
     public List<FactoryPeca> getPecas() {
         return pecas;
     }
-
+    
     public void setPecas(List<FactoryPeca> pecas) {
         this.pecas = pecas;
     }
-
+    
     public List<FactoryPeca> getPecasSelected() {
         return pecasSelected;
     }
-
+    
     public void setPecasSelected(List<FactoryPeca> pecasSelected) {
         this.pecasSelected = pecasSelected;
     }
-
+    
     public static List<FactoryContrato> getContratos() {
         return contratos;
     }
-
+    
     private static void loadContratos() {
         contratos = new ContratoFactoryFacade().listDist();
         if (getContratos() == null) {
             contratos = new ArrayList<>();
         }
     }
-
+    
     public void setContratos(List<FactoryContrato> contratos) {
         this.contratos = contratos;
     }
-
+    
     public static PecaFacade getPecaFacade() {
         return pecaFacade;
     }
-
+    
     public void setPecaFacade(PecaFacade pecaFacade) {
         this.pecaFacade = pecaFacade;
     }
-
+    
     public static void main(String... args) {
 
         // TODO code application logic here  
@@ -397,7 +421,7 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
             Row row;
             Cell cell;
             for (int i = 0; i <= worksheet.getLastRowNum() - 1; i++) {
-
+                
                 row = worksheet.getRow(i);
                 String linha = "";
                 FactoryPeca peca = new FactoryPeca();
@@ -421,25 +445,25 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
                 peca.setCodigo(cell.getStringCellValue());
                 cell = row.getCell(1);
                 peca.setDescricao(cell.getStringCellValue());
-
+                
                 System.out.println(peca.toString());
                 System.out.println("");
                 salvarExcel(peca);
                 System.out.println("");
-
+                
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(FactoryPecaBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         } catch (FileNotFoundException ex) {
             System.out.println("Arquivo não encontrado");
         }
-
+        
     }
-
+    
     public static void salvarExcel(FactoryPeca fp) {
         boolean result = false;
         if (fp.getPEC_ID() == 0) { //save
@@ -505,7 +529,7 @@ public class FactoryPecaBean extends AbstractMB implements Serializable {
         System.out.println("");
         System.out.println("");
         System.out.println("");
-
+        
     }
-
+    
 }

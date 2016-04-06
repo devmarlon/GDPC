@@ -1,6 +1,5 @@
 package com.gardnerdenver.dao;
 
-
 import com.gardnerdenver.bean.UserItemFactoryBean;
 import com.gardnerdenver.model.Equipamento;
 import com.gardnerdenver.model.Parceiro;
@@ -30,6 +29,12 @@ public class EquipamentoDAO extends GenericDAO<Equipamento> {
         parameters.put("sn", sn);
 
         return super.findOneResult(Equipamento.FIND_BY_SN, parameters);
+    }
+
+    public List<Equipamento> findListByParceiro(Parceiro p) {
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("par", p.getPAR_ID());
+        return super.findListResult(Equipamento.FIND_BY_PARCEIRO, parameters);
     }
 
     public List<Equipamento> findBusca(String descricao, Parceiro par, int catId, String modelo, String serie, String fabricante) {

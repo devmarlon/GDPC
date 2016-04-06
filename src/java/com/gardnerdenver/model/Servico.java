@@ -22,7 +22,7 @@ import org.hibernate.annotations.FetchMode;
 @NamedQueries({
     @NamedQuery(name = "Servico.findServico", query = "select s from Servico s where s.ativo IS NULL or s.ativo = true"),
     @NamedQuery(name = "Servico.findServicoById", query = "select s from Servico s where s.SRV_ID = :servId and (s.ativo IS NULL or s.ativo = true)"),
-    @NamedQuery(name = "Servico.findServicoByFab", query = "select s from Servico s where s.fab = :fab and (s.ativo IS NULL or s.ativo = true)"),
+    @NamedQuery(name = "Servico.findServicoByFab", query = "select s from Servico s where s.fab = :fab"),// and (s.ativo IS NULL or s.ativo = true)"),
     @NamedQuery(name = "Servico.findServicoByDesc", query = "select s from Servico s where s.SRV_DESCRICAO = :servDesc and (s.ativo IS NULL or s.ativo = true)")
 })
 public class Servico implements Serializable {

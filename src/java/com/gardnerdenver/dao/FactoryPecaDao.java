@@ -42,7 +42,7 @@ public class FactoryPecaDao extends GenericGdpcDAO<FactoryPeca> {
         List<FactoryPeca> eqps = null;
         try {
 
-            Query query = super.em.createQuery("SELECT e FROM FactoryPeca e WHERE E.codigo LIKE '%" + descricao + "%' OR e.descricao like '%" + descricao + "%' order by f.ativo, f.descricao");
+            Query query = super.em.createQuery("SELECT e FROM FactoryPeca e WHERE e.codigo LIKE '%" + descricao + "%' OR e.descricao like '%" + descricao + "%' order by e.ativo, e.descricao");
             eqps = query.getResultList();
         } catch (Exception e) {
             System.out.println("Erro:\n" + e.getMessage() + "\n" + "\n" + e.getClass());

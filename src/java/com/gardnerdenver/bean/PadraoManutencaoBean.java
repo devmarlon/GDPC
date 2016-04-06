@@ -301,14 +301,18 @@ public class PadraoManutencaoBean extends AbstractMB implements Serializable {
         allFactoryServicos = new FactoryServicoFacade().listAll();
     }
 
+    public void loadAllFactoryServicosAtivos() {
+        allFactoryServicos = new FactoryServicoFacade().listAllAtivos();
+    }
+
     public void loadAllFactoryPecas() {
         allFactoryPecas = new FactoryPecaFacade().listAll();
     }
 
     public List<FactoryServico> getAllFactoryServicos() {
-        if (allFactoryServicos == null) {
-            loadAllFactoryServicos();
-        }
+//        if (allFactoryServicos == null) {
+            loadAllFactoryServicosAtivos();
+//        }
         List<FactoryServico> t = new FactoryServicoFacade().listAll();
         for (FactoryServico fs : t) {
             for (PadraoManutencaoServico pms : padraoManutencao.getPdmServico()) {

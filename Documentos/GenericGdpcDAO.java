@@ -52,6 +52,11 @@ abstract class GenericGdpcDAO<T> implements Serializable {
         senha = auxSenha;
 //        }
 
+        if (!database.equalsIgnoreCase("gdpc")) {
+            System.out.println("Erro banco de dados conexão banco errado");
+            return;
+        }
+
         UserItemFactoryBean.numConn++;
         //Configure the internal EclipseLink connection pool
 //        properties.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
@@ -103,7 +108,7 @@ abstract class GenericGdpcDAO<T> implements Serializable {
 //        em.getTransaction().commit();
 
         tx.commit();
-        
+
     }
 
     public void rollback() {
@@ -113,7 +118,6 @@ abstract class GenericGdpcDAO<T> implements Serializable {
     public void closeTransaction() {
         em.close();
 
-        
 //        emf.close();
     }
 

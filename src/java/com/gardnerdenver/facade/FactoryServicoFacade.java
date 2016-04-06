@@ -55,6 +55,14 @@ public class FactoryServicoFacade implements Serializable {
         return result;
     }
 
+    public List<FactoryServico> listAllAtivos() {
+        servicoDAO.beginTransaction();
+        List<FactoryServico> result = servicoDAO.findListaAtivos();
+        servicoDAO.closeTransaction();
+
+        return result;
+    }
+
     public List<FactoryServico> listBusca(String d) {
         servicoDAO.beginTransaction();
         List<FactoryServico> result = servicoDAO.findBusca(d);

@@ -32,13 +32,15 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @Table(name = "Equipamento")
 @NamedQueries({
-    @NamedQuery(name = "Equipamento.eqpBySN", query = "select e from Equipamento e where e.EQP_SERIE = :sn")
+    @NamedQuery(name = "Equipamento.eqpBySN", query = "select e from Equipamento e where e.EQP_SERIE = :sn"),
+    @NamedQuery(name = "Equipamento.eqpByParceiro", query = "select e from Equipamento e where e.parceiro.PAR_ID = :par")
 })
 public class Equipamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public static final String FIND_BY_SN = "Equipamento.eqpBySN";
+    public static final String FIND_BY_PARCEIRO = "Equipamento.eqpByParceiro";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int EQP_ID;

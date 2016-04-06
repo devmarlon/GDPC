@@ -46,7 +46,7 @@ public class FactoryPeca implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer PEC_ID;
     @Size(max = 255)
-    @Column
+    @Column(unique = true)
     private String codigo;
     @Size(max = 255)
     @Column

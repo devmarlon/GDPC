@@ -58,6 +58,13 @@ public class EquipamentoFacade implements Serializable {
         return result;
     }
 
+    public List<Equipamento> listByParceiro(Parceiro p) {
+        equipamentoDAO.createEntityManager();
+        List<Equipamento> result = equipamentoDAO.findListByParceiro(p);
+        equipamentoDAO.closeEntityManager();
+        return result;
+    }
+
     public void deleteEquipamento(Equipamento eqp) {
         equipamentoDAO.beginTransaction();
         Equipamento persistedEqp = equipamentoDAO.findReferenceOnly(eqp.getEQP_ID());
