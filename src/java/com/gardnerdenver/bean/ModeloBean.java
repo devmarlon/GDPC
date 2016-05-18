@@ -1,8 +1,9 @@
 package com.gardnerdenver.bean;
 
+import com.gardnerdenver.facade.FactoryModeloFacade;
 import com.gardnerdenver.facade.ModeloFacade;
 import com.gardnerdenver.facade.ServicoFacade;
-import com.gardnerdenver.model.Equipamento;
+import com.gardnerdenver.model.FactoryModelo;
 import com.gardnerdenver.model.Modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,6 +57,22 @@ public class ModeloBean extends AbstractMB implements Serializable {
         nomeBusca = "";
         modelo = null;
         modeloCompare = null;
+
+        List<FactoryModelo> listMod = new FactoryModeloFacade().listAllAtivos();
+        for (FactoryModelo fMod : listMod) {
+            Modelo mod = getModeloFacade().findModeloByFab(fMod.getMOD_ID());
+            if (mod == null) {
+                mod = new Modelo(fMod);
+                getModeloFacade().create(mod);
+            } else {
+                int id = mod.getMOD_ID();
+                mod = new Modelo(fMod);
+                mod.setMOD_ID(id);
+                getModeloFacade().update(mod);
+            }
+
+        }
+
         redirect("/pages/protected/distributor/modelo.xhtml");
     }
 

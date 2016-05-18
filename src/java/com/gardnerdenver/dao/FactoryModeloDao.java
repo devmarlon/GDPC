@@ -21,6 +21,10 @@ public class FactoryModeloDao extends GenericGdpcDAO<FactoryModelo> {
         return super.findOneResult(FactoryModelo.FIND_CATEGORIA_BY_CODIGO, parameters);
     }
 
+    public List<FactoryModelo> findAllAtivos() {
+        return super.findListResult(FactoryModelo.FIND_LISTA_ATIVOS, null);
+    }
+
     public void delete(FactoryModelo peca) {
         super.delete(peca.getMOD_ID());
     }

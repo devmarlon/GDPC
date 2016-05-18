@@ -67,6 +67,13 @@ public class FactoryPecaFacade implements Serializable {
         return result;
     }
 
+    public List<FactoryPeca> listAllaTIVOS() {
+        pecaDAO.beginTransaction();
+        List<FactoryPeca> result = pecaDAO.findListaOrdenada();
+        pecaDAO.closeTransaction();
+        return result;
+    }
+
     public List<FactoryPeca> listBusca(String d) {
         pecaDAO.beginTransaction();
         List<FactoryPeca> result = pecaDAO.findBusca(d);

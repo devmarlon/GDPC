@@ -1,7 +1,9 @@
 package com.gardnerdenver.bean;
 
+import com.gardnerdenver.facade.FactoryServicoFacade;
 import com.gardnerdenver.facade.ServicoFacade;
 import com.gardnerdenver.model.Equipamento;
+import com.gardnerdenver.model.FactoryServico;
 import com.gardnerdenver.model.Servico;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,6 +53,21 @@ public class ServicoBean extends AbstractMB implements Serializable {
         servicoCompare = null;
         setTipoLista(0);
         nomeBusca = "";
+
+        List<FactoryServico> listServ = new FactoryServicoFacade().listAllAtivos();
+        for (FactoryServico fServ : listServ) {
+            Servico serv = getServicoFacade().findServicoByFab(fServ.getSRV_ID());
+            if (serv == null) {
+                serv = new Servico(fServ);
+                getServicoFacade().createServico(serv);
+            } else {
+                int id = serv.getSRV_ID();
+                serv = new Servico(fServ);
+                serv.setSRV_ID(id);
+                getServicoFacade().updateServico(serv);
+            }
+
+        }
 
         redirect("/pages/protected/distributor/servico.xhtml");
     }

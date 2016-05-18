@@ -82,32 +82,32 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
                 result = true;
                 getFacServicoFacade().createServico(servico);
                 displayInfoMessageToUser("Serviço salvo com sucesso.");
-//                showServico();
+                showServico();
             } catch (Exception e) {
                 result = false;
                 System.out.println(e.getMessage());
                 displayErrorMessageToUser("Não foi possível salvar o serviço.");
             }
-            if (result) {
-                loadContratos();
-                if (getContratos().size() > 0) {
-                    for (FactoryContrato c : getContratos()) {
-                        loadServicoFacade(c.getUsuId().getUSU_BANCO());
-                        Servico s = new Servico(servico);
-                        try {
-                            getServicoFacade().createServico(s);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                }
-                showServico();
-            }
+//            if (result) {
+//                loadContratos();
+//                if (getContratos().size() > 0) {
+//                    for (FactoryContrato c : getContratos()) {
+//                        loadServicoFacade(c.getUsuId().getUSU_BANCO());
+//                        Servico s = new Servico(servico);
+//                        try {
+//                            getServicoFacade().createServico(s);
+//                        } catch (Exception e) {
+//                            System.out.println(e.getMessage());
+//                        }
+//                    }
+//                }
+//                showServico();
+//            }
         } else { //update
             try {
                 getFacServicoFacade().updateServico(servico);
                 displayInfoMessageToUser("Serviço salvo com sucesso.");
-//                showServico();
+                showServico();
                 result = true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -115,25 +115,25 @@ public class FactoryServicoBean extends AbstractMB implements Serializable {
                 result = false;
             }
             
-            if (result) {
-                loadContratos();
-                if (getContratos().size() > 0) {
-                    for (FactoryContrato c : getContratos()) {
-                        loadServicoFacade(c.getUsuId().getUSU_BANCO());
-                        Servico p = getServicoFacade().findServicoByFab(servico.getSRV_ID());
-                        p.setSRV_DESCRICAO(servico.getSRV_DESCRICAO());
-                        p.setSRV_FREQDIAS(servico.getSRV_FREQDIAS());
-                        p.setSRV_FREQHORAS(servico.getSRV_FREQHORAS());
-                        p.setAtivo(servico.getAtivo());
-                        try {
-                            getServicoFacade().updateServico(p);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                }
-                showServico();
-            }
+//            if (result) {
+//                loadContratos();
+//                if (getContratos().size() > 0) {
+//                    for (FactoryContrato c : getContratos()) {
+//                        loadServicoFacade(c.getUsuId().getUSU_BANCO());
+//                        Servico p = getServicoFacade().findServicoByFab(servico.getSRV_ID());
+//                        p.setSRV_DESCRICAO(servico.getSRV_DESCRICAO());
+//                        p.setSRV_FREQDIAS(servico.getSRV_FREQDIAS());
+//                        p.setSRV_FREQHORAS(servico.getSRV_FREQHORAS());
+//                        p.setAtivo(servico.getAtivo());
+//                        try {
+//                            getServicoFacade().updateServico(p);
+//                        } catch (Exception e) {
+//                            System.out.println(e.getMessage());
+//                        }
+//                    }
+//                }
+//                showServico();
+//            }
         }
     }
     

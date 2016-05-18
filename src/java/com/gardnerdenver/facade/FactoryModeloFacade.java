@@ -75,6 +75,12 @@ public class FactoryModeloFacade implements Serializable {
         dao.closeTransaction();
         return result;
     }
+    public List<FactoryModelo> listAllAtivos() {
+        dao.beginTransaction();
+        List<FactoryModelo> result = dao.findAll();
+        dao.closeTransaction();
+        return result;
+    }
 
     public List<FactoryModelo> listBusca(String d) {
         dao.beginTransaction();

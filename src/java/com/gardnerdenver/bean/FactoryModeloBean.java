@@ -78,55 +78,55 @@ public class FactoryModeloBean extends AbstractMB implements Serializable {
                 result = true;
                 getFactoryModeloFacade().createModelo(factoryModelo);
                 displayInfoMessageToUser("Modelo salvo com sucesso.");
-//                showFactoryPeca();
+                show();
             } catch (Exception e) {
                 result = false;
                 System.out.println(e.getMessage());
                 displayErrorMessageToUser("Não foi possível salvar o modelo.");
             }
-            if (result) {
-                loadContratos();
-                if (getContratos().size() > 0) {
-                    for (FactoryContrato c : getContratos()) {
-                        loadModeloFacade(c.getUsuId().getUSU_BANCO());
-                        Modelo p = new Modelo(factoryModelo);
-                        try {
-                            getModeloFacade().create(p);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                }
-                show();
-            }
+//            if (result) {
+//                loadContratos();
+//                if (getContratos().size() > 0) {
+//                    for (FactoryContrato c : getContratos()) {
+//                        loadModeloFacade(c.getUsuId().getUSU_BANCO());
+//                        Modelo p = new Modelo(factoryModelo);
+//                        try {
+//                            getModeloFacade().create(p);
+//                        } catch (Exception e) {
+//                            System.out.println(e.getMessage());
+//                        }
+//                    }
+//                }
+//                show();
+//            }
         } else { //update
             try {
                 result = true;
                 getFactoryModeloFacade().updateModelo(factoryModelo);
                 displayInfoMessageToUser("Modelo salvo com sucesso.");
-//                showFactoryPeca();
+                show();
             } catch (Exception e) {
                 result = false;
                 System.out.println(e.getMessage());
                 displayErrorMessageToUser("Não foi possível salvar o modelo.");
             }
-            if (result) {
-                loadContratos();
-                if (getContratos().size() > 0) {
-                    for (FactoryContrato c : getContratos()) {
-                        loadModeloFacade(c.getUsuId().getUSU_BANCO());
-                        Modelo p = getModeloFacade().findModeloByFab(factoryModelo.getMOD_ID());
-                        p.setMOD_NOME(factoryModelo.getMOD_NOME());
-                        p.setAtivo(factoryModelo.getAtivo());
-                        try {
-                            getModeloFacade().update(p);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                }
-                show();
-            }
+//            if (result) {
+//                loadContratos();
+//                if (getContratos().size() > 0) {
+//                    for (FactoryContrato c : getContratos()) {
+//                        loadModeloFacade(c.getUsuId().getUSU_BANCO());
+//                        Modelo p = getModeloFacade().findModeloByFab(factoryModelo.getMOD_ID());
+//                        p.setMOD_NOME(factoryModelo.getMOD_NOME());
+//                        p.setAtivo(factoryModelo.getAtivo());
+//                        try {
+//                            getModeloFacade().update(p);
+//                        } catch (Exception e) {
+//                            System.out.println(e.getMessage());
+//                        }
+//                    }
+//                }
+//                show();
+//            }
         }
     }
 

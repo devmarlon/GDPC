@@ -11,7 +11,7 @@ public class FactoryServicoDao extends GenericGdpcDAO<FactoryServico> {
     private static final long serialVersionUID = 1L;
 
     public FactoryServicoDao() {
-        super(UserItemFactoryBean.banco, FactoryServico.class);
+        super("gdpc", FactoryServico.class);
     }
 
 //    public Servico findServicoByServId(int servId) {

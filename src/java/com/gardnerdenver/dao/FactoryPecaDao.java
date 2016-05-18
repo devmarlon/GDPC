@@ -33,6 +33,9 @@ public class FactoryPecaDao extends GenericGdpcDAO<FactoryPeca> {
     public List<FactoryPeca> findListaOrdenada() {
         return super.findListResult(FactoryPeca.FIND_ALL, null);
     }
+    public List<FactoryPeca> findListAllAtivo() {
+        return super.findListResult(FactoryPeca.FIND_ALL_ATIVOS, null);
+    }
 
     public void delete(FactoryPeca peca) {
         super.delete(peca.getPEC_ID());

@@ -1,8 +1,10 @@
 package com.gardnerdenver.bean;
 
+import com.gardnerdenver.facade.FactoryPecaFacade;
 import com.gardnerdenver.facade.PecaFacade;
 import com.gardnerdenver.facade.ServicoFacade;
 import com.gardnerdenver.model.Equipamento;
+import com.gardnerdenver.model.FactoryPeca;
 import com.gardnerdenver.model.Peca;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -58,6 +60,22 @@ public class PecaBean extends AbstractMB implements Serializable {
         nomeBusca = "";
         peca = null;
         pecaCompare = null;
+
+        List<FactoryPeca> listFPeca = new FactoryPecaFacade().listAll();
+        for (FactoryPeca fPeca : listFPeca) {
+            Peca p = getPecaFacade().findPecaByFab(fPeca.getPEC_ID());
+            if (p == null) {
+                p = new Peca(fPeca);
+                getPecaFacade().createPeca(p);
+            } else {
+                int id = p.getPEC_ID();
+                p = new Peca(fPeca);
+                p.setPEC_ID(id);
+                getPecaFacade().updatePeca(p);
+            }
+
+        }
+
         redirect("/pages/protected/distributor/peca.xhtml");
     }
 
@@ -97,11 +115,11 @@ public class PecaBean extends AbstractMB implements Serializable {
     }
 
     public void validaFechar() {
-            if (peca.equals(pecaCompare)) {
-                showPeca();
-            } else {
-                RequestContext.getCurrentInstance().execute("pecCloseDialogWidget.show()");
-            }
+        if (peca.equals(pecaCompare)) {
+            showPeca();
+        } else {
+            RequestContext.getCurrentInstance().execute("pecCloseDialogWidget.show()");
+        }
     }
 
     public void deletePeca() {

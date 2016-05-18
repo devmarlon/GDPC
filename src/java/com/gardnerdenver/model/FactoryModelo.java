@@ -27,12 +27,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FactoryModelo.findAll", query = "SELECT f FROM FactoryModelo f"),
+    @NamedQuery(name = "FactoryModelo.findAllAtivo", query = "SELECT f FROM FactoryModelo f WHERE (f.ativo IS NULL or f.ativo = true)"),
     @NamedQuery(name = "FactoryModelo.findById", query = "SELECT f FROM FactoryModelo f WHERE f.MOD_ID = :modId"),
     @NamedQuery(name = "FactoryModelo.findByNome", query = "SELECT f FROM FactoryModelo f WHERE f.MOD_NOME = :modNome")})
 public class FactoryModelo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static final String FIND_CATEGORIA_BY_CODIGO = "Peca.findById";
+    public static final String FIND_LISTA_ATIVOS = "Peca.findAllAtivo";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

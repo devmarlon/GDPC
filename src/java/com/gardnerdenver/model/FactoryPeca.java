@@ -33,6 +33,7 @@ import org.hibernate.annotations.FetchMode;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FactoryPeca.findAll", query = "SELECT f FROM FactoryPeca f order by f.ativo, f.descricao"),
+    @NamedQuery(name = "FactoryPeca.findAllAtivos", query = "SELECT f FROM FactoryPeca f WHERE (f.ativo IS NULL or f.ativo = true) order by  f.descricao"),
     @NamedQuery(name = "FactoryPeca.findById", query = "SELECT f FROM FactoryPeca f WHERE f.PEC_ID = :pedId"),
     @NamedQuery(name = "FactoryPeca.findByCodigo", query = "SELECT f FROM FactoryPeca f WHERE f.codigo = :codigo"),
     @NamedQuery(name = "FactoryPeca.findByDescricao", query = "SELECT f FROM FactoryPeca f WHERE f.descricao = :descricao")})
@@ -41,6 +42,7 @@ public class FactoryPeca implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final String FIND_PECA_BY_CODIGO = "FactoryPeca.findByCodigo";
     public static final String FIND_ALL = "FactoryPeca.findAll";
+    public static final String FIND_ALL_ATIVOS = "FactoryPeca.findAllAtivos";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

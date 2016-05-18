@@ -39,9 +39,9 @@
                                     rendered="#{userItemFactoryBean.disUser}"/>
                         <p:menuitem value="#{bundle.equipamentoPlural}" url="/pages/protected/distributor/equipamento.xhtml" 
                                     rendered="#{userItemFactoryBean.disUser}"/>  
-                        <p:menuitem value="#{bundle.servicoPlural}" url="/pages/protected/distributor/servico.xhtml" 
+                        <p:menuitem value="#{bundle.servicoPlural}" actionListener="#{servicoBean.showServico}"
                                     rendered="#{userItemFactoryBean.disUser}"/>  
-                        <p:menuitem value="#{bundle.pecaPlural}" url="/pages/protected/distributor/peca.xhtml" 
+                        <p:menuitem value="#{bundle.pecaPlural}" actionListener="#{pecaBean.showPeca}"
                                     rendered="#{userItemFactoryBean.disUser}"/>  
                         <p:menuitem value="#{bundle.mods}" actionListener="#{modeloBean.show}" ajax="false"
                                     rendered="#{userItemFactoryBean.disUser}"/>

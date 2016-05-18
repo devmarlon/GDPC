@@ -145,21 +145,21 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
                     System.out.println("Erro ao criar diretorio! " + dirCab);
                 }
 
-                if (inserePeca(distribuidor.getUSU_BANCO())) {
-                    System.out.println("Peças criadas com êxito > " + distribuidor.getUSU_BANCO());
-                } else {
-                    System.out.println("Erro ao inserir peças > " + distribuidor.getUSU_BANCO());
-                }
-                if (insereModelo(distribuidor.getUSU_BANCO())) {
-                    System.out.println("Modelos criados com êxito > " + distribuidor.getUSU_BANCO());
-                } else {
-                    System.out.println("Erro ao inserir modelos > " + distribuidor.getUSU_BANCO());
-                }
-                if (insereServico(distribuidor.getUSU_BANCO())) {
-                    System.out.println("Servicos criados com êxito > " + distribuidor.getUSU_BANCO());
-                } else {
-                    System.out.println("Erro ao inserir Servicos > " + distribuidor.getUSU_BANCO());
-                }
+//                if (inserePeca(distribuidor.getUSU_BANCO())) {
+//                    System.out.println("Peças criadas com êxito > " + distribuidor.getUSU_BANCO());
+//                } else {
+//                    System.out.println("Erro ao inserir peças > " + distribuidor.getUSU_BANCO());
+//                }
+//                if (insereModelo(distribuidor.getUSU_BANCO())) {
+//                    System.out.println("Modelos criados com êxito > " + distribuidor.getUSU_BANCO());
+//                } else {
+//                    System.out.println("Erro ao inserir modelos > " + distribuidor.getUSU_BANCO());
+//                }
+//                if (insereServico(distribuidor.getUSU_BANCO())) {
+//                    System.out.println("Servicos criados com êxito > " + distribuidor.getUSU_BANCO());
+//                } else {
+//                    System.out.println("Erro ao inserir Servicos > " + distribuidor.getUSU_BANCO());
+//                }
 
                 displayInfoMessageToUser("Distribuidor cadastrado com sucesso!");
                 loadContratos();

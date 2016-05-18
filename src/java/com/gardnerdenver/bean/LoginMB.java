@@ -22,7 +22,7 @@ import org.hibernate.TransactionException;
 
 @ViewScoped
 @ManagedBean
-public class LoginMB extends AbstractMB implements Serializable{
+public class LoginMB extends AbstractMB implements Serializable {
 
     @ManagedProperty(value = UserItemFactoryBean.INJECTION_NAME)
     private UserItemFactoryBean userMB;
