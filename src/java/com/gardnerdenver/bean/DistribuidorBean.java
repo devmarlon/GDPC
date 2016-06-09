@@ -66,9 +66,10 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
     //string
     private String tipoAcao = "";
 
-    public void show() {
+    public String show() {
         reset();
-        redirect("/pages/protected/factory/distribuidor.xhtml");
+//        redirect("/pages/protected/factory/distribuidor.xhtml");
+        return "/pages/protected/factory/distribuidor.xhtml";
     }
 
     public void novo() {
@@ -78,10 +79,11 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
         redirect("/pages/protected/factory/distribuidorCadastro.xhtml");
     }
 
-    public void salvar() {
+    public String salvar() {
+        String ret = "";
         if (!usuarioDistribuidor.getUSI_LOGIN().contains("@")) {
             displayErrorMessageToUser("Forneça um endereço de email valido para o login!");
-            return;
+            return "";
         }
         if (distribuidor.getUSU_ID() == 0) {
             try {
@@ -112,6 +114,7 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
                 getDistFacade().updateUserFactory(distribuidor);
                 usuarioDistribuidor.setUserFactory(distribuidor);
                 getUsrItemFacade().createUserItemFactory(usuarioDistribuidor);
+
                 createDB(distribuidor.getUSU_BANCO());
 
                 configuracao.setEMP_RAZAO(distribuidor.getUSU_EMPRESA());
@@ -119,7 +122,9 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
                 configuracao.setEMP_CAB(Util.getCaminho() + "\\GDPC\\cab.png");
                 configuracao.setEST_IDEMP(12);
                 configuracao.setCID_IDEMP(1200013);
+                System.out.println("inicio config");
                 getConfigFacade(distribuidor.getUSU_BANCO()).createConfig(configuracao);
+                System.out.println("fim config");
 
                 funcionario.setFUN_UF(12);
                 funcionario.setFUN_CIDADE(1200013);
@@ -128,7 +133,9 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
                 funcionario.setFUN_SENHA(usuarioDistribuidor.getUSI_SENHA());
                 funcionario.setFUN_ACESS("S");
                 funcionario.setFUN_ADMIN(true);
+                System.out.println("inicio dist");
                 getFuncionarioFacade(distribuidor.getUSU_BANCO()).createFuncionario(funcionario);
+                System.out.println("fim dist");
 
                 String caminho = Util.getCaminho() + "/" + distribuidor.getUSU_BANCO();
 
@@ -160,12 +167,13 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
 //                } else {
 //                    System.out.println("Erro ao inserir Servicos > " + distribuidor.getUSU_BANCO());
 //                }
-
                 displayInfoMessageToUser("Distribuidor cadastrado com sucesso!");
-                loadContratos();
-                reset();
-                redirect("/pages/protected/factory/distribuidor.xhtml");
+//                loadContratos();
+//                reset();
+//                redirect("/pages/protected/factory/distribuidor.xhtml");
+                ret = show();
             } catch (Exception e) {
+                ret = "";
                 Connection conn2;
                 try {
                     conn2 = Conexao.getConexao("", "localhost", "varkon", "qwert1234");
@@ -179,9 +187,9 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
                 displayErrorMessageToUser("Ops, we could not create. Try again later");
                 e.printStackTrace();
             }
-        } else {
 
         }
+        return ret;
     }
 
     public Boolean inserePeca(String banco) {
@@ -272,17 +280,17 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
     }
 
     public ConfiguracaoFacade getConfigFacade(String banco) {
-        if (configFacade == null) {
-            configFacade = new ConfiguracaoFacade(banco);
-        }
+//        if (configFacade == null) {
+        configFacade = new ConfiguracaoFacade(banco);
+//        }
 
         return configFacade;
     }
 
     public FuncionarioFacade getFuncionarioFacade(String banco) {
-        if (funcionarioFacade == null) {
-            funcionarioFacade = new FuncionarioFacade(banco);
-        }
+//        if (funcionarioFacade == null) {
+        funcionarioFacade = new FuncionarioFacade(banco);
+//        }
 
         return funcionarioFacade;
     }
@@ -299,68 +307,69 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
         this.dist = dist;
     }
 
-    public void createDist() {
-        if (!usuario.getUSI_LOGIN().contains("@")) {
+    /*
+     public void createDist() {
+     if (!usuario.getUSI_LOGIN().contains("@")) {
 
-        }
-        try {
-            dist.setRol(Role.DIS);
-            dist.setUSU_CADASTRO(new Date());
+     }
+     try {
+     dist.setRol(Role.DIS);
+     dist.setUSU_CADASTRO(new Date());
 
-            contrato.setCtoCodpromo("");
-            contrato.setCtoComissao(0);
-            contrato.setCtoCpfcnpj("");
-            contrato.setCtoDiavenc(10);
-            contrato.setCtoEmail("");
-            contrato.setCtoEmissao(new Date());
-            contrato.setCtoFormapag(0);
-            contrato.setCtoNomerazao("");
-            contrato.setCtoStatus(true);
-            contrato.setCtoTelefone("");
-            contrato.setCtoTipopessoa("");
-            contrato.setPlnId(0);
-            DateTime dt = new DateTime(contrato.getCtoEmissao());
-            contrato.setCtoValidade(dt.plusYears(1).toDate());
+     contrato.setCtoCodpromo("");
+     contrato.setCtoComissao(0);
+     contrato.setCtoCpfcnpj("");
+     contrato.setCtoDiavenc(10);
+     contrato.setCtoEmail("");
+     contrato.setCtoEmissao(new Date());
+     contrato.setCtoFormapag(0);
+     contrato.setCtoNomerazao("");
+     contrato.setCtoStatus(true);
+     contrato.setCtoTelefone("");
+     contrato.setCtoTipopessoa("");
+     contrato.setPlnId(0);
+     DateTime dt = new DateTime(contrato.getCtoEmissao());
+     contrato.setCtoValidade(dt.plusYears(1).toDate());
 
-            if (dist.getUSU_ID() == 0) {
-                getDistFacade().createUserFactory(dist);
-            }
-            contrato.setUsuId(dist);
-            dist.getContratoList().add(contrato);
-            dist.setUSU_BANCO("gdpc_" + dist.getUSU_ID());
-            getDistFacade().updateUserFactory(dist);
-            usuario.setUserFactory(dist);
-            getUsrItemFacade().createUserItemFactory(usuario);
-            createDB(dist.getUSU_BANCO());
-            funcionario.setFUN_LOGIN(usuario.getUSI_LOGIN());
-            funcionario.setFUN_EMAIL(usuario.getUSI_LOGIN());
-            funcionario.setFUN_SENHA(usuario.getUSI_SENHA());
-            funcionario.setFUN_ACESS("S");
-            funcionario.setFUN_ADMIN(true);
-//            getFuncionarioFacade();
-            getFuncionarioFacade(dist.getUSU_BANCO()).createFuncionario(funcionario);
-            closeDialog();
-            displayInfoMessageToUser("Criado com sucesso");
-//            loadDistribuidores();
-            loadContratos();
-            reset();
-            redirect("/pages/protected/factory/index.xhtml");
-        } catch (Exception e) {
-            Connection conn2;
-            try {
-                conn2 = Conexao.getConexao("", "localhost", "root", "qwert1234");
-                Statement st2 = conn2.createStatement();
-                st2.execute("DROP DATABASE " + dist.getUSU_BANCO());
-                conn2.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            keepDialogOpen();
-            displayErrorMessageToUser("Ops, we could not create. Try again later");
-            e.printStackTrace();
-        }
-    }
-
+     if (dist.getUSU_ID() == 0) {
+     getDistFacade().createUserFactory(dist);
+     }
+     contrato.setUsuId(dist);
+     dist.getContratoList().add(contrato);
+     dist.setUSU_BANCO("gdpc_" + dist.getUSU_ID());
+     getDistFacade().updateUserFactory(dist);
+     usuario.setUserFactory(dist);
+     getUsrItemFacade().createUserItemFactory(usuario);
+     createDB(dist.getUSU_BANCO());
+     funcionario.setFUN_LOGIN(usuario.getUSI_LOGIN());
+     funcionario.setFUN_EMAIL(usuario.getUSI_LOGIN());
+     funcionario.setFUN_SENHA(usuario.getUSI_SENHA());
+     funcionario.setFUN_ACESS("S");
+     funcionario.setFUN_ADMIN(true);
+     //            getFuncionarioFacade();
+     getFuncionarioFacade(dist.getUSU_BANCO()).createFuncionario(funcionario);
+     closeDialog();
+     displayInfoMessageToUser("Criado com sucesso");
+     //            loadDistribuidores();
+     //            loadContratos();
+     reset();
+     redirect("/pages/protected/factory/index.xhtml");
+     } catch (Exception e) {
+     Connection conn2;
+     try {
+     conn2 = Conexao.getConexao("", "localhost", "root", "qwert1234");
+     Statement st2 = conn2.createStatement();
+     st2.execute("DROP DATABASE " + dist.getUSU_BANCO());
+     conn2.close();
+     } catch (SQLException ex) {
+     Logger.getLogger(DistribuidorBean.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     keepDialogOpen();
+     displayErrorMessageToUser("Ops, we could not create. Try again later");
+     e.printStackTrace();
+     }
+     }
+     */
     public void createDB(String banco) {
 
         System.out.println("Criando Banco de dados");
@@ -387,9 +396,9 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
     }
 
     public List<FactoryContrato> getAllDistribContratos() {
-        if (contratos == null) {
-            loadContratos();
-        }
+//        if (contratos == null) {
+        loadContratos();
+//        }
 
         return contratos;
     }
@@ -406,6 +415,7 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
     }
 
     public void reset() {
+        System.out.println("inicio reset");
         resetDistribuidor();
         resetUsuarioDistribuidor();
         resetDist();
@@ -413,6 +423,7 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
         resetFuncionario();
         resetConfig();
         resetContrato();
+        System.out.println("fim reset");
     }
 
     public void resetDistribuidor() {

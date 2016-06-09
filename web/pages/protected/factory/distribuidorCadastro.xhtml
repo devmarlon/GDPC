@@ -27,10 +27,10 @@
 
                         </h:panelGrid>
                         <p:separator />
-                        <p:commandButton actionListener="#{distribuidorBean.salvar()}" style="font-size:30px;font-weight:bold;float:right;" 
+                        <p:commandButton action="#{distribuidorBean.salvar}" style="font-size:30px;font-weight:bold;float:right;" 
                                          value="#{bundle.save}" icon="ui-icon-check" update=":messageGrowl" />
-                        <p:commandButton actionListener="#{distribuidorBean.show()}" style="font-size:30px;font-weight:bold;float:left;" 
-                                         value="#{bundle.fechar}" icon="ui-icon-check" immediate="true" />
+                        <p:commandButton action="#{distribuidorBean.show}" style="font-size:30px;font-weight:bold;float:left;" 
+                                         value="#{bundle.fechar}" icon="ui-icon-close" immediate="true" />
                         <div class="clear"> </div>
 
                     </p:panel>

@@ -1,6 +1,5 @@
 package com.gardnerdenver.facade;
 
-import com.gardnerdenver.bean.UserItemFactoryBean;
 import java.io.Serializable;
 import java.util.List;
 

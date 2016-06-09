@@ -117,6 +117,11 @@ public class LoginMB extends AbstractMB implements Serializable {
             }
             if (user.getUserFactory().isDis()) {
                 System.out.println(Util.lerCookie("db"));
+
+                new PecaBean().gerarPecas();
+                new ServicoBean().gerarServicos();
+                new ModeloBean().gerarModelos();
+
                 redirect("/pages/protected/distributor/index.xhtml");
             }
         }

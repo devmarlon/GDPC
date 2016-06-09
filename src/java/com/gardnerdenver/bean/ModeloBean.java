@@ -58,6 +58,12 @@ public class ModeloBean extends AbstractMB implements Serializable {
         modelo = null;
         modeloCompare = null;
 
+        gerarModelos();
+
+        redirect("/pages/protected/distributor/modelo.xhtml");
+    }
+
+    public void gerarModelos() {
         List<FactoryModelo> listMod = new FactoryModeloFacade().listAllAtivos();
         for (FactoryModelo fMod : listMod) {
             Modelo mod = getModeloFacade().findModeloByFab(fMod.getMOD_ID());
@@ -70,10 +76,7 @@ public class ModeloBean extends AbstractMB implements Serializable {
                 mod.setMOD_ID(id);
                 getModeloFacade().update(mod);
             }
-
         }
-
-        redirect("/pages/protected/distributor/modelo.xhtml");
     }
 
     public void buscar() {

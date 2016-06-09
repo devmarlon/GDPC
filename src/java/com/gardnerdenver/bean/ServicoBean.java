@@ -54,6 +54,12 @@ public class ServicoBean extends AbstractMB implements Serializable {
         setTipoLista(0);
         nomeBusca = "";
 
+        gerarServicos();
+
+        redirect("/pages/protected/distributor/servico.xhtml");
+    }
+
+    public void gerarServicos() {
         List<FactoryServico> listServ = new FactoryServicoFacade().listAllAtivos();
         for (FactoryServico fServ : listServ) {
             Servico serv = getServicoFacade().findServicoByFab(fServ.getSRV_ID());
@@ -66,10 +72,7 @@ public class ServicoBean extends AbstractMB implements Serializable {
                 serv.setSRV_ID(id);
                 getServicoFacade().updateServico(serv);
             }
-
         }
-
-        redirect("/pages/protected/distributor/servico.xhtml");
     }
 
     public void buscar() {

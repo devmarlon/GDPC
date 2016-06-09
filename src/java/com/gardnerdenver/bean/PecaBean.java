@@ -61,6 +61,12 @@ public class PecaBean extends AbstractMB implements Serializable {
         peca = null;
         pecaCompare = null;
 
+        gerarPecas();
+
+        redirect("/pages/protected/distributor/peca.xhtml");
+    }
+
+    public void gerarPecas() {
         List<FactoryPeca> listFPeca = new FactoryPecaFacade().listAll();
         for (FactoryPeca fPeca : listFPeca) {
             Peca p = getPecaFacade().findPecaByFab(fPeca.getPEC_ID());
@@ -75,8 +81,6 @@ public class PecaBean extends AbstractMB implements Serializable {
             }
 
         }
-
-        redirect("/pages/protected/distributor/peca.xhtml");
     }
 
     public void buscar() {
