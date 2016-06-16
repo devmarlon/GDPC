@@ -118,8 +118,8 @@ public class DistribuidorBean extends AbstractMB implements Serializable {
                 createDB(distribuidor.getUSU_BANCO());
 
                 configuracao.setEMP_RAZAO(distribuidor.getUSU_EMPRESA());
-                configuracao.setEMP_LOGO(Util.getCaminho() + "\\GDPC\\logo.png");
-                configuracao.setEMP_CAB(Util.getCaminho() + "\\GDPC\\cab.png");
+                configuracao.setEMP_LOGO(Util.getCaminho() + "logo.png");
+                configuracao.setEMP_CAB(Util.getCaminho() + "cab.png");
                 configuracao.setEST_IDEMP(12);
                 configuracao.setCID_IDEMP(1200013);
                 System.out.println("inicio config");

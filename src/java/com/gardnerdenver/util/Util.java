@@ -175,10 +175,10 @@ public class Util {
 
         String caminho = FacesContext.getCurrentInstance().getExternalContext().getRealPath("");
         if (!caminho.startsWith("/")) {
-            return caminho + "../../../GDPC/";
+            return "/varkon/gdpc/";
 //            return caminho + "../../../";
         }
-        return caminho + "/../../../../../../web/GDPC/";
+        return caminho + "/../../../../../../web/gdpc/";
 //        return caminho + "/../../../../../../web/";
 
 //        return realPath;
