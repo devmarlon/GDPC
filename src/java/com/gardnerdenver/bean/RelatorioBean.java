@@ -1281,8 +1281,8 @@ public class RelatorioBean extends AbstractMB implements Serializable {
             porta = configuracao.getEMP_PORTA();
             seguranca = configuracao.getEMP_SEGURANCA();
         } else {
-            email = "compressor.compair@gmail.com";
-            senha = "compair2014";
+            email = "atendimentogestorweb@gmail.com";
+            senha = "qwert4321";
             smtp = "smtp.gmail.com";
             porta = "587";
             seguranca = 1;
@@ -1465,27 +1465,6 @@ public class RelatorioBean extends AbstractMB implements Serializable {
     public void showDetailCarta() {
         setShowCartaDlg(true);
     }
-//    public void resetPerson() {
-//        person = new Person();
-//    }
-//    public Dog getDog() {
-//        if (dog == null) {
-//            dog = new Dog();
-//        }
-//
-//        return dog;
-//    }
-//
-//    public void setDog(Dog dog) {
-//        this.dog = dog;
-//    }
-//
-//    public void resetDog() {
-//        dog = new Dog();
-//    }
-//    private void reloadPersonWithDogs() {
-//        personWithDogs = getPersonFacade().findPersonWithAllDogs(person.getId());
-//    }
 
     public Date getStartDate() {
         return startDate;
