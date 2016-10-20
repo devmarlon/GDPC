@@ -1,6 +1,5 @@
 package com.gardnerdenver.dao;
 
-
 import com.gardnerdenver.bean.UserItemFactoryBean;
 import com.gardnerdenver.model.EquipamentoMedicao;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class EquipamentoMedicaoDAO extends GenericDAO<EquipamentoMedicao> {
     }
 
     public EquipamentoMedicao findLastUpdate(int eqpId) {
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("eqpId", eqpId);
 
         return super.findOneResult(EquipamentoMedicao.FIND_LAST_UPDATE, parameters);

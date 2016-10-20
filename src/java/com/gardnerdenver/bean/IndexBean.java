@@ -323,8 +323,6 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public void salvaMedicao() {
-        //        if (validaManutencaoB(equipamento.getEqpMedicao().getEQM_DATAATUALIZACAO(), equipamento.getEqpMedicao().getEQM_HORASTOTAIS(), equipamento.getEQP_ID())
-//                && equipamentoMedicao.getEQM_DATAATUALIZACAO().after(equipamento.getEQP_DATAPARTIDA())) {
         if (equipamento.getEqpMedicao().getEQM_DATAATUALIZACAO().after(equipamento.getEQP_DATAPARTIDA())) {
             try {
                 equipamento.getEqpMedicao().setEQM_ID(0);
@@ -659,7 +657,9 @@ public class IndexBean extends AbstractMB implements Serializable {
     }
 
     public void resetMedicao() {
+        equipamento.setEqpMedicao(null);
         equipamento.getEqpMedicao().setEQM_DATAATUALIZACAO(new Date());
+        equipamento.getEqpMedicao().setEquipamento(equipamento);
     }
 
     public void resetHistorico() {
@@ -870,9 +870,7 @@ public class IndexBean extends AbstractMB implements Serializable {
         equipamentoServicoAux = null;
         setSearchCode(0);
         setSearchCodeCli(getParceiro().getPAR_ID());
-        
-       
-        
+
         parceiro.setEquipamentos(getEquipamentoFacade().listByParceiro(parceiro));
         if (!parceiro.getEquipamentos().isEmpty()) {
             equipamento = getEquipamentoFacade().findEquipamento(parceiro.getEquipamentos().get(0).getEQP_ID());

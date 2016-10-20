@@ -315,11 +315,9 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 //        Calendar calendario
 //                = new Calendar.Builder()
 //                .setDate(2014, Calendar.APRIL, 8).build();
-
 //        System.out.println("calendario.getTime() = " + calendario.getTime());
 //        System.out.println("new Date() = " + new Date());
 //        System.out.println(calendario.getTime().compareTo(new Date()) > 0);
-
 //        System.out.println(calendario.getTime().before(new Date()));
     }
 
@@ -1346,7 +1344,7 @@ public class RelatorioBean extends AbstractMB implements Serializable {
 
                     if (!configuracao.getEMP_EMAILRESPOSTACM().isEmpty()) {
                         msg.setReplyTo(new InternetAddress[]{new InternetAddress(configuracao.getEMP_EMAILRESPOSTACM())});
-                    } else if (!configuracao.isEMP_EMAILPROPRIO()) {
+                    } else if (!configuracao.isEMP_EMAILPROPRIO() && !configuracao.getEMP_EMAIL().isEmpty()) {
                         msg.setReplyTo(new InternetAddress[]{new InternetAddress(configuracao.getEMP_EMAIL())});
                     }
 

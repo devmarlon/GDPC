@@ -627,6 +627,9 @@ public class Configuracao implements Serializable {
     }
 
     public String getEMP_EMAIL() {
+        if (EMP_EMAIL == null) {
+            EMP_EMAIL = "";
+        }
         return EMP_EMAIL;
     }
 
@@ -678,6 +681,9 @@ public class Configuracao implements Serializable {
     }
 
     public String getEMP_EMAILRESPOSTACM() {
+        if (EMP_EMAILRESPOSTACM == null) {
+            EMP_EMAILRESPOSTACM = "";
+        }
         return EMP_EMAILRESPOSTACM;
     }
 

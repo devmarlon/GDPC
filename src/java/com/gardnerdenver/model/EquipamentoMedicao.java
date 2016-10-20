@@ -22,7 +22,8 @@ import javax.persistence.Transient;
 @Table(name = "EquipamentoMedicao")
 @NamedQueries({
     @NamedQuery(name = "EquipamentoMedicao.findListByEqp", query = "select m from EquipamentoMedicao m where m.equipamento.EQP_ID = :eqpId ORDER BY m.EQM_DATAATUALIZACAO desc, m.EQM_HORASTOTAIS asc"),
-    @NamedQuery(name = "EquipamentoMedicao.findLastUpdate", query = "SELECT m FROM EquipamentoMedicao m where m.equipamento.EQP_ID = :eqpId and m.EQM_DATAATUALIZACAO >= (SELECT MAX(n.EQM_DATAATUALIZACAO) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId) and m.EQM_HORASTOTAIS >= (SELECT MAX(n.EQM_HORASTOTAIS) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId) GROUP BY m.EQM_DATAATUALIZACAO order by m.EQM_DATAATUALIZACAO DESC")
+//    @NamedQuery(name = "EquipamentoMedicao.findLastUpdate", query = "SELECT m FROM EquipamentoMedicao m where m.equipamento.EQP_ID = :eqpId and m.EQM_DATAATUALIZACAO >= (SELECT MAX(n.EQM_DATAATUALIZACAO) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId) and m.EQM_HORASTOTAIS >= (SELECT MAX(n.EQM_HORASTOTAIS) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId) GROUP BY m.EQM_DATAATUALIZACAO order by m.EQM_DATAATUALIZACAO DESC")
+    @NamedQuery(name = "EquipamentoMedicao.findLastUpdate", query = "SELECT m FROM EquipamentoMedicao m where m.equipamento.EQP_ID = :eqpId and m.EQM_ID >= (SELECT MAX(n.EQM_ID) FROM EquipamentoMedicao n where n.equipamento.EQP_ID = :eqpId)")
 })
 public class EquipamentoMedicao implements Serializable {
 
